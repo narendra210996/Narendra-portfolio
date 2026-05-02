@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narendra Dicholkar / Business Analyst</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+a{color:inherit;text-decoration:none}
+nav{
+  max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0 14px;border-bottom:1px solid rgba(0,0,0,.22);position:sticky;top:0;background:var(--bg);z-index:50
+}
+.nav-logo,.nav-links a{
+  font-size:13px;font-weight:500;letter-spacing:.02em;padding:9px 17px;border:1px solid var(--border);border-radius:9px;background:#f7f6f2
+}
+.nav-links{display:flex;gap:10px}
+.nav-links a:hover,.footer-link:hover,.btn-download:hover{background:#ebe9e2}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px}
+.section{margin-bottom:34px}
+.section-label,.strip-title{
+  border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px
+}
+.strip-title{font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
+.card{
+  background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden
+}
+.card-label{
+  padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:#333
+}
+.card-body{padding:16px}
+.btn-dark{
+  margin-top:auto;display:flex;justify-content:space-between;align-items:center;width:100%;
+  background:#303030;color:#fff;border:none;border-radius:8px;padding:14px 16px;font:600 14px 'DM Sans';cursor:pointer
+}
+.btn-dark:hover{background:#111}
+.bento-grid{
+  display:grid;grid-template-columns:1.05fr 1.05fr .5fr .5fr;grid-auto-rows:minmax(145px,auto);gap:14px
+}
+.card-hero{
+  grid-column:1;grid-row:1 / span 2;padding:0;display:flex;flex-direction:column;justify-content:flex-end;min-height:368px
+}
+.hero-art{
+  height:186px;background:linear-gradient(160deg,#f4b8aa 0%,#ddd0f3 45%,#97b5ff 100%);position:relative;border-bottom:0
+}
+.hero-art:before{
+  content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);background-size:15px 15px;opacity:.75
+}
+.avatar{
+  width:58px;height:58px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.8);background:#ddd;
+  position:absolute;left:18px;bottom:-31px;display:flex;align-items:center;justify-content:center;font-size:30px
+}
+.hero-tagline{
+  font-family:'DM Sans',sans-serif;font-size:38px;line-height:1.12;letter-spacing:-1.4px;font-weight:400;padding:46px 18px 18px
+}
+.card-about{grid-column:2;grid-row:1;display:flex;flex-direction:column}
+.card-about p{font-size:14px;line-height:1.45}
+.card-podcast{grid-column:3;grid-row:1;background:#ff6848;color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:flex-end}
+.waveform{height:72px;display:flex;align-items:center;gap:2px;margin-bottom:14px}
+.wave-bar{width:3px;background:rgba(255,255,255,.78);border-radius:3px;animation:wave 1.2s ease-in-out infinite alternate}
+@keyframes wave{from{transform:scaleY(.42)}to{transform:scaleY(1)}}
+.card-podcast h3{font-size:15px;line-height:1.1}.card-podcast p{font-size:13px;color:rgba(255,255,255,.9)}
+.card-cv{grid-column:4;grid-row:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:#f7f6f2}
+.card-podcast,.card-cv{min-height:145px}
+.cv-big{font-size:72px;line-height:.9;font-weight:400;letter-spacing:-4px}
+.btn-download{
+  border:1px solid var(--border);background:#fff;border-radius:18px;padding:9px 13px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer
+}
+.card-expertises{grid-column:1;grid-row:3}
+.tags{display:flex;flex-wrap:wrap;gap:9px;padding:16px}
+.tag{border:1px solid var(--border);border-radius:20px;padding:7px 14px;background:#fff;font-size:13px;line-height:1}
+.tag:hover{background:#111;color:#fff}
+.card-ecom{grid-column:2;grid-row:2 / span 2;min-height:318px;background:linear-gradient(160deg,#dfe2ff 0%,#5b70ff 100%);display:flex;align-items:center;justify-content:center;padding:28px}
+.ecom-stack{width:86%;position:relative}
+.ecom-item{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:44px 1fr 95px;gap:12px;align-items:center;box-shadow:0 18px 40px rgba(70,90,200,.18);font-size:11px
+}
+.ecom-item:nth-child(1){transform:translate(48px,18px);opacity:.74}.ecom-item:nth-child(2){transform:translate(22px,9px);opacity:.9}.ecom-item:nth-child(3){position:relative;z-index:3}
+.ecom-thumb{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.ecom-info strong{display:block;font-size:12px}.ecom-info span,.ecom-meta{color:#555;font-size:10px}.price{font-weight:700;color:#111;margin-top:3px}
+
+/* CORPORATE JOURNEY - replaces old right preview */
+.journey-card{
+  grid-column:3 / span 2;
+  grid-row:2 / span 2;
+  min-height:318px;
+  background:#f7f6f2;
+}
+.timeline{padding:13px 16px;display:flex;flex-direction:column;gap:8px}
+.timeline-item{
+  display:grid;grid-template-columns:94px 1fr;gap:10px;align-items:start;
+  padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.12)
+}
+.timeline-item:last-child{border-bottom:0;padding-bottom:0}
+.timeline-year{
+  font-size:10px;line-height:1.25;color:#555;border:1px solid rgba(0,0,0,.16);
+  border-radius:18px;padding:6px 8px;text-align:center;background:#fff
+}
+.timeline-item h4{font-size:15px;line-height:1.15;font-weight:600;margin-bottom:4px;letter-spacing:-.2px}
+.timeline-item p{font-size:11px;line-height:1.35;color:#555}
+
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.work-card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.work-visual{height:230px;display:flex;align-items:center;justify-content:center;font-size:64px}
+.work-info{padding:18px;display:flex;gap:14px;align-items:center}
+.work-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.work-info h3{font-size:22px;font-weight:500}.work-info p{font-size:13px;color:#555;margin-top:3px}
+.work-body{padding:0 18px 16px;font-size:13px;line-height:1.55;color:#555}
+.work-meta{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 16px}
+.work-meta .tag{font-size:11px;padding:6px 10px}
+.work-cta{margin:0 18px 18px;border:1px solid rgba(0,0,0,.14);border-radius:10px;padding:11px 13px;display:flex;justify-content:space-between;align-items:center;font-size:13px;background:#fff;cursor:pointer}
+.work-cta:hover{background:#ebe9e2}
+.dark-section{background:#111;color:#fff;padding:42px 0;margin:45px 0}
+.dark-inner{max-width:1180px;margin:0 auto}
+.dark-section .section-label{color:#ccc;border-color:rgba(255,255,255,.2);background:#111}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.service-card{border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px}.service-num{color:#777;margin-bottom:14px}.service-card h3{font-size:20px;margin-bottom:12px}.service-card p{font-size:13px;line-height:1.7;color:#aaa}
+.footer-headline{font-size:40px;line-height:1.1;border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:14px 16px;margin-bottom:16px;letter-spacing:-1px}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.footer-col{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.footer-col-label{padding:12px 16px;border-bottom:1px solid var(--border);color:#555;font-size:13px}
+.footer-links{padding:16px}
+.footer-link{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(0,0,0,.14);border-radius:14px;padding:13px 14px;margin-bottom:10px;background:#fff;cursor:pointer;font-size:15px}
+.footer-link-icon{width:31px;height:31px;border:1px solid rgba(0,0,0,.16);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.copy{font-size:12px;color:#888;padding-top:6px}
+.mobile-line{font-size:13px;color:#555;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.12)}
+.mobile-line strong{color:#111}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.about-left,.about-middle,.about-right{display:flex;flex-direction:column;gap:10px}
+.text-card{padding:18px;font-size:14px;line-height:1.55;min-height:188px}
+.mini-list{padding:14px 16px;border-bottom:1px solid var(--border)}
+.mini-list:last-child{border-bottom:0}.mini-list h4{font-size:13px;margin-bottom:7px}.mini-list p{font-size:11px;line-height:1.5;color:#333}
+.photo-card{height:268px;background:linear-gradient(180deg,#ddd,#bbb);display:flex;align-items:center;justify-content:center;font-size:96px}
+.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.social-box{height:54px;border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;background:#f7f6f2;font-size:20px;cursor:pointer}
+.contact-hero{display:grid;grid-template-columns:1fr 1fr;gap:16px}.contact-card{padding:28px}.contact-card h1{font-size:50px;line-height:1;letter-spacing:-1.5px}.contact-card p{font-size:15px;color:#555;line-height:1.7;margin-top:14px}
+
+/* COMPACT FEATURED WORK */
+.featured-work{display:flex;flex-direction:column;gap:14px}
+.featured-item{display:grid;grid-template-columns:.86fr 1.5fr;gap:14px;align-items:stretch}
+.featured-left{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.featured-head{display:flex;gap:13px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+.featured-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.featured-head h3{font-size:20px;line-height:1.08;font-weight:500;letter-spacing:-.3px}
+.featured-head p{font-size:12px;color:#555;margin-top:4px}
+.featured-desc{padding:14px 16px;font-size:12px;line-height:1.55;color:#333;border-bottom:1px solid var(--border);flex:1}
+.featured-meta{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.featured-cell{padding:11px 16px;border-right:1px solid var(--border);font-size:12px}.featured-cell:last-child{border-right:0}.featured-cell label{display:block;color:#777;font-size:10px;margin-bottom:4px}.featured-cell span{font-weight:500}
+.credential-row{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.cred-pill{font-size:11px;border:1px solid rgba(0,0,0,.14);border-radius:14px;background:#fff;padding:7px 9px}.cred-pill button{margin-left:6px;border:1px solid rgba(0,0,0,.18);border-radius:10px;background:#f7f6f2;padding:3px 7px;font-size:10px;cursor:pointer}
+.featured-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px}.featured-actions button{border:1px solid rgba(0,0,0,.16);background:#fff;border-radius:9px;padding:10px 12px;font-size:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}.featured-actions button:hover{background:#ebe9e2}
+.featured-preview{border:1px solid var(--border);border-radius:8px;min-height:272px;display:flex;align-items:center;justify-content:center;padding:26px;overflow:hidden}
+.browser-card{width:min(88%,620px);background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.20);border:1px solid rgba(0,0,0,.1)}
+.browser-top{height:30px;background:#151515;display:flex;align-items:center;gap:6px;padding:0 10px}.browser-dot{width:8px;height:8px;border-radius:50%}.browser-label{margin-left:auto;color:#fff;font-size:10px;background:#2563eb;border-radius:5px;padding:2px 8px}
+.mock-screen{background:#fff;padding:16px;min-height:185px}.mock-title{font-weight:700;font-size:17px}.mock-sub{font-size:10px;color:#666;margin-top:3px}.mock-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.mock-stat{background:#f3f4f6;border-radius:10px;padding:10px;font-size:10px}.mock-stat b{display:block;font-size:19px;margin-top:4px}.mock-table{border-radius:10px;overflow:hidden;background:#f8fafc}.mock-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:10px}.mock-row:first-child{font-weight:700;background:#eef2ff}
+.stock-graph{height:80px;margin-top:12px;background:linear-gradient(180deg,#eff6ff,#fff);border-radius:10px;position:relative;overflow:hidden}.stock-graph:before{content:"";position:absolute;left:0;right:0;bottom:24px;height:3px;background:#2563eb;transform:skewY(-8deg);box-shadow:90px -22px 0 #16a34a,180px 18px 0 #ef4444,270px -14px 0 #2563eb}
+
+@media(max-width:900px){
+  .featured-item{grid-template-columns:1fr}.featured-preview{min-height:230px;padding:18px}.featured-actions{grid-template-columns:1fr}
+  nav,.wrap,.dark-inner{max-width:calc(100% - 28px)}
+  nav{align-items:flex-start;gap:12px}.nav-links{flex-wrap:wrap;justify-content:flex-end}
+  .bento-grid,.work-grid,.about-grid,.contact-hero,.footer-grid,.services-grid{grid-template-columns:1fr}
+  .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.journey-card{grid-column:1;grid-row:auto}
+  .hero-tagline{font-size:32px}.strip-title,.footer-headline{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <div class="nav-links">
+    <a href="projects.html">PORTFOLIO</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="section">
+    <div class="bento-grid">
+      <div class="card card-hero">
+        <div class="hero-art"><div class="avatar">👤</div></div>
+        <div class="hero-tagline">Bridging Business Needs<br>With Data-Driven Solutions<br>In Capital Markets</div>
+      </div>
+
+      <div class="card card-about">
+        <div class="card-label">About</div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:16px;height:100%">
+          <p>Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.</p>
+          <p>I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.</p>
+          <button class="btn-dark" onclick="window.location.href='projects.html'">View My Work <span>↗</span></button>
+        </div>
+      </div>
+
+      <div class="card card-podcast">
+        <div class="waveform">
+          <div class="wave-bar" style="height:55%;animation-delay:0.00s"></div><div class="wave-bar" style="height:82%;animation-delay:0.05s"></div><div class="wave-bar" style="height:45%;animation-delay:0.10s"></div><div class="wave-bar" style="height:94%;animation-delay:0.15s"></div><div class="wave-bar" style="height:62%;animation-delay:0.20s"></div><div class="wave-bar" style="height:38%;animation-delay:0.25s"></div><div class="wave-bar" style="height:74%;animation-delay:0.30s"></div><div class="wave-bar" style="height:51%;animation-delay:0.35s"></div><div class="wave-bar" style="height:88%;animation-delay:0.40s"></div><div class="wave-bar" style="height:63%;animation-delay:0.45s"></div><div class="wave-bar" style="height:77%;animation-delay:0.50s"></div><div class="wave-bar" style="height:42%;animation-delay:0.55s"></div><div class="wave-bar" style="height:70%;animation-delay:0.60s"></div><div class="wave-bar" style="height:56%;animation-delay:0.65s"></div><div class="wave-bar" style="height:92%;animation-delay:0.70s"></div><div class="wave-bar" style="height:49%;animation-delay:0.75s"></div><div class="wave-bar" style="height:68%;animation-delay:0.80s"></div><div class="wave-bar" style="height:36%;animation-delay:0.85s"></div><div class="wave-bar" style="height:83%;animation-delay:0.90s"></div><div class="wave-bar" style="height:58%;animation-delay:0.95s"></div>
+        </div>
+        <h3>Capital Market Insights</h3><p>Business analysis for trading systems</p>
+      </div>
+
+      <div class="card card-cv">
+        <div class="cv-big">CV</div>
+        <a class="btn-download" href="resume.pdf" download><span>Download</span><span>↓</span></a>
+      </div>
+
+      <div class="card card-expertises">
+        <div class="card-label">Expertise</div>
+        <div class="tags">
+          <span class="tag">Business Analysis</span>
+          <span class="tag">Data Analysis</span>
+          <span class="tag">Requirement Gathering</span>
+          <span class="tag">BRD / FRD</span>
+          <span class="tag">Gap Analysis</span>
+          <span class="tag">Stakeholder Management</span>
+          <span class="tag">Product Improvement</span>
+          <span class="tag">Competitive Analysis</span>
+          <span class="tag">Capital Markets</span>
+          <span class="tag">Trading Platforms</span>
+          <span class="tag">RMS Systems</span>
+          <span class="tag">SQL & Databases</span>
+          <span class="tag">Risk Analysis</span>
+          <span class="tag">System Integration</span>
+          <span class="tag">UAT Testing</span>
+          <span class="tag">Quality Assurance</span>
+          <span class="tag">Production Support</span>
+          <span class="tag">Process Optimization</span>
+        </div>
+      </div>
+
+      <div class="card card-ecom">
+        <div class="ecom-stack">
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#f3b7cf">📌</div><div class="ecom-info"><strong>Requirement Flow</strong><span>Business Inputs</span></div><div class="ecom-meta">BRD / FRD<br>Analysis</div></div>
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#d8d9df">📊</div><div class="ecom-info"><strong>Trading Workflow</strong><span>Platform Logic</span></div><div class="ecom-meta">Gap Fixes<br>UAT</div></div>
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#74ef74">⚙️</div><div class="ecom-info"><strong>RMS & Backend Support</strong><span>Capital Markets</span><div class="price">Process Optimized</div></div><div class="ecom-meta"><b style="color:#111">In Progress</b><br>Systems + Data</div></div>
+        </div>
+      </div>
+
+      <div class="card journey-card">
+        <div class="card-label">Corporate Journey</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">Feb 2024 – Present</div>
+            <div>
+              <h4>Mirae Asset Capital Market (m.Stock)</h4>
+              <p>Business Analyst working on RMS, OMS, trading platform enhancements, backend workflows, and delivery coordination.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Jul 2023 – Feb 2024</div>
+            <div>
+              <h4>YES Securities</h4>
+              <p>Product Manager handling product enhancements, vendor coordination, feature prioritization, and platform improvements.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Dec 2019 – Jul 2023</div>
+            <div>
+              <h4>HDFC Securities</h4>
+              <p>Business Analyst working on requirement gathering, UAT, production support, stakeholder communication, and system improvements.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Apr 2018 – Aug 2019</div>
+            <div>
+              <h4>HDFC Securities</h4>
+              <p>Operation Executive managing backend operations and execution support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Selected Work</div>
+    <div class="featured-work">
+
+      <div class="featured-item" id="ba-cr-workspace">
+        <div class="featured-left">
+          <div class="featured-head">
+            <div class="featured-icon" style="background:#dcf5dc">📊</div>
+            <div><h3>BA CR Workspace</h3><p>Change Request & UAT Tracking Tool</p></div>
+          </div>
+          <div class="featured-desc">
+            A self-built Business Analyst workspace to track Change Requests, UAT progress, delivery timelines and go-live status. Built independently with AI assistance to improve visibility and manage BA workflows in one place.
+          </div>
+          <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button onclick="window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#ba-cr-workspace'"><span>Case Study</span><span>↗</span></button></div>
+        </div>
+        <div class="featured-preview" style="background:linear-gradient(160deg,#dfe2ff,#5b70ff)">
+          <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">BA CR Workspace</span></div><div class="mock-screen"><div class="mock-title">CR Tracker Dashboard</div><div class="mock-sub">Change Request monitoring workspace</div><div class="mock-stats"><div class="mock-stat">Total CRs<b>42</b></div><div class="mock-stat">In UAT<b>11</b></div><div class="mock-stat">Go-Live<b>06</b></div></div><div class="mock-table"><div class="mock-row"><span>CR Name</span><span>Status</span><span>Owner</span></div><div class="mock-row"><span>RMS Change</span><span>UAT</span><span>BA Team</span></div><div class="mock-row"><span>Report Update</span><span>Progress</span><span>Tech</span></div><div class="mock-row"><span>Platform Fix</span><span>Ready</span><span>Ops</span></div></div></div></div>
+        </div>
+      </div>
+
+      <div class="featured-item" id="stock-dashboard">
+        <div class="featured-left">
+          <div class="featured-head">
+            <div class="featured-icon" style="background:#ffe0d0">📈</div>
+            <div><h3>US Stock Signal Dashboard</h3><p>Live Price & Buy/Sell Recommendation Tool</p></div>
+          </div>
+          <div class="featured-desc">
+            A self-built live market dashboard that fetches US stock prices and displays buy/sell recommendation signals. Built independently with AI assistance to combine market data, trend visibility and decision support in one interface.
+          </div>
+          <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button onclick="window.open('https://nse-dashboard-live.onrender.com/login','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#stock-dashboard'"><span>Case Study</span><span>↗</span></button></div>
+        </div>
+        <div class="featured-preview" style="background:linear-gradient(160deg,#101827,#2563eb)">
+          <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">Stock Dashboard</span></div><div class="mock-screen"><div class="mock-title">US Market Dashboard</div><div class="mock-sub">Live prices with buy/sell signals</div><div class="mock-stats"><div class="mock-stat">AAPL<b>$192.4</b></div><div class="mock-stat">MSFT<b>$421.8</b></div><div class="mock-stat">TSLA<b>$248.2</b></div></div><div class="mock-table"><div class="mock-row"><span>Stock</span><span>Signal</span><span>Trend</span></div><div class="mock-row"><span>AAPL</span><span>Buy</span><span>Positive</span></div><div class="mock-row"><span>MSFT</span><span>Hold</span><span>Stable</span></div><div class="mock-row"><span>TSLA</span><span>Sell</span><span>Weak</span></div></div><div class="stock-graph"></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<section class="dark-section">
+  <div class="dark-inner">
+    <div class="section-label">What I Do</div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-num">01.</div><h3>Business Requirement Analysis</h3><p>I translate business needs into structured requirements, BRD/FRD documentation, workflows and clear implementation-ready inputs.</p></div>
+      <div class="service-card"><div class="service-num">02.</div><h3>Trading & RMS Coordination</h3><p>I work across trading platforms, RMS flows and operational teams to identify gaps and improve system performance.</p></div>
+      <div class="service-card"><div class="service-num">03.</div><h3>Data & Process Improvement</h3><p>I use data analysis, SQL understanding and process reviews to support better decisions and reduce operational inefficiencies.</p></div>
+      <div class="service-card"><div class="service-num">04.</div><h3>UAT & Production Support</h3><p>I coordinate testing, validate bug fixes, support releases and ensure solutions meet real business expectations.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap" style="padding-top:0">
+  <div class="footer-headline">Let's Create Something Exceptional Together</div>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-col-label">Quick Links</div>
+      <div class="footer-links">
+        <div class="footer-link" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Contact</div>
+      <div class="footer-links">
+        <div class="footer-link" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
+        <div class="mobile-line">Mobile: <strong>8286169906</strong></div>
+        <div class="copy">© 2026 Narendra Dicholkar. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function copyText(text){navigator.clipboard.writeText(text).then(function(){alert('Copied: '+text);});}
+</script>
+</body>
+</html>
