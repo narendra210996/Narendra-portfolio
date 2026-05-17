@@ -487,6 +487,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .btn{ width: 100% !important; }
 }
 
+
+/* ===== PREMIUM SCROLL ANIMATION ===== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(80px) scale(.96);
+  transition:all 1s cubic-bezier(0.22,1,0.36,1);
+  will-change:transform,opacity;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.delay-1{transition-delay:.1s;}
+.delay-2{transition-delay:.2s;}
+.delay-3{transition-delay:.3s;}
+
 </style>
 </head>
 
@@ -515,7 +534,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 <div class="section-label">Self-Built Projects</div>
 
 <!-- PROJECT 1 -->
-<section class="self-project" id="ba-cr-workspace">
+<section class="self-project reveal" id="ba-cr-workspace">
   <div class="project-left">
     <div class="card project-head">
       <div class="project-icon" style="background:#eaf0ff;">📊</div>
@@ -608,7 +627,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 </section>
 
 <!-- PROJECT 2 -->
-<section class="self-project" id="us-stock-dashboard">
+<section class="self-project reveal" id="us-stock-dashboard">
   <div class="project-left">
     <div class="card project-head">
       <div class="project-icon" style="background:#ffe8d9;">📈</div>
@@ -702,7 +721,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 <div class="section-label">Capital Market Projects</div>
 
-<section class="project-grid">
+<section class="project-grid reveal delay-1">
 
   <article class="mini-card">
     <div class="mini-top">
@@ -824,7 +843,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 </section>
 
-<footer>
+<footer class="reveal delay-2">
   <div class="footer-title">Let's Create Something<br>Exceptional Together</div>
   <div class="footer-grid">
     <div class="footer-col">
@@ -853,6 +872,23 @@ function copyText(text){
     alert("Please copy manually: " + text);
   });
 }
+</script>
+
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+    }
+  });
+},{
+  threshold:0.12
+});
+
+document.querySelectorAll(".reveal").forEach((el)=>{
+  observer.observe(el);
+});
 </script>
 
 </body>

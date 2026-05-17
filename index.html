@@ -285,6 +285,25 @@ body { overflow-x: hidden; }
   .featured-cell{ border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
 }
 
+
+/* ===== PREMIUM SCROLL ANIMATION ===== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(80px) scale(.96);
+  transition:all 1s cubic-bezier(0.22,1,0.36,1);
+  will-change:transform,opacity;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.delay-1{transition-delay:.1s;}
+.delay-2{transition-delay:.2s;}
+.delay-3{transition-delay:.3s;}
+
 </style>
 </head>
 <body>
@@ -300,7 +319,7 @@ body { overflow-x: hidden; }
 
 <main class="wrap">
   <section class="section">
-    <div class="bento-grid">
+    <div class="bento-grid reveal">
       <div class="card card-hero">
         <div class="hero-art"><div class="avatar">👤</div></div>
         <div class="hero-tagline">Bridging Business Needs<br>With Data-Driven Solutions<br>In Capital Markets</div>
@@ -400,7 +419,7 @@ body { overflow-x: hidden; }
 
   <section class="section">
     <div class="section-label">Selected Work</div>
-    <div class="featured-work">
+    <div class="featured-work reveal delay-1">
 
       <div class="featured-item" id="ba-cr-workspace">
         <div class="featured-left">
@@ -442,10 +461,10 @@ body { overflow-x: hidden; }
   </section>
 </main>
 
-<section class="dark-section">
+<section class="dark-section reveal">
   <div class="dark-inner">
     <div class="section-label">What I Do</div>
-    <div class="services-grid">
+    <div class="services-grid reveal delay-1">
       <div class="service-card"><div class="service-num">01.</div><h3>Business Requirement Analysis</h3><p>I translate business needs into structured requirements, BRD/FRD documentation, workflows and clear implementation-ready inputs.</p></div>
       <div class="service-card"><div class="service-num">02.</div><h3>Trading & RMS Coordination</h3><p>I work across trading platforms, RMS flows and operational teams to identify gaps and improve system performance.</p></div>
       <div class="service-card"><div class="service-num">03.</div><h3>Data & Process Improvement</h3><p>I use data analysis, SQL understanding and process reviews to support better decisions and reduce operational inefficiencies.</p></div>
@@ -481,5 +500,22 @@ body { overflow-x: hidden; }
 <script>
 function copyText(text){navigator.clipboard.writeText(text).then(function(){alert('Copied: '+text);});}
 </script>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("active");
+    }
+  });
+},{
+  threshold:0.12
+});
+
+document.querySelectorAll(".reveal").forEach((el)=>{
+  observer.observe(el);
+});
+</script>
+
 </body>
 </html>
