@@ -1,4 +1,43 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About / Narendra Dicholkar</title><style>
+<!DOCTYPE html><html lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZHTQ3GGN8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XZHTQ3GGN8');
+
+  // Custom Portfolio Tracking
+  function trackPortfolioEvent(eventName, eventLabel, extraData){
+    if (typeof gtag !== 'function') return;
+    gtag('event', eventName, Object.assign({
+      event_category: 'portfolio_engagement',
+      event_label: eventLabel || 'unknown',
+      page_title: document.title,
+      page_location: window.location.href,
+      transport_type: 'beacon'
+    }, extraData || {}));
+  }
+
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ga-event], a, button, .footer-link, .social-box');
+    if (!el) return;
+
+    var eventName = el.getAttribute('data-ga-event') || 'site_click';
+    var eventLabel = el.getAttribute('data-ga-label') || (el.innerText || el.textContent || el.href || 'click').trim().replace(/\s+/g, ' ').slice(0, 120);
+    var linkUrl = el.getAttribute('href') || el.getAttribute('data-ga-url') || '';
+
+    var onclickText = el.getAttribute('onclick') || '';
+    var urlMatch = onclickText.match(/['"](https?:\/\/[^'"]+|[^'"]+\.html)['"]/);
+    if (!linkUrl && urlMatch) linkUrl = urlMatch[1];
+
+    trackPortfolioEvent(eventName, eventLabel, {
+      link_url: linkUrl,
+      click_text: eventLabel
+    });
+  }, true);
+</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About / Narendra Dicholkar</title><style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -254,11 +293,11 @@ body { overflow-x: hidden; }
 
 </style></head><body>
 <nav>
-  <a class="nav-logo" href="index.html">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <a class="nav-logo" href="index.html" data-ga-event="navigation_click" data-ga-label="Home">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
   <div class="nav-links">
-    <a href="projects.html">PORTFOLIO</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
+    <a href="projects.html" data-ga-event="navigation_click" data-ga-label="Projects">PORTFOLIO</a>
+    <a href="about.html" data-ga-event="navigation_click" data-ga-label="About">ABOUT</a>
+    <a href="contact.html" data-ga-event="navigation_click" data-ga-label="Contact">CONTACT</a>
   </div>
 </nav>
 <main class="wrap"><div class="strip-title">Bridging Business Needs With Data-Driven Solutions</div><section class="about-grid reveal">
@@ -292,9 +331,9 @@ body { overflow-x: hidden; }
 <div class="about-right">
   <div class="card photo-card">👤</div>
   <div class="social-grid">
-    <div class="social-box" onclick="window.open('mailto:Dicholkarnaren@gmail.com')">✉</div>
-    <div class="social-box" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">in</div>
-    <div class="social-box" onclick="window.open('https://www.naukri.com/','_blank')">N</div>
+    <div class="social-box" data-ga-event="contact_click" data-ga-label="Email Social Icon" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.open('mailto:Dicholkarnaren@gmail.com')">✉</div>
+    <div class="social-box" data-ga-event="contact_click" data-ga-label="LinkedIn Social Icon" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">in</div>
+    <div class="social-box" data-ga-event="contact_click" data-ga-label="Naukri Social Icon" data-ga-url="https://www.naukri.com/" onclick="window.open('https://www.naukri.com/','_blank')">N</div>
   </div>
 </div>
 </section></main>
@@ -304,17 +343,17 @@ body { overflow-x: hidden; }
     <div class="footer-col">
       <div class="footer-col-label">Quick Links</div>
       <div class="footer-links">
-        <div class="footer-link" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Projects" data-ga-url="projects.html" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="About" data-ga-url="about.html" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Contact" data-ga-url="contact.html" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
       </div>
     </div>
     <div class="footer-col">
       <div class="footer-col-label">Contact</div>
       <div class="footer-links">
-        <div class="footer-link" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="LinkedIn" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Email" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Naukri Profile" data-ga-url="https://www.naukri.com/" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
         <div class="copy">© 2026 Narendra Dicholkar. All rights reserved.</div>
       </div>
     </div>

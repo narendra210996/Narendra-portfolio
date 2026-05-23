@@ -7,8 +7,37 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-XZHTQ3GGN8');
+
+  // Custom Portfolio Tracking
+  function trackPortfolioEvent(eventName, eventLabel, extraData){
+    if (typeof gtag !== 'function') return;
+    gtag('event', eventName, Object.assign({
+      event_category: 'portfolio_engagement',
+      event_label: eventLabel || 'unknown',
+      page_title: document.title,
+      page_location: window.location.href,
+      transport_type: 'beacon'
+    }, extraData || {}));
+  }
+
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-ga-event], a, button, .footer-link, .social-box');
+    if (!el) return;
+
+    var eventName = el.getAttribute('data-ga-event') || 'site_click';
+    var eventLabel = el.getAttribute('data-ga-label') || (el.innerText || el.textContent || el.href || 'click').trim().replace(/\s+/g, ' ').slice(0, 120);
+    var linkUrl = el.getAttribute('href') || el.getAttribute('data-ga-url') || '';
+
+    var onclickText = el.getAttribute('onclick') || '';
+    var urlMatch = onclickText.match(/['"](https?:\/\/[^'"]+|[^'"]+\.html)['"]/);
+    if (!linkUrl && urlMatch) linkUrl = urlMatch[1];
+
+    trackPortfolioEvent(eventName, eventLabel, {
+      link_url: linkUrl,
+      click_text: eventLabel
+    });
+  }, true);
 </script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Narendra Dicholkar / Business Analyst</title>
@@ -318,11 +347,11 @@ body { overflow-x: hidden; }
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <a class="nav-logo" href="index.html" data-ga-event="navigation_click" data-ga-label="Home">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
   <div class="nav-links">
-    <a href="projects.html">PORTFOLIO</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
+    <a href="projects.html" data-ga-event="navigation_click" data-ga-label="Projects">PORTFOLIO</a>
+    <a href="about.html" data-ga-event="navigation_click" data-ga-label="About">ABOUT</a>
+    <a href="contact.html" data-ga-event="navigation_click" data-ga-label="Contact">CONTACT</a>
   </div>
 </nav>
 
@@ -339,7 +368,7 @@ body { overflow-x: hidden; }
         <div class="card-body" style="display:flex;flex-direction:column;gap:16px;height:100%">
           <p>Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.</p>
           <p>I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.</p>
-          <button class="btn-dark" onclick="window.location.href='projects.html'">View My Work <span>↗</span></button>
+          <button class="btn-dark" data-ga-event="view_work_click" data-ga-label="View My Work" onclick="window.location.href='projects.html'">View My Work <span>↗</span></button>
         </div>
       </div>
 
@@ -352,7 +381,7 @@ body { overflow-x: hidden; }
 
       <div class="card card-cv">
         <div class="cv-big">CV</div>
-        <a class="btn-download" href="Narendra_Dicholkar_Resume.pdf" download>
+        <a class="btn-download" href="Narendra_Dicholkar_Resume.pdf" download data-ga-event="resume_download" data-ga-label="Download Resume">
   <span>Download</span>
   <span>↓</span>
 </a>
@@ -440,8 +469,8 @@ body { overflow-x: hidden; }
             A self-built Business Analyst workspace to track Change Requests, UAT progress, delivery timelines and go-live status. Built independently with AI assistance to improve visibility and manage BA workflows in one place.
           </div>
           <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
-          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button onclick="copyText('Test@123')">Copy</button></div></div>
-          <div class="featured-actions"><button onclick="window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#ba-cr-workspace'"><span>Case Study</span><span>↗</span></button></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button data-ga-event="copy_demo_credentials" data-ga-label="Copy Username" onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button data-ga-event="copy_demo_credentials" data-ga-label="Copy Password" onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button data-ga-event="project_click" data-ga-label="CR Tracker Project" data-ga-url="https://narendra210996.github.io/cr-tracker/index.html" onclick="window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#ba-cr-workspace'"><span>Case Study</span><span>↗</span></button></div>
         </div>
         <div class="featured-preview" style="background:linear-gradient(160deg,#dfe2ff,#5b70ff)">
           <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">BA CR Workspace</span></div><div class="mock-screen"><div class="mock-title">CR Tracker Dashboard</div><div class="mock-sub">Change Request monitoring workspace</div><div class="mock-stats"><div class="mock-stat">Total CRs<b>42</b></div><div class="mock-stat">In UAT<b>11</b></div><div class="mock-stat">Go-Live<b>06</b></div></div><div class="mock-table"><div class="mock-row"><span>CR Name</span><span>Status</span><span>Owner</span></div><div class="mock-row"><span>RMS Change</span><span>UAT</span><span>BA Team</span></div><div class="mock-row"><span>Report Update</span><span>Progress</span><span>Tech</span></div><div class="mock-row"><span>Platform Fix</span><span>Ready</span><span>Ops</span></div></div></div></div>
@@ -458,8 +487,8 @@ body { overflow-x: hidden; }
             A self-built live market dashboard that fetches US stock prices and displays buy/sell recommendation signals. Built independently with AI assistance to combine market data, trend visibility and decision support in one interface.
           </div>
           <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
-          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button onclick="copyText('Test@123')">Copy</button></div></div>
-          <div class="featured-actions"><button onclick="window.open('https://nse-dashboard-live.onrender.com/login','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#stock-dashboard'"><span>Case Study</span><span>↗</span></button></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button data-ga-event="copy_demo_credentials" data-ga-label="Copy Username" onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button data-ga-event="copy_demo_credentials" data-ga-label="Copy Password" onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button data-ga-event="project_click" data-ga-label="NSE Dashboard Project" data-ga-url="https://nse-dashboard-live.onrender.com/login" onclick="window.open('https://nse-dashboard-live.onrender.com/login','_blank')"><span>View Project</span><span>↗</span></button><button onclick="window.location.href='projects.html#stock-dashboard'"><span>Case Study</span><span>↗</span></button></div>
         </div>
         <div class="featured-preview" style="background:linear-gradient(160deg,#101827,#2563eb)">
           <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">Stock Dashboard</span></div><div class="mock-screen"><div class="mock-title">US Market Dashboard</div><div class="mock-sub">Live prices with buy/sell signals</div><div class="mock-stats"><div class="mock-stat">AAPL<b>$192.4</b></div><div class="mock-stat">MSFT<b>$421.8</b></div><div class="mock-stat">TSLA<b>$248.2</b></div></div><div class="mock-table"><div class="mock-row"><span>Stock</span><span>Signal</span><span>Trend</span></div><div class="mock-row"><span>AAPL</span><span>Buy</span><span>Positive</span></div><div class="mock-row"><span>MSFT</span><span>Hold</span><span>Stable</span></div><div class="mock-row"><span>TSLA</span><span>Sell</span><span>Weak</span></div></div><div class="stock-graph"></div></div></div>
@@ -488,17 +517,17 @@ body { overflow-x: hidden; }
     <div class="footer-col">
       <div class="footer-col-label">Quick Links</div>
       <div class="footer-links">
-        <div class="footer-link" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Projects" data-ga-url="projects.html" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="About" data-ga-url="about.html" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Contact" data-ga-url="contact.html" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
       </div>
     </div>
     <div class="footer-col">
       <div class="footer-col-label">Contact</div>
       <div class="footer-links">
-        <div class="footer-link" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="LinkedIn" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Email" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Naukri Profile" data-ga-url="https://www.naukri.com/" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
         <div class="mobile-line">Mobile: <strong>8286169906</strong></div>
         <div class="copy">© 2026 Narendra Dicholkar. All rights reserved.</div>
       </div>
