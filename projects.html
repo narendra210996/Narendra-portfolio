@@ -23,53 +23,52 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f4f0;--card:#fff;--text:#151515;--muted:#666;--line:rgba(0,0,0,.14);}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:0 28px;overflow-x:hidden}
+html{height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 28px;opacity:0;animation:pageFade 0.6s ease forwards}
+@keyframes pageFade{to{opacity:1}}
 .page{max-width:1180px;margin:0 auto}
 
-/* ===== PAGE ENTRANCE FADE ===== */
-body{opacity:0;animation:pageFade 0.6s ease forwards}
-@keyframes pageFade{to{opacity:1}}
-
-/* ===== RIPPLE EFFECT ===== */
+/* ===== RIPPLE ===== */
 .ripple{position:relative;overflow:hidden;cursor:pointer}
 .ripple-effect{position:absolute;border-radius:50%;background:rgba(240,180,41,0.4);transform:scale(0);animation:rippleAnim 0.7s ease-out forwards;pointer-events:none}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
-/* ===== SUCCESS TOAST ===== */
-.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
-.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
-.success-circle{width:64px;height:64px;margin:0 auto}
-.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
-.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+/* ===== SUCCESS TOAST with CLOSE ===== */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 40px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;touch-action:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5);max-width:420px;width:90%}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;touch-action:auto}
+.success-toast:not(.show){pointer-events:none !important;touch-action:none !important;opacity:0 !important}
+.success-toast .toast-close{position:absolute;top:8px;right:14px;background:none;border:none;color:#888;font-size:24px;cursor:pointer;line-height:1;padding:4px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.success-toast .toast-close:hover{color:#fff}
+.success-toast .msg{margin-top:12px;font-size:15px;line-height:1.6;font-weight:400;display:block}
+.success-toast .toast-title{font-size:22px;font-weight:700;margin-bottom:4px;color:#f0b429}
+.success-circle{width:52px;height:52px;margin:0 auto}
+.success-ring{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
 @keyframes ringFill{to{stroke-dashoffset:0}}
 @keyframes checkDraw{to{stroke-dashoffset:0}}
 
 /* ===== NAV ===== */
-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:26px;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:26px;position:sticky;top:0;background:var(--bg);z-index:50}
 .logo,.nav-links a{text-decoration:none;color:#111;border:1px solid rgba(0,0,0,.22);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:500;background:rgba(255,255,255,.35);transition:0.2s}
 .nav-links{display:flex;gap:10px}
 .nav-links a:hover{background:#ebe9e2}
 .nav-links a.active{background:#111;color:#fff;border-color:#111}
 
-/* ===== PAGE TITLE ===== */
 .page-title{border:1px solid var(--line);border-radius:18px;background:#fff;padding:28px;margin-bottom:14px;}
 .page-title span{font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
 .page-title h1{font-family:'DM Serif Display',serif;font-size:54px;font-weight:400;margin-top:10px;}
 .page-title p{max-width:720px;margin-top:10px;color:#666;font-size:15px;line-height:1.7;}
+.section-label{display:inline-block;margin:22px 0 14px;border:1px solid rgba(0,0,0,.2);border-radius:999px;padding:8px 14px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#555;}
 
-/* ===== STATS STRIP ===== */
 .stats-strip{display:flex;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 24px;margin-bottom:22px;justify-content:center}
 .stats-strip .stat-item{display:flex;align-items:center;gap:8px;font-size:14px;color:#555}
 .stats-strip .stat-number{font-weight:700;font-size:22px;color:#111;min-width:20px}
 
-/* ===== FILTER TABS ===== */
 .filter-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 .filter-btn{padding:10px 20px;border:1px solid var(--line);border-radius:30px;background:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:0.3s;font-family:'DM Sans',sans-serif;min-height:44px}
 .filter-btn:hover{background:#ebe9e2}
 .filter-btn.active{background:#111;color:#fff;border-color:#111}
 
-/* ===== PROJECT GRID ===== */
 .projects-wrapper{transition:all 0.3s ease}
 .project-item{transition:opacity 0.4s ease, transform 0.4s ease;opacity:1;transform:scale(1)}
 .project-item.hidden{display:none;opacity:0;transform:scale(0.95)}
@@ -85,11 +84,9 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0
 .detail-row:first-child{border-top:none}
 .detail-label{color:#777;font-size:13px;margin-bottom:6px;}
 .detail-value{font-size:15px;line-height:1.55;}
-
 .live-status{display:inline-flex;align-items:center;gap:6px;background:#e8f5e9;color:#2e7d32;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;margin-left:8px}
 .pulse-dot{display:inline-block;width:8px;height:8px;background:#00c853;border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
-
 .copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .copy-box{border:1px solid rgba(0,0,0,.16);border-radius:12px;padding:10px;background:#fafafa;}
 .copy-box label{display:block;font-size:11px;color:#777;margin-bottom:4px;}
@@ -101,7 +98,6 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0
 .tag:hover{background:#111;color:#fff}
 .btn{border:1px solid rgba(0,0,0,.18);border-radius:14px;padding:13px 15px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;background:#151515;color:#fff;display:flex;justify-content:space-between;align-items:center;transition:0.2s;min-height:48px}
 .btn:hover{background:#111;transform:translateY(-2px)}
-
 .project-preview{min-height:520px;border:1px solid var(--line);border-radius:18px;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform 0.1s ease;will-change:transform}
 .browser{width:100%;max-width:720px;border-radius:16px;overflow:hidden;background:#101010;box-shadow:0 24px 70px rgba(0,0,0,.22);}
 .browser-bar{height:32px;background:#191919;display:flex;align-items:center;gap:7px;padding:0 12px;}
@@ -131,13 +127,11 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0
 .info-row label{display:block;font-size:11px;color:#888;margin-bottom:4px;}
 .info-row p{font-size:13px;color:#555;line-height:1.55;}
 .mini-card .tags{margin-top:auto;padding-top:14px;}
-
 .project-progress{margin-top:12px}
 .project-progress .label{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-bottom:4px}
 .progress-track{width:100%;height:6px;background:#e5e7eb;border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#f0b429,#d49d1e);border-radius:4px;width:0;transition:width 1.2s cubic-bezier(0.22,1,0.36,1)}
 
-/* ===== FOOTER ===== */
 footer{margin:38px 0 40px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;transition:transform 0.3s ease}
 .footer-title{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.08;margin-bottom:18px;}
 .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -146,62 +140,28 @@ footer{margin:38px 0 40px;background:#fff;border:1px solid var(--line);border-ra
 .footer-link{display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#fff;font-size:13px;cursor:pointer;transition:0.2s;min-height:44px}
 .footer-link:hover{background:#ebe9e2}
 
-/* ===== BACK TO TOP ===== */
 .back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
 .back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
 
-/* ===== REVEAL ANIMATIONS ===== */
 .reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
 .reveal-item.visible{opacity:1;transform:translateY(0)}
 .reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
 .reveal.active{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
 
-/* ============================================================ */
-/* ===== DESKTOP-ONLY HOVER EFFECTS ===== */
-/* ============================================================ */
 @media (hover: hover) {
   .card:hover,.mini-card:hover,.footer-col:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
   .tag:hover{background:#111;color:#fff}
   .copy-box button:hover{background:#111;color:#fff}
   .btn:hover{background:#111;transform:translateY(-2px)}
 }
-
-/* ============================================================ */
-/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
-/* ============================================================ */
 @media (hover: none) {
-  .card:active,
-  .mini-card:active,
-  .footer-col:active {
-    transform: scale(0.98) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .btn:active,
-  .footer-link:active,
-  .filter-btn:active {
-    transform: scale(0.95) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .copy-box button:active {
-    transform: scale(0.90) !important;
-  }
-  /* Faster reveals on mobile */
-  .reveal-item {
-    transition-duration: 0.5s !important;
-  }
-  /* Ensure touch targets are big enough */
-  .filter-btn,
-  .btn,
-  .footer-link,
-  .copy-box button {
-    min-height: 44px;
-  }
+  .card:active,.mini-card:active,.footer-col:active{transform:scale(0.98) !important;transition:transform 0.1s ease !important}
+  .btn:active,.footer-link:active,.filter-btn:active{transform:scale(0.95) !important;transition:transform 0.1s ease !important}
+  .copy-box button:active{transform:scale(0.90) !important}
+  .reveal-item{transition-duration:0.5s !important}
+  .filter-btn,.btn,.footer-link,.copy-box button{min-height:44px}
 }
-
-/* ============================================================ */
-/* ===== RESPONSIVE LAYOUT ===== */
-/* ============================================================ */
 @media(max-width:980px){
   .self-project,.project-grid,.footer-grid{grid-template-columns:1fr}
   .project-preview{min-height:auto;padding:22px}
@@ -212,7 +172,7 @@ footer{margin:38px 0 40px;background:#fff;border:1px solid var(--line);border-ra
 }
 @media(max-width:560px){
   body{padding:0 16px}
-  nav{flex-direction:column;align-items:flex-start;gap:12px}
+  nav{flex-direction:column;align-items:flex-start;gap:12px;position:relative !important;top:auto !important}
   .nav-links{flex-wrap:wrap}
   .nav-links a{padding:8px 12px;font-size:12px}
   .page-title h1{font-size:38px}
@@ -227,6 +187,46 @@ footer{margin:38px 0 40px;background:#fff;border:1px solid var(--line);border-ra
 img, video, iframe, svg { max-width: 100%; height: auto; }
 html, body { overflow-x: hidden; }
 button, a { -webkit-tap-highlight-color: transparent; }
+
+@media (max-width: 900px){
+  html, body { width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  body{ padding: 0 14px !important; }
+  .page{ width: 100% !important; max-width: 100% !important; }
+  nav{flex-direction: column !important;align-items: stretch !important;gap: 10px !important;padding: 14px 0 !important;margin-bottom: 18px !important;position: relative !important;top: auto !important;}
+  .logo{width: 100% !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;font-size: 12px !important;padding: 10px 12px !important;}
+  .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3,1fr) !important;gap: 8px !important;}
+  .nav-links a{text-align: center !important;font-size: 11px !important;padding: 10px 8px !important;white-space: nowrap !important;}
+  .page-title{ padding: 20px 16px !important; border-radius: 16px !important; }
+  .page-title h1{ font-size: clamp(38px, 12vw, 48px) !important; line-height: 1 !important; }
+  .page-title p{ font-size: 14px !important; line-height: 1.6 !important; }
+  .self-project, .project-grid, .footer-grid{display: grid !important;grid-template-columns: 1fr !important;gap: 12px !important;}
+  .project-head{ padding: 16px !important; align-items: flex-start !important; }
+  .project-icon{ width: 52px !important; height: 52px !important; font-size: 24px !important; }
+  .project-head h2{ font-size: 22px !important; line-height: 1.1 !important; }
+  .detail-row{ padding: 14px !important; }
+  .detail-value{ font-size: 14px !important; }
+  .copy-grid{ grid-template-columns: 1fr !important; }
+  .project-preview{ min-height: auto !important; padding: 16px !important; border-radius: 16px !important; }
+  .browser{ max-width: 100% !important; border-radius: 14px !important; }
+  .mock{ padding: 14px !important; min-height: auto !important; }
+  .mock-head{ flex-direction: column !important; gap: 10px !important; }
+  .mock-stats{ grid-template-columns: 1fr !important; gap: 8px !important; }
+  .mock-row{ grid-template-columns: 1fr 1fr 1fr !important; font-size: 11px !important; padding: 9px 8px !important; }
+  .mini-card{ min-height: auto !important; padding: 16px !important; border-radius: 16px !important; }
+  footer{ padding: 18px 14px !important; border-radius: 16px !important; }
+  .footer-title{ font-size: clamp(30px, 9vw, 38px) !important; }
+  .footer-link{ font-size: 12px !important; gap: 8px !important; word-break: break-word !important; }
+  .back-top-btn{ bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
+  .success-toast{ padding: 24px 20px !important; width: 92% !important; max-width: 92% !important; }
+}
+@media (max-width: 420px){
+  body{ padding: 0 10px !important; }
+  .nav-links{ grid-template-columns: 1fr !important; }
+  .nav-links a{ font-size: 12px !important; }
+  .project-head{ flex-direction: column !important; }
+  .mock-row{ grid-template-columns: 1fr !important; gap: 3px !important; }
+  .btn{ width: 100% !important; }
+}
 </style>
 </head>
 <body>
@@ -234,11 +234,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 <!-- ===== SUCCESS TOAST ===== -->
 <div class="success-toast" id="successToast">
+  <button class="toast-close" onclick="closeToast()">✕</button>
   <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
-  <span class="msg" id="toastMsg">Success!</span>
+  <div class="toast-title">🎉 Success!</div>
+  <span class="msg" id="toastMsg">Done!</span>
 </div>
 
-<!-- ===== NAV ===== -->
 <nav>
   <a class="logo ripple" href="index.html" onclick="trackEvent('click','navigation','Logo')">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
   <div class="nav-links">
@@ -248,31 +249,27 @@ button, a { -webkit-tap-highlight-color: transparent; }
   </div>
 </nav>
 
-<!-- ===== PAGE TITLE ===== -->
 <section class="page-title reveal">
   <span>Portfolio</span>
   <h1>Selected Projects</h1>
   <p>A mix of self-built tools and capital market initiatives across CR tracking, live market dashboards, RMS/OMS systems, payments, settlement workflows, and trading platforms.</p>
 </section>
 
-<!-- ===== STATS STRIP ===== -->
 <div class="stats-strip reveal-item" id="statsStrip">
   <div class="stat-item">🚀 Self‑Built: <span class="stat-number" data-count="2">0</span></div>
   <div class="stat-item">🏢 Capital Markets: <span class="stat-number" data-count="6">0</span></div>
   <div class="stat-item">📈 Total Impact: <span class="stat-number" data-count="42">0</span>+</div>
 </div>
 
-<!-- ===== FILTER TABS ===== -->
 <div class="filter-tabs reveal-item">
   <button class="filter-btn active ripple" data-filter="all" onclick="filterProjects('all'); trackEvent('click','filter','All')">All</button>
   <button class="filter-btn ripple" data-filter="self" onclick="filterProjects('self'); trackEvent('click','filter','Self-Built')">Self‑Built</button>
   <button class="filter-btn ripple" data-filter="capital" onclick="filterProjects('capital'); trackEvent('click','filter','Capital Markets')">Capital Markets</button>
 </div>
 
-<!-- ===== PROJECTS WRAPPER ===== -->
 <div class="projects-wrapper" id="projectsWrapper">
 
-  <!-- SELF-BUILT PROJECT 1 -->
+  <!-- SELF-BUILT 1 -->
   <div class="project-item self-project reveal" data-category="self" id="ba-cr-workspace">
     <div class="project-left">
       <div class="card project-head ripple">
@@ -296,7 +293,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     </div>
   </div>
 
-  <!-- SELF-BUILT PROJECT 2 -->
+  <!-- SELF-BUILT 2 -->
   <div class="project-item self-project reveal" data-category="self" id="us-stock-dashboard">
     <div class="project-left">
       <div class="card project-head ripple">
@@ -320,10 +317,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
     </div>
   </div>
 
-  <!-- CAPITAL MARKETS PROJECTS -->
   <div class="section-label" style="margin-top:30px">Capital Market Projects</div>
   <div class="project-grid reveal delay-1" id="capitalGrid">
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#e0f2ff;">⚙️</div><div><h3>Omni — YES Securities</h3><div class="subtitle">OMS & RMS Implementation</div></div></div>
       <div class="info-row"><label>Role</label><p>Business Analyst & Project Manager</p></div>
@@ -331,14 +326,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
       <div class="tags"><span class="tag">OMS</span><span class="tag">RMS</span><span class="tag">Vendor Integration</span><span class="tag">Project Management</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
     </article>
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#ffe8d9;">📱</div><div><h3>YES Stock Trader</h3><div class="subtitle">Mobile Trading Platform</div></div></div>
       <div class="info-row"><label>Work</label><p>Implemented new features, optimized app performance, coordinated cross-functional teams, managed stakeholder communication, and prioritized feature development.</p></div>
       <div class="tags"><span class="tag">Product Improvement</span><span class="tag">Stakeholders</span><span class="tag">Trading App</span><span class="tag">Performance</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
     </article>
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#fff1cc;">💳</div><div><h3>Smart Pay Integration</h3><div class="subtitle">Fund Transfer Enhancement</div></div></div>
       <div class="info-row"><label>Before</label><p>Users could transfer funds only through Net Banking and UPI.</p></div>
@@ -346,7 +339,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
       <div class="tags"><span class="tag">Payments</span><span class="tag">NEFT</span><span class="tag">RTGS</span><span class="tag">Integration</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
     </article>
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#e7ffe8;">⚡</div><div><h3>Instant CFS / Early Pay-In</h3><div class="subtitle">Real-Time Fund Credit</div></div></div>
       <div class="info-row"><label>Problem</label><p>After selling settled stocks, user funds were earlier credited on T+1 day.</p></div>
@@ -354,14 +346,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
       <div class="tags"><span class="tag">Settlement</span><span class="tag">Liquidity</span><span class="tag">Trading Systems</span><span class="tag">Instant Credit</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
     </article>
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#efe8ff;">📈</div><div><h3>One Click F&O Strategy</h3><div class="subtitle">Strategy Discovery Product</div></div></div>
       <div class="info-row"><label>Product</label><p>A product that lets users choose from research-curated F&O strategies and reduces manual research and trading analysis time.</p></div>
       <div class="tags"><span class="tag">F&O</span><span class="tag">Trading Strategy</span><span class="tag">Research</span><span class="tag">Product</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>85%</span></div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div></div>
     </article>
-
     <article class="mini-card project-item" data-category="capital">
       <div class="mini-top"><div class="icon" style="background:#eaf0ff;">🔁</div><div><h3>Rupeeseed → Kambala Migration</h3><div class="subtitle">Trading System Migration</div></div></div>
       <div class="info-row"><label>Role</label><p>Worked as Business Analyst and Project Manager across migration planning and execution.</p></div>
@@ -369,11 +359,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
       <div class="tags"><span class="tag">System Migration</span><span class="tag">RMS</span><span class="tag">OMS</span><span class="tag">Coordination</span></div>
       <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
     </article>
-
   </div>
 </div>
 
-<!-- ===== FOOTER ===== -->
 <footer class="reveal delay-2">
   <div class="footer-title">Let's Create Something<br>Exceptional Together</div>
   <div class="footer-grid">
@@ -396,9 +384,36 @@ button, a { -webkit-tap-highlight-color: transparent; }
 </div>
 
 <script>
-// ============================================================
-// 1. RIPPLE EFFECT
-// ============================================================
+function closeToast() {
+  const toast = document.getElementById('successToast');
+  toast.classList.remove('show');
+  clearTimeout(toast._timeout);
+}
+
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showSuccessToast('Copied: ' + text);
+    trackEvent('copy', 'interaction', text);
+  });
+}
+
+// ===== RIPPLE =====
 document.addEventListener('click', function(e) {
   const target = e.target.closest('.ripple');
   if (!target) return;
@@ -413,9 +428,7 @@ document.addEventListener('click', function(e) {
   setTimeout(() => ripple.remove(), 700);
 });
 
-// ============================================================
-// 2. 3D TILT – DESKTOP ONLY
-// ============================================================
+// ===== 3D TILT DESKTOP ONLY =====
 if (window.matchMedia('(hover: hover)').matches) {
   document.querySelectorAll('[data-tilt], .mini-card, .card, .footer-col').forEach(el => {
     el.addEventListener('mousemove', function(e) {
@@ -430,35 +443,7 @@ if (window.matchMedia('(hover: hover)').matches) {
   });
 }
 
-// ============================================================
-// 3. SUCCESS TOAST
-// ============================================================
-function showSuccessToast(message) {
-  const toast = document.getElementById('successToast');
-  const msgEl = document.getElementById('toastMsg');
-  msgEl.textContent = message || 'Success!';
-  toast.classList.add('show');
-  const ring = toast.querySelector('.success-ring');
-  const check = toast.querySelector('.success-check');
-  ring.style.animation = 'none';
-  check.style.animation = 'none';
-  void toast.offsetHeight;
-  ring.style.animation = 'ringFill 0.6s ease forwards';
-  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
-  clearTimeout(toast._timeout);
-  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
-}
-
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    showSuccessToast('Copied: ' + text);
-    trackEvent('copy', 'interaction', text);
-  });
-}
-
-// ============================================================
-// 4. BACK TO TOP
-// ============================================================
+// ===== BACK TO TOP =====
 (function() {
   const btn = document.createElement('button');
   btn.className = 'back-top-btn';
@@ -475,9 +460,7 @@ function copyText(text) {
   });
 })();
 
-// ============================================================
-// 5. ACTIVE NAV
-// ============================================================
+// ===== ACTIVE NAV =====
 document.addEventListener('DOMContentLoaded', function() {
   const current = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(link => {
@@ -485,13 +468,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ============================================================
-// 6. FILTER PROJECTS
-// ============================================================
+// ===== FILTER =====
 function filterProjects(category) {
   document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelector(`.filter-btn[data-filter="${category}"]`).classList.add('active');
-  
   document.querySelectorAll('.project-item').forEach(item => {
     const cat = item.dataset.category;
     if (category === 'all' || cat === category) {
@@ -504,9 +484,7 @@ function filterProjects(category) {
   });
 }
 
-// ============================================================
-// 7. ANIMATED COUNTERS
-// ============================================================
+// ===== ANIMATED COUNTERS =====
 function animateTicker(element, target) {
   let current = 0;
   const duration = 1500;
@@ -524,7 +502,6 @@ function animateTicker(element, target) {
     }
   }, duration / steps);
 }
-
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -539,9 +516,7 @@ const statsObserver = new IntersectionObserver((entries) => {
 const statsStrip = document.getElementById('statsStrip');
 if (statsStrip) statsObserver.observe(statsStrip);
 
-// ============================================================
-// 8. SCROLL REVEAL (WAVE)
-// ============================================================
+// ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -561,7 +536,6 @@ document.querySelectorAll(".reveal").forEach(el => {
   });
   revealObserver.observe(el);
 });
-
 document.querySelectorAll('.reveal-item').forEach(el => {
   if (!el.closest('.reveal')) {
     const obs = new IntersectionObserver((entries) => {
@@ -571,9 +545,7 @@ document.querySelectorAll('.reveal-item').forEach(el => {
   }
 });
 
-// ============================================================
-// 9. LIVE STOCK TICKER
-// ============================================================
+// ===== LIVE STOCK TICKER =====
 const stockPrices = {
   aapl: { el: document.getElementById('aaplPrice'), base: 192.40, last: 192.40 },
   msft: { el: document.getElementById('msftPrice'), base: 421.80, last: 421.80 },

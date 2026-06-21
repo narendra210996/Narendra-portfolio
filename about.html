@@ -24,8 +24,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;opacity:0;animation:pageFade 0.6s ease forwards}
+html{height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;animation:pageFade 0.6s ease forwards}
 @keyframes pageFade{to{opacity:1}}
 a{color:inherit;text-decoration:none}
 
@@ -35,12 +35,16 @@ a{color:inherit;text-decoration:none}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
 /* ===== SUCCESS TOAST ===== */
-.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
-.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
-.success-circle{width:64px;height:64px;margin:0 auto}
-.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
-.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 40px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;touch-action:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5);max-width:420px;width:90%}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;touch-action:auto}
+.success-toast:not(.show){pointer-events:none !important;touch-action:none !important;opacity:0 !important}
+.success-toast .toast-close{position:absolute;top:8px;right:14px;background:none;border:none;color:#888;font-size:24px;cursor:pointer;line-height:1;padding:4px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.success-toast .toast-close:hover{color:#fff}
+.success-toast .msg{margin-top:12px;font-size:15px;line-height:1.6;font-weight:400;display:block}
+.success-toast .toast-title{font-size:22px;font-weight:700;margin-bottom:4px;color:#f0b429}
+.success-circle{width:52px;height:52px;margin:0 auto}
+.success-ring{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
 @keyframes ringFill{to{stroke-dashoffset:0}}
 @keyframes checkDraw{to{stroke-dashoffset:0}}
 
@@ -50,7 +54,7 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 .nav-links{display:flex;gap:10px}
 .nav-links a:hover{background:#ebe9e2}
 .nav-links a.active{background:#111;color:#fff;border-color:#111}
-.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px;position:relative;z-index:1}
 .strip-title{border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px;font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
 .card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
 .card-label{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:#333}
@@ -58,7 +62,7 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 .about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .about-left,.about-middle,.about-right{display:flex;flex-direction:column;gap:10px}
 
-/* ===== BIO SPOTLIGHT (Desktop) ===== */
+/* ===== BIO SPOTLIGHT ===== */
 .spotlight-text{position:relative;transition:background 0.1s ease;border-radius:8px;padding:18px;font-size:14px;line-height:1.55;min-height:188px;background:#f7f6f2}
 
 /* ===== SKILL BARS ===== */
@@ -77,10 +81,8 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 /* ===== SOCIAL ICONS ===== */
 .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .social-box{height:54px;border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;background:#f7f6f2;font-size:20px;cursor:pointer;transition:all 0.2s;will-change:transform}
-/* Desktop hover only */
-@media (hover: hover) {
-  .social-box:hover{background:#111;color:#fff;transform:translateY(-3px) scale(1.05)}
-}
+@media (hover: hover) { .social-box:hover{background:#111;color:#fff;transform:translateY(-3px) scale(1.05)} }
+@media (hover: none) { .social-box:active{transform:scale(0.90) !important} }
 
 /* ===== QUOTE CARD ===== */
 .quote-card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;padding:24px;font-style:italic;font-size:18px;line-height:1.4;color:#333;text-align:center;border-left:4px solid #f0b429}
@@ -106,47 +108,18 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 .btn-download{border:1px solid var(--border);background:#fff;border-radius:18px;padding:9px 13px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:0.2s;font-family:'DM Sans',sans-serif;min-height:44px}
 .btn-download:hover{background:#ebe9e2}
 
-/* ===== BACK TO TOP ===== */
 .back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
 .back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
 
-/* ===== REVEAL ===== */
 .reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
 .reveal-item.visible{opacity:1;transform:translateY(0)}
 .reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
 .reveal.active{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
 
-/* ============================================================ */
-/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
-/* ============================================================ */
-@media (hover: none) {
-  .card:active,
-  .footer-col:active {
-    transform: scale(0.98) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .footer-link:active,
-  .btn-download:active {
-    transform: scale(0.95) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .social-box:active {
-    transform: scale(0.90) !important;
-  }
-  .reveal-item {
-    transition-duration: 0.5s !important;
-  }
-  .footer-link,
-  .btn-download,
-  .social-box {
-    min-height: 44px;
-  }
-}
+@media (hover: hover) { .card:hover,.footer-col:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.06)} }
+@media (hover: none) { .card:active,.footer-col:active{transform:scale(0.98) !important;transition:transform 0.1s ease !important} .footer-link:active,.btn-download:active{transform:scale(0.95) !important} .reveal-item{transition-duration:0.5s !important} .footer-link,.btn-download,.social-box{min-height:44px} }
 
-/* ============================================================ */
-/* ===== RESPONSIVE LAYOUT ===== */
-/* ============================================================ */
 @media(max-width:900px){
   .about-grid{grid-template-columns:1fr}
   .strip-title,.footer-headline{font-size:32px}
@@ -158,8 +131,8 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
 button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 900px){
-  html, body { width: 100%; overflow-x: hidden; }
-  nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;}
+  html, body { width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;position: relative !important;top: auto !important;}
   .nav-logo{width: 100% !important;display: block !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;padding: 10px 12px !important;font-size: 12px !important;}
   .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 8px !important;}
   .nav-links a{text-align: center !important;padding: 10px 8px !important;font-size: 11px !important;white-space: nowrap !important;}
@@ -174,7 +147,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .footer-grid{grid-template-columns:1fr !important;gap:12px !important;}
   .footer-link{font-size:13px !important;gap:10px !important;word-break:break-word !important;}
   .back-top-btn{bottom:20px;right:20px;width:44px;height:44px;font-size:18px;}
-  .success-toast{padding:24px 28px !important;width:80% !important;}
+  .success-toast{padding:24px 20px !important;width:92% !important;max-width:92% !important;}
   .quote-card{font-size:16px !important;padding:18px !important;}
 }
 @media (max-width: 420px){
@@ -189,8 +162,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 <!-- ===== SUCCESS TOAST ===== -->
 <div class="success-toast" id="successToast">
+  <button class="toast-close" onclick="closeToast()">✕</button>
   <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
-  <span class="msg" id="toastMsg">Success!</span>
+  <div class="toast-title">🎉 Success!</div>
+  <span class="msg" id="toastMsg">Done!</span>
 </div>
 
 <!-- ===== NAV ===== -->
@@ -206,16 +181,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 <main class="wrap">
   <div class="strip-title reveal">Bridging Business Needs With Data-Driven Solutions</div>
 
-  <!-- ===== ABOUT GRID ===== -->
   <section class="about-grid reveal">
-
-    <!-- LEFT COLUMN -->
     <div class="about-left">
       <div class="spotlight-text" id="bioSpotlight">
         Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.<br><br>
         I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.
       </div>
-
       <div class="card">
         <div class="card-label">Profile Highlights</div>
         <div class="mini-list"><h4>📊 Capital Markets</h4><p>Experience across stock broking, trading platforms, RMS and operational workflows.</p></div>
@@ -224,7 +195,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
       </div>
     </div>
 
-    <!-- MIDDLE COLUMN -->
     <div class="about-middle">
       <div class="card">
         <div class="card-label">Current Role</div>
@@ -232,7 +202,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
         <div class="mini-list"><h4>⏳ Experience</h4><p><span class="counter-highlight" id="yearsCounter">0</span>+ years in Capital Markets and Stock Broking.</p></div>
       </div>
 
-      <!-- ===== ANIMATED SKILL BARS ===== -->
       <div class="card" id="skillCard">
         <div class="card-label">Core Skills</div>
         <div class="card-body">
@@ -246,7 +215,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
       </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
     <div class="about-right">
       <div class="morph-photo">👤</div>
       <div class="quote-card">
@@ -263,11 +231,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
         <span>↓</span>
       </button>
     </div>
-
   </section>
 </main>
 
-<!-- ===== FOOTER ===== -->
 <footer class="wrap" style="padding-top:0">
   <div class="footer-headline reveal">Let's Create Something Exceptional Together</div>
   <div class="footer-grid reveal">
@@ -292,9 +258,29 @@ button, a { -webkit-tap-highlight-color: transparent; }
 </footer>
 
 <script>
-// ============================================================
-// 1. RIPPLE EFFECT
-// ============================================================
+function closeToast() {
+  const toast = document.getElementById('successToast');
+  toast.classList.remove('show');
+  clearTimeout(toast._timeout);
+}
+
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+// ===== RIPPLE =====
 document.addEventListener('click', function(e) {
   const target = e.target.closest('.ripple');
   if (!target) return;
@@ -309,9 +295,7 @@ document.addEventListener('click', function(e) {
   setTimeout(() => ripple.remove(), 700);
 });
 
-// ============================================================
-// 2. 3D TILT ON SOCIAL ICONS – DESKTOP ONLY
-// ============================================================
+// ===== 3D TILT SOCIAL ICONS (Desktop) =====
 if (window.matchMedia('(hover: hover)').matches) {
   document.querySelectorAll('.social-box').forEach(el => {
     el.addEventListener('mousemove', function(e) {
@@ -326,28 +310,7 @@ if (window.matchMedia('(hover: hover)').matches) {
   });
 }
 
-// ============================================================
-// 3. SUCCESS TOAST
-// ============================================================
-function showSuccessToast(message) {
-  const toast = document.getElementById('successToast');
-  const msgEl = document.getElementById('toastMsg');
-  msgEl.textContent = message || 'Success!';
-  toast.classList.add('show');
-  const ring = toast.querySelector('.success-ring');
-  const check = toast.querySelector('.success-check');
-  ring.style.animation = 'none';
-  check.style.animation = 'none';
-  void toast.offsetHeight;
-  ring.style.animation = 'ringFill 0.6s ease forwards';
-  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
-  clearTimeout(toast._timeout);
-  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
-}
-
-// ============================================================
-// 4. BACK TO TOP
-// ============================================================
+// ===== BACK TO TOP =====
 (function() {
   const btn = document.createElement('button');
   btn.className = 'back-top-btn';
@@ -364,9 +327,7 @@ function showSuccessToast(message) {
   });
 })();
 
-// ============================================================
-// 5. ACTIVE NAV
-// ============================================================
+// ===== ACTIVE NAV =====
 document.addEventListener('DOMContentLoaded', function() {
   const current = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a').forEach(link => {
@@ -374,9 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ============================================================
-// 6. ANIMATED SKILL BARS
-// ============================================================
+// ===== SKILL BARS =====
 const skillObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -391,9 +350,7 @@ const skillObserver = new IntersectionObserver((entries) => {
 const skillCard = document.getElementById('skillCard');
 if (skillCard) skillObserver.observe(skillCard);
 
-// ============================================================
-// 7. YEARS COUNTER
-// ============================================================
+// ===== YEARS COUNTER =====
 function animateYears() {
   const el = document.getElementById('yearsCounter');
   if (!el) return;
@@ -414,7 +371,6 @@ function animateYears() {
     }
   }, duration / steps);
 }
-
 const yearsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -426,9 +382,7 @@ const yearsObserver = new IntersectionObserver((entries) => {
 const yearsEl = document.getElementById('yearsCounter');
 if (yearsEl) yearsObserver.observe(yearsEl.closest('.mini-list') || yearsEl);
 
-// ============================================================
-// 8. BIO SPOTLIGHT – DESKTOP ONLY
-// ============================================================
+// ===== BIO SPOTLIGHT (Desktop) =====
 if (window.matchMedia('(hover: hover)').matches) {
   const bio = document.getElementById('bioSpotlight');
   if (bio) {
@@ -447,9 +401,7 @@ if (window.matchMedia('(hover: hover)').matches) {
   }
 }
 
-// ============================================================
-// 9. SCROLL REVEAL (WAVE)
-// ============================================================
+// ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -469,7 +421,6 @@ document.querySelectorAll(".reveal").forEach(el => {
   });
   revealObserver.observe(el);
 });
-
 document.querySelectorAll('.reveal-item').forEach(el => {
   if (!el.closest('.reveal')) {
     const obs = new IntersectionObserver((entries) => {
