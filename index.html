@@ -22,26 +22,30 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;
-}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;opacity:0;animation:pageFade 0.6s ease forwards}
+:root{--bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;}
+html{height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;height:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;animation:pageFade 0.6s ease forwards}
 @keyframes pageFade{to{opacity:1}}
 a{color:inherit;text-decoration:none}
-
-/* ===== RIPPLE ===== */
 .ripple{position:relative;overflow:hidden;cursor:pointer}
 .ripple-effect{position:absolute;border-radius:50%;background:rgba(240,180,41,0.4);transform:scale(0);animation:rippleAnim 0.7s ease-out forwards;pointer-events:none}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
-/* ===== SUCCESS TOAST (PhonePe style) ===== */
-.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
-.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
-.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
-.success-circle{width:64px;height:64px;margin:0 auto}
-.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
-.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+/* ===== SUCCESS TOAST with CLOSE BUTTON ===== */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 40px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;touch-action:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5);max-width:420px;width:90%}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto;touch-action:auto}
+.success-toast:not(.show){pointer-events:none !important;touch-action:none !important;opacity:0 !important}
+.success-toast .toast-close{position:absolute;top:8px;right:14px;background:none;border:none;color:#888;font-size:24px;cursor:pointer;line-height:1;padding:4px;font-family:'DM Sans',sans-serif;transition:0.2s}
+.success-toast .toast-close:hover{color:#fff}
+.success-toast .msg{margin-top:12px;font-size:15px;line-height:1.6;font-weight:400;display:block}
+.success-toast .toast-title{font-size:22px;font-weight:700;margin-bottom:4px;color:#f0b429}
+.success-toast .toast-sub{font-size:14px;color:#aaa;margin-bottom:12px}
+.success-toast .toast-contact{background:rgba(255,255,255,0.06);border-radius:12px;padding:12px 16px;margin:10px 0;font-size:15px;font-weight:500}
+.success-toast .toast-contact a{color:#f0b429;text-decoration:underline;cursor:pointer}
+.success-toast .toast-footer{font-size:12px;color:#888;margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px}
+.success-circle{width:52px;height:52px;margin:0 auto}
+.success-ring{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#f0b429;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
 @keyframes ringFill{to{stroke-dashoffset:0}}
 @keyframes checkDraw{to{stroke-dashoffset:0}}
 
@@ -51,7 +55,7 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 .nav-links{display:flex;gap:10px}
 .nav-links a:hover{background:#ebe9e2}
 .nav-links a.active{background:#111;color:#fff;border-color:#111}
-.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px;position:relative;z-index:1}
 .section{margin-bottom:34px}
 .section-label,.strip-title{border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px}
 .strip-title{font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
@@ -153,70 +157,31 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 .stock-graph{height:80px;margin-top:12px;background:linear-gradient(180deg,#eff6ff,#fff);border-radius:10px;position:relative;overflow:hidden}.stock-graph:before{content:"";position:absolute;left:0;right:0;bottom:24px;height:3px;background:#2563eb;transform:skewY(-8deg);box-shadow:90px -22px 0 #16a34a,180px 18px 0 #ef4444,270px -14px 0 #2563eb}
 .back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
 .back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
-
-/* ===== FLOATING CTA ===== */
 .floating-cta{position:fixed;bottom:100px;right:30px;width:60px;height:60px;border-radius:50%;background:#f0b429;color:#111;font-size:24px;border:none;box-shadow:0 4px 24px rgba(240,180,41,0.5);z-index:998;cursor:pointer;animation:pulse-glow 2.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;transition:transform 0.3s ease}
 .floating-cta:hover{transform:scale(1.1)}
 @keyframes pulse-glow{0%,100%{box-shadow:0 4px 24px rgba(240,180,41,0.4);transform:scale(1)}50%{box-shadow:0 4px 48px rgba(240,180,41,0.8);transform:scale(1.05)}}
-
-/* ===== REVEAL ===== */
 .reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
 .reveal-item.visible{opacity:1;transform:translateY(0)}
 .reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
 .reveal.active{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
 
-/* ============================================================ */
-/* ===== DESKTOP-ONLY HOVER EFFECTS ===== */
-/* ============================================================ */
 @media (hover: hover) {
   .card:hover,.service-card:hover,.footer-col:hover,.featured-left:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
   .tag:hover{background:#111;color:#fff}
 }
-
-/* ============================================================ */
-/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
-/* ============================================================ */
 @media (hover: none) {
-  .card:active,
-  .service-card:active,
-  .footer-col:active,
-  .featured-left:active,
-  .journey-card:active {
-    transform: scale(0.98) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .btn-dark:active,
-  .btn-download:active,
-  .footer-link:active,
-  .featured-actions button:active,
-  .cred-pill button:active {
-    transform: scale(0.95) !important;
-    transition: transform 0.1s ease !important;
-  }
-  .floating-cta:active {
-    transform: scale(0.90) !important;
-  }
-  .reveal-item {
-    transition-duration: 0.5s !important;
-  }
-  .btn-dark,
-  .btn-download,
-  .footer-link,
-  .featured-actions button,
-  .cred-pill button {
-    min-height: 44px;
-  }
+  .card:active,.service-card:active,.footer-col:active,.featured-left:active,.journey-card:active{transform:scale(0.98) !important;transition:transform 0.1s ease !important}
+  .btn-dark:active,.btn-download:active,.footer-link:active,.featured-actions button:active,.cred-pill button:active{transform:scale(0.95) !important;transition:transform 0.1s ease !important}
+  .floating-cta:active{transform:scale(0.90) !important}
+  .reveal-item{transition-duration:0.5s !important}
+  .btn-dark,.btn-download,.footer-link,.featured-actions button,.cred-pill button{min-height:44px}
 }
-
-/* ============================================================ */
-/* ===== RESPONSIVE ===== */
-/* ============================================================ */
 @media(max-width:900px){
   .featured-item{grid-template-columns:1fr}.featured-preview{min-height:230px;padding:18px}.featured-actions{grid-template-columns:1fr}
   nav,.wrap,.dark-inner{max-width:calc(100% - 28px)}
   nav{align-items:flex-start;gap:12px}.nav-links{flex-wrap:wrap;justify-content:flex-end}
-  .bento-grid,.work-grid,.about-grid,.contact-hero,.footer-grid,.services-grid{grid-template-columns:1fr}
+  .bento-grid,.services-grid,.footer-grid{grid-template-columns:1fr}
   .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.journey-card{grid-column:1;grid-row:auto}
   .hero-tagline .name{font-size:28px}
   .hero-stats{gap:16px;flex-wrap:wrap}
@@ -225,18 +190,18 @@ nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;al
 }
 img, video, iframe, svg { max-width: 100%; height: auto; }
 button, a { -webkit-tap-highlight-color: transparent; }
-body { overflow-x: hidden; }
+body { overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
 @media (max-width: 900px){
-  html, body { width: 100%; overflow-x: hidden; }
+  html, body { width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;}
   .nav-logo{width: 100% !important;display: block !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;padding: 10px 12px !important;font-size: 12px !important;}
   .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 8px !important;}
   .nav-links a{text-align: center !important;padding: 10px 8px !important;font-size: 11px !important;white-space: nowrap !important;}
-  .wrap, .dark-inner{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin-left: auto !important;margin-right: auto !important;}
+  .wrap,.dark-inner{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin-left: auto !important;margin-right: auto !important;}
   .wrap{ padding-top: 18px !important; padding-bottom: 28px !important; }
-  .strip-title, .footer-headline{font-size: clamp(26px, 8vw, 34px) !important;line-height: 1.08 !important;padding: 16px 14px !important;letter-spacing: -0.8px !important;}
-  .bento-grid, .services-grid, .footer-grid{display: grid !important;grid-template-columns: 1fr !important;gap: 12px !important;}
+  .strip-title,.footer-headline{font-size: clamp(26px, 8vw, 34px) !important;line-height: 1.08 !important;padding: 16px 14px !important;letter-spacing: -0.8px !important;}
+  .bento-grid,.services-grid,.footer-grid{display: grid !important;grid-template-columns: 1fr !important;gap: 12px !important;}
   .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.journey-card{grid-column: 1 !important;grid-row: auto !important;}
   .card{ border-radius: 12px !important; }
   .card-hero{ min-height: auto !important; }
@@ -246,12 +211,12 @@ body { overflow-x: hidden; }
   .hero-tagline .name{ font-size: 28px !important; }
   .hero-stats{ gap: 16px !important; flex-wrap: wrap !important; }
   .card-body{ padding: 14px !important; }
-  .card-about p, .service-card p, .work-body, .text-card, .contact-card p{font-size: 13px !important;line-height: 1.6 !important;}
-  .card-podcast, .card-cv{ min-height: 150px !important; }
+  .card-about p, .service-card p{font-size: 13px !important;line-height: 1.6 !important;}
+  .card-podcast,.card-cv{ min-height: 150px !important; }
   .cv-big{ font-size: 58px !important; letter-spacing: -3px !important; }
   .tags{ gap: 7px !important; padding: 14px !important; }
   .tag{ font-size: 12px !important; padding: 7px 11px !important; }
-  .card-ecom, .journey-card{ min-height: auto !important; padding: 18px !important; }
+  .card-ecom,.journey-card{ min-height: auto !important; padding: 18px !important; }
   .ecom-stack{ width: 100% !important; }
   .ecom-item{grid-template-columns: 38px 1fr !important;gap: 10px !important;transform: none !important;margin-bottom: 8px !important;}
   .ecom-item .ecom-meta{ grid-column: 1 / -1 !important; }
@@ -262,14 +227,14 @@ body { overflow-x: hidden; }
   .service-card{ padding: 18px !important; }
   .footer-link{ font-size: 13px !important; gap: 10px !important; word-break: break-word !important; }
   .back-top-btn{ bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
-  .success-toast{ padding: 24px 28px !important; width: 80% !important; }
+  .success-toast{ padding: 24px 20px !important; width: 92% !important; max-width: 92% !important; }
   .floating-cta{ bottom: 80px; right: 20px; width: 52px; height: 52px; font-size: 20px; }
 }
 @media (max-width: 420px){
-  .wrap, .dark-inner, nav{ width: calc(100% - 18px) !important; max-width: calc(100% - 18px) !important; }
+  .wrap,.dark-inner,nav{ width: calc(100% - 18px) !important; max-width: calc(100% - 18px) !important; }
   .nav-links{ grid-template-columns: 1fr !important; }
   .nav-links a{ font-size: 12px !important; }
-  .btn-dark, .btn-download, .footer-link{ width: 100% !important; }
+  .btn-dark,.btn-download,.footer-link{ width: 100% !important; }
   .featured-meta{ grid-template-columns: 1fr !important; }
   .featured-cell{ border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
   .hero-stats{ flex-direction: column !important; gap: 6px !important; }
@@ -279,10 +244,12 @@ body { overflow-x: hidden; }
 </head>
 <body>
 
-<!-- ===== SUCCESS TOAST ===== -->
+<!-- ===== SUCCESS TOAST with CLOSE BUTTON ===== -->
 <div class="success-toast" id="successToast">
+  <button class="toast-close" onclick="closeToast()">✕</button>
   <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
-  <span class="msg" id="toastMsg">Success!</span>
+  <div class="toast-title">🎉 Success!</div>
+  <span class="msg" id="toastMsg">Done!</span>
 </div>
 
 <!-- ===== FLOATING CTA ===== -->
@@ -300,7 +267,6 @@ body { overflow-x: hidden; }
 <main class="wrap">
   <section class="section">
     <div class="bento-grid reveal">
-      <!-- HERO CARD -->
       <div class="card card-hero" id="heroCard">
         <div class="hero-art" id="heroArt"><div class="avatar">👤</div></div>
         <div class="hero-tagline" id="heroTagline">
@@ -317,7 +283,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- ABOUT CARD -->
       <div class="card card-about ripple">
         <div class="card-label">About</div>
         <div class="card-body" style="display:flex;flex-direction:column;gap:16px;height:100%">
@@ -327,7 +292,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- PODCAST CARD -->
       <div class="card card-podcast ripple" onclick="trackEvent('click','podcast','Capital Market Insights')">
         <div class="waveform">
           <div class="wave-bar" style="height:55%;animation-delay:0.00s"></div><div class="wave-bar" style="height:82%;animation-delay:0.05s"></div><div class="wave-bar" style="height:45%;animation-delay:0.10s"></div><div class="wave-bar" style="height:94%;animation-delay:0.15s"></div><div class="wave-bar" style="height:62%;animation-delay:0.20s"></div><div class="wave-bar" style="height:38%;animation-delay:0.25s"></div><div class="wave-bar" style="height:74%;animation-delay:0.30s"></div><div class="wave-bar" style="height:51%;animation-delay:0.35s"></div><div class="wave-bar" style="height:88%;animation-delay:0.40s"></div><div class="wave-bar" style="height:63%;animation-delay:0.45s"></div><div class="wave-bar" style="height:77%;animation-delay:0.50s"></div><div class="wave-bar" style="height:42%;animation-delay:0.55s"></div><div class="wave-bar" style="height:70%;animation-delay:0.60s"></div><div class="wave-bar" style="height:56%;animation-delay:0.65s"></div><div class="wave-bar" style="height:92%;animation-delay:0.70s"></div><div class="wave-bar" style="height:49%;animation-delay:0.75s"></div><div class="wave-bar" style="height:68%;animation-delay:0.80s"></div><div class="wave-bar" style="height:36%;animation-delay:0.85s"></div><div class="wave-bar" style="height:83%;animation-delay:0.90s"></div><div class="wave-bar" style="height:58%;animation-delay:0.95s"></div>
@@ -340,7 +304,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- CV CARD -->
       <div class="card card-cv">
         <div class="cv-big">CV</div>
         <a class="btn-download ripple" href="Narendra_Dicholkar_Resume.pdf" download onclick="trackEvent('download','CV','Resume PDF')">
@@ -349,7 +312,6 @@ body { overflow-x: hidden; }
         </a>
       </div>
 
-      <!-- EXPERTISE CARD -->
       <div class="card card-expertises">
         <div class="card-label">Expertise</div>
         <div class="tags" id="expertiseTags">
@@ -374,7 +336,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- ECOM CARD -->
       <div class="card card-ecom">
         <div class="ecom-stack">
           <div class="ecom-item"><div class="ecom-thumb" style="background:#f3b7cf">📌</div><div class="ecom-info"><strong>Requirement Flow</strong><span>Business Inputs</span></div><div class="ecom-meta">BRD / FRD<br>Analysis</div></div>
@@ -383,7 +344,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- JOURNEY CARD -->
       <div class="card journey-card">
         <div class="card-label">Corporate Journey</div>
         <div class="timeline">
@@ -424,7 +384,6 @@ body { overflow-x: hidden; }
     <div class="section-label">Selected Work</div>
     <div class="featured-work reveal delay-1">
 
-      <!-- PROJECT 1 -->
       <div class="featured-item" id="ba-cr-workspace">
         <div class="featured-left ripple">
           <div class="featured-head">
@@ -443,7 +402,6 @@ body { overflow-x: hidden; }
         </div>
       </div>
 
-      <!-- PROJECT 2 -->
       <div class="featured-item" id="stock-dashboard">
         <div class="featured-left ripple">
           <div class="featured-head">
@@ -503,8 +461,37 @@ body { overflow-x: hidden; }
 </footer>
 
 <script>
+function closeToast() {
+  const toast = document.getElementById('successToast');
+  toast.classList.remove('show');
+  clearTimeout(toast._timeout);
+}
+
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showSuccessToast('Copied: ' + text);
+    trackEvent('copy', 'interaction', text);
+  });
+}
+
 // ============================================================
-// 1. RIPPLE EFFECT
+// RIPPLE
 // ============================================================
 document.addEventListener('click', function(e) {
   const target = e.target.closest('.ripple');
@@ -521,7 +508,7 @@ document.addEventListener('click', function(e) {
 });
 
 // ============================================================
-// 2. 3D TILT – DESKTOP ONLY
+// 3D TILT – DESKTOP ONLY
 // ============================================================
 if (window.matchMedia('(hover: hover)').matches) {
   document.querySelectorAll('[data-tilt], .card, .service-card, .footer-col, .featured-left, .journey-card').forEach(el => {
@@ -538,33 +525,7 @@ if (window.matchMedia('(hover: hover)').matches) {
 }
 
 // ============================================================
-// 3. SUCCESS TOAST
-// ============================================================
-function showSuccessToast(message) {
-  const toast = document.getElementById('successToast');
-  const msgEl = document.getElementById('toastMsg');
-  msgEl.textContent = message || 'Success!';
-  toast.classList.add('show');
-  const ring = toast.querySelector('.success-ring');
-  const check = toast.querySelector('.success-check');
-  ring.style.animation = 'none';
-  check.style.animation = 'none';
-  void toast.offsetHeight;
-  ring.style.animation = 'ringFill 0.6s ease forwards';
-  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
-  clearTimeout(toast._timeout);
-  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
-}
-
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    showSuccessToast('Copied: ' + text);
-    trackEvent('copy', 'interaction', text);
-  });
-}
-
-// ============================================================
-// 4. BACK TO TOP
+// BACK TO TOP
 // ============================================================
 (function() {
   const btn = document.createElement('button');
@@ -583,7 +544,7 @@ function copyText(text) {
 })();
 
 // ============================================================
-// 5. ACTIVE NAV
+// ACTIVE NAV
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
   const current = window.location.pathname.split('/').pop() || 'index.html';
@@ -593,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// 6. TYPEWRITER
+// TYPEWRITER
 // ============================================================
 const typewriterElement = document.querySelector('.typewriter-text');
 const words = ['Business Analyst', 'Data Enthusiast', 'Capital Markets Expert', 'Problem Solver'];
@@ -623,7 +584,7 @@ function typeEffect() {
 typeEffect();
 
 // ============================================================
-// 7. ANIMATED COUNTERS
+// ANIMATED COUNTERS
 // ============================================================
 function animateTicker(element, target) {
   let current = 0;
@@ -658,7 +619,7 @@ const heroCard = document.querySelector('.card-hero');
 if (heroCard) heroObserver.observe(heroCard);
 
 // ============================================================
-// 8. LIVE STOCK TICKER
+// LIVE STOCK TICKER
 // ============================================================
 const stockPrices = {
   aapl: { el: document.getElementById('aaplPrice'), base: 192.40, last: 192.40 },
@@ -684,7 +645,7 @@ function updateStockPrices() {
 setInterval(updateStockPrices, 2200);
 
 // ============================================================
-// 9. EXPERTISE CAROUSEL
+// EXPERTISE CAROUSEL
 // ============================================================
 const tagContainer = document.getElementById('expertiseTags');
 const tags = tagContainer ? Array.from(tagContainer.querySelectorAll('.tag')) : [];
@@ -697,7 +658,7 @@ function rotateTag() {
 setInterval(rotateTag, 2500);
 
 // ============================================================
-// 10. LIVE TIMESTAMP
+// LIVE TIMESTAMP
 // ============================================================
 const timestampEl = document.getElementById('liveTimestamp');
 let seconds = 0;
@@ -715,7 +676,7 @@ setInterval(updateTimestamp, 10000);
 setTimeout(() => { timestampEl.textContent = '10 seconds ago'; }, 100);
 
 // ============================================================
-// 11. IN-PROGRESS ANIMATION
+// IN-PROGRESS ANIMATION
 // ============================================================
 const progressText = document.getElementById('progressText');
 if (progressText) {
@@ -728,7 +689,7 @@ if (progressText) {
 }
 
 // ============================================================
-// 12. MOUSE SPOTLIGHT – DESKTOP ONLY
+// MOUSE SPOTLIGHT – DESKTOP ONLY
 // ============================================================
 if (window.matchMedia('(hover: hover)').matches) {
   const hero = document.getElementById('heroCard');
@@ -753,7 +714,7 @@ if (window.matchMedia('(hover: hover)').matches) {
 }
 
 // ============================================================
-// 13. SCROLL REVEAL (WAVE)
+// SCROLL REVEAL
 // ============================================================
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
