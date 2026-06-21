@@ -1,937 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects | Narendra Dicholkar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-<!-- Google tag (gtag.js) -->
+<!-- ===== GOOGLE ANALYTICS 4 (gtag.js) – G-XZHTQ3GGN8 ===== -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZHTQ3GGN8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-XZHTQ3GGN8');
-
-  // Custom Portfolio Tracking
-  function trackPortfolioEvent(eventName, eventLabel, extraData){
-    if (typeof gtag !== 'function') return;
-    gtag('event', eventName, Object.assign({
-      event_category: 'portfolio_engagement',
-      event_label: eventLabel || 'unknown',
-      page_title: document.title,
-      page_location: window.location.href,
-      transport_type: 'beacon'
-    }, extraData || {}));
+  function trackEvent(action, category = 'engagement', label = '') {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', action, { 'event_category': category, 'event_label': label });
+    }
   }
-
-  document.addEventListener('click', function(e){
-    var el = e.target.closest('[data-ga-event], a, button, .footer-link, .social-box');
-    if (!el) return;
-
-    var eventName = el.getAttribute('data-ga-event') || 'site_click';
-    var eventLabel = el.getAttribute('data-ga-label') || (el.innerText || el.textContent || el.href || 'click').trim().replace(/\s+/g, ' ').slice(0, 120);
-    var linkUrl = el.getAttribute('href') || el.getAttribute('data-ga-url') || '';
-
-    var onclickText = el.getAttribute('onclick') || '';
-    var urlMatch = onclickText.match(/['"](https?:\/\/[^'"]+|[^'"]+\.html)['"]/);
-    if (!linkUrl && urlMatch) linkUrl = urlMatch[1];
-
-    trackPortfolioEvent(eventName, eventLabel, {
-      link_url: linkUrl,
-      click_text: eventLabel
-    });
-  }, true);
 </script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Projects | Narendra Dicholkar</title>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f5f4f0;
-  --card:#fff;
-  --text:#151515;
-  --muted:#666;
-  --line:rgba(0,0,0,.14);
-}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding:0 28px;
-}
+:root{--bg:#f5f4f0;--card:#fff;--text:#151515;--muted:#666;--line:rgba(0,0,0,.14);}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:0 28px;overflow-x:hidden}
 .page{max-width:1180px;margin:0 auto}
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-  margin-bottom:26px;
-}
-.logo,.nav-links a{
-  text-decoration:none;
-  color:#111;
-  border:1px solid rgba(0,0,0,.22);
-  border-radius:999px;
-  padding:8px 15px;
-  font-size:13px;
-  font-weight:500;
-  background:rgba(255,255,255,.35);
-}
+/* ===== PAGE ENTRANCE FADE ===== */
+body{opacity:0;animation:pageFade 0.6s ease forwards}
+@keyframes pageFade{to{opacity:1}}
+
+/* ===== RIPPLE EFFECT ===== */
+.ripple{position:relative;overflow:hidden;cursor:pointer}
+.ripple-effect{position:absolute;border-radius:50%;background:rgba(240,180,41,0.4);transform:scale(0);animation:rippleAnim 0.7s ease-out forwards;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* ===== SUCCESS TOAST ===== */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
+.success-circle{width:64px;height:64px;margin:0 auto}
+.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+@keyframes ringFill{to{stroke-dashoffset:0}}
+@keyframes checkDraw{to{stroke-dashoffset:0}}
+
+/* ===== NAV ===== */
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);margin-bottom:26px;}
+.logo,.nav-links a{text-decoration:none;color:#111;border:1px solid rgba(0,0,0,.22);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:500;background:rgba(255,255,255,.35);transition:0.2s}
 .nav-links{display:flex;gap:10px}
+.nav-links a:hover{background:#ebe9e2}
+.nav-links a.active{background:#111;color:#fff;border-color:#111}
 
-/* TITLE */
-.page-title{
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:#fff;
-  padding:28px;
-  margin-bottom:14px;
-}
-.page-title span{
-  font-size:12px;
-  letter-spacing:.12em;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-.page-title h1{
-  font-family:'DM Serif Display',serif;
-  font-size:54px;
-  font-weight:400;
-  margin-top:10px;
-}
-.page-title p{
-  max-width:720px;
-  margin-top:10px;
-  color:#666;
-  font-size:15px;
-  line-height:1.7;
-}
-.section-label{
-  display:inline-block;
-  margin:22px 0 14px;
-  border:1px solid rgba(0,0,0,.2);
-  border-radius:999px;
-  padding:8px 14px;
-  font-size:12px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:#555;
-}
+/* ===== PAGE TITLE ===== */
+.page-title{border:1px solid var(--line);border-radius:18px;background:#fff;padding:28px;margin-bottom:14px;}
+.page-title span{font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+.page-title h1{font-family:'DM Serif Display',serif;font-size:54px;font-weight:400;margin-top:10px;}
+.page-title p{max-width:720px;margin-top:10px;color:#666;font-size:15px;line-height:1.7;}
 
-/* BIG SELF PROJECTS */
-.self-project{
-  display:grid;
-  grid-template-columns:420px 1fr;
-  gap:14px;
-  margin-bottom:18px;
-}
-.project-left{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  overflow:hidden;
-}
-.project-head{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:20px;
-}
-.project-icon{
-  width:62px;
-  height:62px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  flex-shrink:0;
-}
-.project-head h2{
-  font-size:25px;
-  font-weight:500;
-}
-.project-head p{
-  font-size:14px;
-  color:#666;
-  margin-top:4px;
-}
-.detail-row{
-  padding:15px 18px;
-  border-top:1px solid rgba(0,0,0,.1);
-}
+/* ===== STATS STRIP ===== */
+.stats-strip{display:flex;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 24px;margin-bottom:22px;justify-content:center}
+.stats-strip .stat-item{display:flex;align-items:center;gap:8px;font-size:14px;color:#555}
+.stats-strip .stat-number{font-weight:700;font-size:22px;color:#111;min-width:20px}
+
+/* ===== FILTER TABS ===== */
+.filter-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:10px 20px;border:1px solid var(--line);border-radius:30px;background:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:0.3s;font-family:'DM Sans',sans-serif;min-height:44px}
+.filter-btn:hover{background:#ebe9e2}
+.filter-btn.active{background:#111;color:#fff;border-color:#111}
+
+/* ===== PROJECT GRID ===== */
+.projects-wrapper{transition:all 0.3s ease}
+.project-item{transition:opacity 0.4s ease, transform 0.4s ease;opacity:1;transform:scale(1)}
+.project-item.hidden{display:none;opacity:0;transform:scale(0.95)}
+
+.self-project{display:grid;grid-template-columns:420px 1fr;gap:14px;margin-bottom:18px;}
+.project-left{display:flex;flex-direction:column;gap:12px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.project-head{display:flex;align-items:center;gap:16px;padding:20px;flex-wrap:wrap}
+.project-icon{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.project-head h2{font-size:25px;font-weight:500;line-height:1.1}
+.project-head p{font-size:14px;color:#666;margin-top:4px}
+.detail-row{padding:15px 18px;border-top:1px solid rgba(0,0,0,.1);}
 .detail-row:first-child{border-top:none}
-.detail-label{
-  color:#777;
-  font-size:13px;
-  margin-bottom:6px;
-}
-.detail-value{
-  font-size:15px;
-  line-height:1.55;
-}
-.copy-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.copy-box{
-  border:1px solid rgba(0,0,0,.16);
-  border-radius:12px;
-  padding:10px;
-  background:#fafafa;
-}
-.copy-box label{
-  display:block;
-  font-size:11px;
-  color:#777;
-  margin-bottom:4px;
-}
-.copy-box div{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  font-size:13px;
-  font-weight:600;
-}
-.copy-box button{
-  border:1px solid rgba(0,0,0,.18);
-  border-radius:8px;
-  background:#fff;
-  padding:5px 8px;
-  cursor:pointer;
-  font-size:11px;
-}
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-.tag{
-  border:1px solid rgba(0,0,0,.18);
-  border-radius:999px;
-  padding:6px 11px;
-  font-size:12px;
-  background:#fff;
-}
-.btn{
-  border:1px solid rgba(0,0,0,.18);
-  border-radius:14px;
-  padding:13px 15px;
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;
-  cursor:pointer;
-  background:#151515;
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+.detail-label{color:#777;font-size:13px;margin-bottom:6px;}
+.detail-value{font-size:15px;line-height:1.55;}
 
-/* PREVIEW */
-.project-preview{
-  min-height:520px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-.browser{
-  width:100%;
-  max-width:720px;
-  border-radius:16px;
-  overflow:hidden;
-  background:#101010;
-  box-shadow:0 24px 70px rgba(0,0,0,.22);
-}
-.browser-bar{
-  height:32px;
-  background:#191919;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:0 12px;
-}
+.live-status{display:inline-flex;align-items:center;gap:6px;background:#e8f5e9;color:#2e7d32;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;margin-left:8px}
+.pulse-dot{display:inline-block;width:8px;height:8px;background:#00c853;border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+
+.copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.copy-box{border:1px solid rgba(0,0,0,.16);border-radius:12px;padding:10px;background:#fafafa;}
+.copy-box label{display:block;font-size:11px;color:#777;margin-bottom:4px;}
+.copy-box div{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600;}
+.copy-box button{border:1px solid rgba(0,0,0,.18);border-radius:8px;background:#fff;padding:5px 8px;cursor:pointer;font-size:11px;transition:0.2s;min-height:32px}
+.copy-box button:hover{background:#111;color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:7px;}
+.tag{border:1px solid rgba(0,0,0,.18);border-radius:999px;padding:6px 11px;font-size:12px;background:#fff;transition:0.2s}
+.tag:hover{background:#111;color:#fff}
+.btn{border:1px solid rgba(0,0,0,.18);border-radius:14px;padding:13px 15px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;background:#151515;color:#fff;display:flex;justify-content:space-between;align-items:center;transition:0.2s;min-height:48px}
+.btn:hover{background:#111;transform:translateY(-2px)}
+
+.project-preview{min-height:520px;border:1px solid var(--line);border-radius:18px;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform 0.1s ease;will-change:transform}
+.browser{width:100%;max-width:720px;border-radius:16px;overflow:hidden;background:#101010;box-shadow:0 24px 70px rgba(0,0,0,.22);}
+.browser-bar{height:32px;background:#191919;display:flex;align-items:center;gap:7px;padding:0 12px;}
 .dot{width:8px;height:8px;border-radius:50%}
-.browser-badge{
-  margin-left:auto;
-  color:#fff;
-  font-size:10px;
-  border-radius:5px;
-  padding:3px 8px;
-}
-.mock{
-  background:#fff;
-  padding:24px;
-  min-height:320px;
-}
-.mock-head{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:20px;
-}
-.mock-title{
-  font-size:22px;
-  font-weight:600;
-}
-.mock-sub{
-  font-size:13px;
-  color:#777;
-  margin-top:4px;
-}
-.mock-pill{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:8px 11px;
-  font-size:12px;
-  background:#f8f8f8;
-}
-.mock-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:18px;
-}
-.mock-stat{
-  background:#f4f5f7;
-  border-radius:14px;
-  padding:14px;
-  font-size:12px;
-  color:#666;
-}
-.mock-stat b{
-  display:block;
-  font-size:24px;
-  color:#111;
-  margin-top:5px;
-}
-.mock-table{
-  border-radius:14px;
-  overflow:hidden;
-  background:#f7f7f7;
-}
-.mock-row{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  padding:11px 13px;
-  font-size:13px;
-  border-bottom:1px solid #e8e8e8;
-}
-.mock-row:first-child{
-  font-weight:600;
-  background:#eef2ff;
+.browser-badge{margin-left:auto;color:#fff;font-size:10px;border-radius:5px;padding:3px 8px;}
+.mock{background:#fff;padding:24px;min-height:320px;}
+.mock-head{display:flex;justify-content:space-between;margin-bottom:20px;}
+.mock-title{font-size:22px;font-weight:600;}
+.mock-sub{font-size:13px;color:#777;margin-top:4px;}
+.mock-pill{border:1px solid #ddd;border-radius:10px;padding:8px 11px;font-size:12px;background:#f8f8f8;}
+.mock-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
+.mock-stat{background:#f4f5f7;border-radius:14px;padding:14px;font-size:12px;color:#666;}
+.mock-stat b{display:block;font-size:24px;color:#111;margin-top:5px;}
+.mock-table{border-radius:14px;overflow:hidden;background:#f7f7f7;}
+.mock-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:11px 13px;font-size:13px;border-bottom:1px solid #e8e8e8;}
+.mock-row:first-child{font-weight:600;background:#eef2ff;}
+.stock-price{transition:color 0.2s;font-weight:700}
+.stock-price.up{color:#16a34a}.stock-price.down{color:#dc2626}
+
+.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.mini-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;min-height:260px;display:flex;flex-direction:column;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.mini-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.mini-card h3{font-size:19px;font-weight:500;line-height:1.2;}
+.subtitle{font-size:12px;color:#666;margin-top:3px;}
+.info-row{border-top:1px solid rgba(0,0,0,.09);padding-top:10px;margin-top:10px;}
+.info-row label{display:block;font-size:11px;color:#888;margin-bottom:4px;}
+.info-row p{font-size:13px;color:#555;line-height:1.55;}
+.mini-card .tags{margin-top:auto;padding-top:14px;}
+
+.project-progress{margin-top:12px}
+.project-progress .label{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-bottom:4px}
+.progress-track{width:100%;height:6px;background:#e5e7eb;border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#f0b429,#d49d1e);border-radius:4px;width:0;transition:width 1.2s cubic-bezier(0.22,1,0.36,1)}
+
+/* ===== FOOTER ===== */
+footer{margin:38px 0 40px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;transition:transform 0.3s ease}
+.footer-title{font-family:'DM Serif Display',serif;font-size:38px;line-height:1.08;margin-bottom:18px;}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.footer-col{border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:16px;background:#fafafa;transition:transform 0.3s ease}
+.footer-label{font-size:12px;color:#888;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:10px;}
+.footer-link{display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#fff;font-size:13px;cursor:pointer;transition:0.2s;min-height:44px}
+.footer-link:hover{background:#ebe9e2}
+
+/* ===== BACK TO TOP ===== */
+.back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
+.back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.reveal-item.visible{opacity:1;transform:translateY(0)}
+.reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
+
+/* ============================================================ */
+/* ===== DESKTOP-ONLY HOVER EFFECTS ===== */
+/* ============================================================ */
+@media (hover: hover) {
+  .card:hover,.mini-card:hover,.footer-col:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
+  .tag:hover{background:#111;color:#fff}
+  .copy-box button:hover{background:#111;color:#fff}
+  .btn:hover{background:#111;transform:translateY(-2px)}
 }
 
-/* CAPITAL PROJECT GRID */
-.project-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-.mini-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-  min-height:260px;
-  display:flex;
-  flex-direction:column;
-}
-.mini-top{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:14px;
-}
-.icon{
-  width:46px;
-  height:46px;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  flex-shrink:0;
-}
-.mini-card h3{
-  font-size:19px;
-  font-weight:500;
-  line-height:1.2;
-}
-.subtitle{
-  font-size:12px;
-  color:#666;
-  margin-top:3px;
-}
-.info-row{
-  border-top:1px solid rgba(0,0,0,.09);
-  padding-top:10px;
-  margin-top:10px;
-}
-.info-row label{
-  display:block;
-  font-size:11px;
-  color:#888;
-  margin-bottom:4px;
-}
-.info-row p{
-  font-size:13px;
-  color:#555;
-  line-height:1.55;
-}
-.mini-card .tags{
-  margin-top:auto;
-  padding-top:14px;
+/* ============================================================ */
+/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
+/* ============================================================ */
+@media (hover: none) {
+  .card:active,
+  .mini-card:active,
+  .footer-col:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .btn:active,
+  .footer-link:active,
+  .filter-btn:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .copy-box button:active {
+    transform: scale(0.90) !important;
+  }
+  /* Faster reveals on mobile */
+  .reveal-item {
+    transition-duration: 0.5s !important;
+  }
+  /* Ensure touch targets are big enough */
+  .filter-btn,
+  .btn,
+  .footer-link,
+  .copy-box button {
+    min-height: 44px;
+  }
 }
 
-/* FOOTER */
-footer{
-  margin:38px 0 40px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:24px;
-}
-.footer-title{
-  font-family:'DM Serif Display',serif;
-  font-size:38px;
-  line-height:1.08;
-  margin-bottom:18px;
-}
-.footer-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-.footer-col{
-  border:1px solid rgba(0,0,0,.1);
-  border-radius:14px;
-  padding:16px;
-  background:#fafafa;
-}
-.footer-label{
-  font-size:12px;
-  color:#888;
-  padding-bottom:10px;
-  border-bottom:1px solid rgba(0,0,0,.08);
-  margin-bottom:10px;
-}
-.footer-link{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border:1px solid rgba(0,0,0,.12);
-  border-radius:10px;
-  padding:10px 12px;
-  margin-bottom:8px;
-  background:#fff;
-  font-size:13px;
-  cursor:pointer;
-}
-
+/* ============================================================ */
+/* ===== RESPONSIVE LAYOUT ===== */
+/* ============================================================ */
 @media(max-width:980px){
   .self-project,.project-grid,.footer-grid{grid-template-columns:1fr}
   .project-preview{min-height:auto;padding:22px}
+  .stats-strip{gap:16px;padding:14px 18px}
+  .stats-strip .stat-number{font-size:18px}
+  .filter-tabs{justify-content:center}
+  .filter-btn{padding:10px 16px;font-size:12px;flex:1 1 auto;text-align:center;min-height:44px}
 }
 @media(max-width:560px){
   body{padding:0 16px}
   nav{flex-direction:column;align-items:flex-start;gap:12px}
   .nav-links{flex-wrap:wrap}
+  .nav-links a{padding:8px 12px;font-size:12px}
   .page-title h1{font-size:38px}
   .copy-grid{grid-template-columns:1fr}
+  .stats-strip{flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .filter-tabs{flex-direction:column;width:100%}
+  .filter-btn{width:100%}
+  .self-project .project-head{flex-direction:column;align-items:flex-start}
+  .live-status{margin-left:0;margin-top:4px}
+  .footer-grid{grid-template-columns:1fr}
 }
-
-
-/* ===== MOBILE RESPONSIVE POLISH - added by ChatGPT ===== */
 img, video, iframe, svg { max-width: 100%; height: auto; }
 html, body { overflow-x: hidden; }
 button, a { -webkit-tap-highlight-color: transparent; }
-
-@media (max-width: 980px){
-  body{ padding: 0 14px !important; }
-  .page{ width: 100% !important; max-width: 100% !important; }
-  nav{
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 10px !important;
-    padding: 14px 0 !important;
-    margin-bottom: 18px !important;
-  }
-  .logo{
-    width: 100% !important;
-    text-align: center !important;
-    white-space: normal !important;
-    line-height: 1.25 !important;
-    font-size: 12px !important;
-    padding: 10px 12px !important;
-  }
-  .nav-links{
-    width: 100% !important;
-    display: grid !important;
-    grid-template-columns: repeat(3,1fr) !important;
-    gap: 8px !important;
-  }
-  .nav-links a{
-    text-align: center !important;
-    font-size: 11px !important;
-    padding: 10px 8px !important;
-    white-space: nowrap !important;
-  }
-  .page-title{ padding: 20px 16px !important; border-radius: 16px !important; }
-  .page-title h1{ font-size: clamp(38px, 12vw, 48px) !important; line-height: 1 !important; }
-  .page-title p{ font-size: 14px !important; line-height: 1.6 !important; }
-  .self-project, .project-grid, .footer-grid{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  .project-head{ padding: 16px !important; align-items: flex-start !important; }
-  .project-icon{ width: 52px !important; height: 52px !important; font-size: 24px !important; }
-  .project-head h2{ font-size: 22px !important; line-height: 1.1 !important; }
-  .detail-row{ padding: 14px !important; }
-  .detail-value{ font-size: 14px !important; }
-  .copy-grid{ grid-template-columns: 1fr !important; }
-  .project-preview{ min-height: auto !important; padding: 16px !important; border-radius: 16px !important; }
-  .browser{ max-width: 100% !important; border-radius: 14px !important; }
-  .mock{ padding: 14px !important; min-height: auto !important; }
-  .mock-head{ flex-direction: column !important; gap: 10px !important; }
-  .mock-stats{ grid-template-columns: 1fr !important; gap: 8px !important; }
-  .mock-row{ grid-template-columns: 1fr 1fr 1fr !important; font-size: 11px !important; padding: 9px 8px !important; }
-  .mini-card{ min-height: auto !important; padding: 16px !important; border-radius: 16px !important; }
-  footer{ padding: 18px 14px !important; border-radius: 16px !important; }
-  .footer-title{ font-size: clamp(30px, 9vw, 38px) !important; }
-  .footer-link{ font-size: 12px !important; gap: 8px !important; word-break: break-word !important; }
-}
-
-@media (max-width: 420px){
-  body{ padding: 0 10px !important; }
-  .nav-links{ grid-template-columns: 1fr !important; }
-  .nav-links a{ font-size: 12px !important; }
-  .project-head{ flex-direction: column !important; }
-  .mock-row{ grid-template-columns: 1fr !important; gap: 3px !important; }
-  .btn{ width: 100% !important; }
-}
-
-
-/* ===== PREMIUM SCROLL ANIMATION ===== */
-
-.reveal{
-  opacity:0;
-  transform:translateY(80px) scale(.96);
-  transition:all 1s cubic-bezier(0.22,1,0.36,1);
-  will-change:transform,opacity;
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-
-.delay-1{transition-delay:.1s;}
-.delay-2{transition-delay:.2s;}
-.delay-3{transition-delay:.3s;}
-
-
-/* ===== MOBILE SCROLL FIX - added by ChatGPT ===== */
-html, body {
-  min-height: 100%;
-  height: auto !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 980px){
-  .reveal{
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    will-change: auto !important;
-  }
-
-  .page,
-  section,
-  footer,
-  .self-project,
-  .project-grid,
-  .mini-card,
-  .project-preview{
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  body{
-    position: relative !important;
-    touch-action: pan-y !important;
-  }
-}
-
 </style>
 </head>
-
 <body>
-
 <div class="page">
 
+<!-- ===== SUCCESS TOAST ===== -->
+<div class="success-toast" id="successToast">
+  <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
+  <span class="msg" id="toastMsg">Success!</span>
+</div>
+
+<!-- ===== NAV ===== -->
 <nav>
-  <a class="logo" href="index.html" data-ga-event="navigation_click" data-ga-label="Home">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <a class="logo ripple" href="index.html" onclick="trackEvent('click','navigation','Logo')">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
   <div class="nav-links">
-    <a href="projects.html" data-ga-event="navigation_click" data-ga-label="Projects">PORTFOLIO</a>
-    <a href="about.html" data-ga-event="navigation_click" data-ga-label="About">ABOUT</a>
-    <a href="contact.html" data-ga-event="navigation_click" data-ga-label="Contact">CONTACT</a>
+    <a class="ripple" href="projects.html" onclick="trackEvent('click','navigation','PORTFOLIO')">PORTFOLIO</a>
+    <a class="ripple" href="about.html" onclick="trackEvent('click','navigation','ABOUT')">ABOUT</a>
+    <a class="ripple" href="contact.html" onclick="trackEvent('click','navigation','CONTACT')">CONTACT</a>
   </div>
 </nav>
 
-<section class="page-title">
+<!-- ===== PAGE TITLE ===== -->
+<section class="page-title reveal">
   <span>Portfolio</span>
   <h1>Selected Projects</h1>
-  <p>
-    A mix of self-built tools and capital market initiatives across CR tracking,
-    live market dashboards, RMS/OMS systems, payments, settlement workflows, and trading platforms.
-  </p>
+  <p>A mix of self-built tools and capital market initiatives across CR tracking, live market dashboards, RMS/OMS systems, payments, settlement workflows, and trading platforms.</p>
 </section>
 
-<div class="section-label">Self-Built Projects</div>
+<!-- ===== STATS STRIP ===== -->
+<div class="stats-strip reveal-item" id="statsStrip">
+  <div class="stat-item">🚀 Self‑Built: <span class="stat-number" data-count="2">0</span></div>
+  <div class="stat-item">🏢 Capital Markets: <span class="stat-number" data-count="6">0</span></div>
+  <div class="stat-item">📈 Total Impact: <span class="stat-number" data-count="42">0</span>+</div>
+</div>
 
-<!-- PROJECT 1 -->
-<section class="self-project reveal" id="ba-cr-workspace">
-  <div class="project-left">
-    <div class="card project-head">
-      <div class="project-icon" style="background:#eaf0ff;">📊</div>
-      <div>
-        <h2>BA CR Workspace</h2>
-        <p>Business Analyst Tracking Tool</p>
+<!-- ===== FILTER TABS ===== -->
+<div class="filter-tabs reveal-item">
+  <button class="filter-btn active ripple" data-filter="all" onclick="filterProjects('all'); trackEvent('click','filter','All')">All</button>
+  <button class="filter-btn ripple" data-filter="self" onclick="filterProjects('self'); trackEvent('click','filter','Self-Built')">Self‑Built</button>
+  <button class="filter-btn ripple" data-filter="capital" onclick="filterProjects('capital'); trackEvent('click','filter','Capital Markets')">Capital Markets</button>
+</div>
+
+<!-- ===== PROJECTS WRAPPER ===== -->
+<div class="projects-wrapper" id="projectsWrapper">
+
+  <!-- SELF-BUILT PROJECT 1 -->
+  <div class="project-item self-project reveal" data-category="self" id="ba-cr-workspace">
+    <div class="project-left">
+      <div class="card project-head ripple">
+        <div class="project-icon" style="background:#eaf0ff;">📊</div>
+        <div>
+          <h2>BA CR Workspace <span class="live-status"><span class="pulse-dot"></span> Live Demo</span></h2>
+          <p>Business Analyst Tracking Tool</p>
+        </div>
       </div>
+      <div class="card">
+        <div class="detail-row"><div class="detail-label">Role</div><div class="detail-value">Business Analyst & Creator</div></div>
+        <div class="detail-row"><div class="detail-label">Built With</div><div class="detail-value">Built independently by me with the help of AI.</div></div>
+        <div class="detail-row"><div class="detail-label">What It Does</div><div class="detail-value">Tracks Change Requests, UAT progress, delivery timelines, ownership, and go-live status in one workspace.</div></div>
+        <div class="detail-row"><div class="detail-label">Demo Credentials</div><div class="copy-grid"><div class="copy-box"><label>Username</label><div>Test <button class="ripple" onclick="copyText('Test')">Copy</button></div></div><div class="copy-box"><label>Password</label><div>Test@123 <button class="ripple" onclick="copyText('Test@123')">Copy</button></div></div></div></div>
+        <div class="detail-row"><div class="tags"><span class="tag">CR Tracking</span><span class="tag">UAT Monitoring</span><span class="tag">Workflow Management</span><span class="tag">BA Productivity</span></div></div>
+      </div>
+      <button class="btn ripple" onclick="showSuccessToast('🚀 Launching Project...'); trackEvent('click','project','BA CR Workspace - View'); window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')">View Live Project <span>↗</span></button>
     </div>
-
-    <div class="card">
-      <div class="detail-row">
-        <div class="detail-label">Role</div>
-        <div class="detail-value">Business Analyst & Creator</div>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-label">Built With</div>
-        <div class="detail-value">Built independently by me with the help of AI.</div>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-label">What It Does</div>
-        <div class="detail-value">
-          Tracks Change Requests, UAT progress, delivery timelines, ownership, and go-live status in one workspace.
-        </div>
-      </div>
-
-      <div class="detail-row">
-        <div class="detail-label">Demo Credentials</div>
-        <div class="copy-grid">
-          <div class="copy-box">
-            <label>Username</label>
-            <div>Test <button data-ga-event="copy_demo_credentials" data-ga-label="Copy Username" onclick="copyText('Test')">Copy</button></div>
-          </div>
-          <div class="copy-box">
-            <label>Password</label>
-            <div>Test@123 <button data-ga-event="copy_demo_credentials" data-ga-label="Copy Password" onclick="copyText('Test@123')">Copy</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-row">
-        <div class="tags">
-          <span class="tag">CR Tracking</span>
-          <span class="tag">UAT Monitoring</span>
-          <span class="tag">Workflow Management</span>
-          <span class="tag">BA Productivity</span>
-        </div>
-      </div>
+    <div class="project-preview" style="background:linear-gradient(160deg,#eaf0ff,#d4e0ff);" data-tilt>
+      <div class="browser"><div class="browser-bar"><div class="dot" style="background:#ff5f57;"></div><div class="dot" style="background:#febc2e;"></div><div class="dot" style="background:#28c840;"></div><span class="browser-badge" style="background:#2563eb;">BA Workspace</span></div><div class="mock"><div class="mock-head"><div><div class="mock-title">BA CR Workspace</div><div class="mock-sub">Change Request tracking dashboard</div></div><div class="mock-pill">Active</div></div><div class="mock-stats"><div class="mock-stat">Total CRs <b>42</b></div><div class="mock-stat">In UAT <b>11</b></div><div class="mock-stat">Go-Live <b>06</b></div></div><div class="mock-table"><div class="mock-row"><span>CR</span><span>Status</span><span>Owner</span></div><div class="mock-row"><span>RMS Fix</span><span>UAT</span><span>BA</span></div><div class="mock-row"><span>Report</span><span>Progress</span><span>Tech</span></div><div class="mock-row"><span>Release</span><span>Ready</span><span>Ops</span></div></div></div></div>
     </div>
-
-    <button class="btn" data-ga-event="project_click" data-ga-label="CR Tracker Project" data-ga-url="https://narendra210996.github.io/cr-tracker/index.html" onclick="window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')">
-      View Live Project <span>↗</span>
-    </button>
   </div>
 
-  <div class="project-preview" style="background:linear-gradient(160deg,#eaf0ff,#d4e0ff);">
-    <div class="browser">
-      <div class="browser-bar">
-        <div class="dot" style="background:#ff5f57;"></div>
-        <div class="dot" style="background:#febc2e;"></div>
-        <div class="dot" style="background:#28c840;"></div>
-        <span class="browser-badge" style="background:#2563eb;">BA Workspace</span>
-      </div>
-
-      <div class="mock">
-        <div class="mock-head">
-          <div>
-            <div class="mock-title">BA CR Workspace</div>
-            <div class="mock-sub">Change Request tracking dashboard</div>
-          </div>
-          <div class="mock-pill">Active</div>
-        </div>
-
-        <div class="mock-stats">
-          <div class="mock-stat">Total CRs <b>42</b></div>
-          <div class="mock-stat">In UAT <b>11</b></div>
-          <div class="mock-stat">Go-Live <b>06</b></div>
-        </div>
-
-        <div class="mock-table">
-          <div class="mock-row"><span>CR</span><span>Status</span><span>Owner</span></div>
-          <div class="mock-row"><span>RMS Fix</span><span>UAT</span><span>BA</span></div>
-          <div class="mock-row"><span>Report</span><span>Progress</span><span>Tech</span></div>
-          <div class="mock-row"><span>Release</span><span>Ready</span><span>Ops</span></div>
+  <!-- SELF-BUILT PROJECT 2 -->
+  <div class="project-item self-project reveal" data-category="self" id="us-stock-dashboard">
+    <div class="project-left">
+      <div class="card project-head ripple">
+        <div class="project-icon" style="background:#ffe8d9;">📈</div>
+        <div>
+          <h2>US Stock Live Dashboard <span class="live-status"><span class="pulse-dot"></span> Live Demo</span></h2>
+          <p>Live Market Data & Buy/Sell Recommendations</p>
         </div>
       </div>
+      <div class="card">
+        <div class="detail-row"><div class="detail-label">Role</div><div class="detail-value">Business Analyst & Creator</div></div>
+        <div class="detail-row"><div class="detail-label">Built With</div><div class="detail-value">Built independently by me with the help of AI.</div></div>
+        <div class="detail-row"><div class="detail-label">What It Does</div><div class="detail-value">Fetches live US stock prices and shows buy/sell recommendations to support faster trading decisions.</div></div>
+        <div class="detail-row"><div class="detail-label">Demo Credentials</div><div class="copy-grid"><div class="copy-box"><label>Username</label><div>Test <button class="ripple" onclick="copyText('Test')">Copy</button></div></div><div class="copy-box"><label>Password</label><div>Test@123 <button class="ripple" onclick="copyText('Test@123')">Copy</button></div></div></div></div>
+        <div class="detail-row"><div class="tags"><span class="tag">Live Market Data</span><span class="tag">Stock Dashboard</span><span class="tag">API Integration</span><span class="tag">Recommendation Logic</span></div></div>
+      </div>
+      <button class="btn ripple" onclick="showSuccessToast('🚀 Launching Dashboard...'); trackEvent('click','project','US Stock Dashboard - View'); window.open('https://nse-dashboard-live.onrender.com/login','_blank')">View Live Project <span>↗</span></button>
+    </div>
+    <div class="project-preview" style="background:linear-gradient(160deg,#0f172a,#2563eb);" data-tilt>
+      <div class="browser"><div class="browser-bar"><div class="dot" style="background:#ff5f57;"></div><div class="dot" style="background:#febc2e;"></div><div class="dot" style="background:#28c840;"></div><span class="browser-badge" style="background:#2563eb;">Stock Dashboard</span></div><div class="mock"><div class="mock-head"><div><div class="mock-title">US Stock Dashboard</div><div class="mock-sub">Live prices with recommendations</div></div><div class="mock-pill">Market: US</div></div><div class="mock-stats"><div class="mock-stat">AAPL <b><span class="stock-price" id="aaplPrice">192.40</span></b></div><div class="mock-stat">MSFT <b><span class="stock-price" id="msftPrice">421.80</span></b></div><div class="mock-stat">TSLA <b><span class="stock-price" id="tslaPrice">248.20</span></b></div></div><div class="mock-table"><div class="mock-row"><span>Stock</span><span>Signal</span><span>Trend</span></div><div class="mock-row"><span>AAPL</span><span>Buy</span><span>Positive</span></div><div class="mock-row"><span>MSFT</span><span>Hold</span><span>Stable</span></div><div class="mock-row"><span>TSLA</span><span>Sell</span><span>Weak</span></div></div></div></div>
     </div>
   </div>
-</section>
 
-<!-- PROJECT 2 -->
-<section class="self-project reveal" id="us-stock-dashboard">
-  <div class="project-left">
-    <div class="card project-head">
-      <div class="project-icon" style="background:#ffe8d9;">📈</div>
-      <div>
-        <h2>US Stock Live Dashboard</h2>
-        <p>Live Market Data & Buy/Sell Recommendations</p>
-      </div>
-    </div>
+  <!-- CAPITAL MARKETS PROJECTS -->
+  <div class="section-label" style="margin-top:30px">Capital Market Projects</div>
+  <div class="project-grid reveal delay-1" id="capitalGrid">
 
-    <div class="card">
-      <div class="detail-row">
-        <div class="detail-label">Role</div>
-        <div class="detail-value">Business Analyst & Creator</div>
-      </div>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#e0f2ff;">⚙️</div><div><h3>Omni — YES Securities</h3><div class="subtitle">OMS & RMS Implementation</div></div></div>
+      <div class="info-row"><label>Role</label><p>Business Analyst & Project Manager</p></div>
+      <div class="info-row"><label>Scope</label><p>Managed integration of a new vendor and implemented OMS & RMS systems for the YES 2.0 release.</p></div>
+      <div class="tags"><span class="tag">OMS</span><span class="tag">RMS</span><span class="tag">Vendor Integration</span><span class="tag">Project Management</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
+    </article>
 
-      <div class="detail-row">
-        <div class="detail-label">Built With</div>
-        <div class="detail-value">Built independently by me with the help of AI.</div>
-      </div>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#ffe8d9;">📱</div><div><h3>YES Stock Trader</h3><div class="subtitle">Mobile Trading Platform</div></div></div>
+      <div class="info-row"><label>Work</label><p>Implemented new features, optimized app performance, coordinated cross-functional teams, managed stakeholder communication, and prioritized feature development.</p></div>
+      <div class="tags"><span class="tag">Product Improvement</span><span class="tag">Stakeholders</span><span class="tag">Trading App</span><span class="tag">Performance</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
+    </article>
 
-      <div class="detail-row">
-        <div class="detail-label">What It Does</div>
-        <div class="detail-value">
-          Fetches live US stock prices and shows buy/sell recommendations to support faster trading decisions.
-        </div>
-      </div>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#fff1cc;">💳</div><div><h3>Smart Pay Integration</h3><div class="subtitle">Fund Transfer Enhancement</div></div></div>
+      <div class="info-row"><label>Before</label><p>Users could transfer funds only through Net Banking and UPI.</p></div>
+      <div class="info-row"><label>After</label><p>Enabled NEFT/RTGS fund transfer support for better flexibility and high-value transactions.</p></div>
+      <div class="tags"><span class="tag">Payments</span><span class="tag">NEFT</span><span class="tag">RTGS</span><span class="tag">Integration</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
+    </article>
 
-      <div class="detail-row">
-        <div class="detail-label">Demo Credentials</div>
-        <div class="copy-grid">
-          <div class="copy-box">
-            <label>Username</label>
-            <div>Test <button data-ga-event="copy_demo_credentials" data-ga-label="Copy Username" onclick="copyText('Test')">Copy</button></div>
-          </div>
-          <div class="copy-box">
-            <label>Password</label>
-            <div>Test@123 <button data-ga-event="copy_demo_credentials" data-ga-label="Copy Password" onclick="copyText('Test@123')">Copy</button></div>
-          </div>
-        </div>
-      </div>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#e7ffe8;">⚡</div><div><h3>Instant CFS / Early Pay-In</h3><div class="subtitle">Real-Time Fund Credit</div></div></div>
+      <div class="info-row"><label>Problem</label><p>After selling settled stocks, user funds were earlier credited on T+1 day.</p></div>
+      <div class="info-row"><label>Impact</label><p>Enabled instant fund credit within approximately 20 seconds.</p></div>
+      <div class="tags"><span class="tag">Settlement</span><span class="tag">Liquidity</span><span class="tag">Trading Systems</span><span class="tag">Instant Credit</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
+    </article>
 
-      <div class="detail-row">
-        <div class="tags">
-          <span class="tag">Live Market Data</span>
-          <span class="tag">Stock Dashboard</span>
-          <span class="tag">API Integration</span>
-          <span class="tag">Recommendation Logic</span>
-        </div>
-      </div>
-    </div>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#efe8ff;">📈</div><div><h3>One Click F&O Strategy</h3><div class="subtitle">Strategy Discovery Product</div></div></div>
+      <div class="info-row"><label>Product</label><p>A product that lets users choose from research-curated F&O strategies and reduces manual research and trading analysis time.</p></div>
+      <div class="tags"><span class="tag">F&O</span><span class="tag">Trading Strategy</span><span class="tag">Research</span><span class="tag">Product</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>85%</span></div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div></div>
+    </article>
 
-    <button class="btn" data-ga-event="project_click" data-ga-label="NSE Dashboard Project" data-ga-url="https://nse-dashboard-live.onrender.com/login" onclick="window.open('https://nse-dashboard-live.onrender.com/login','_blank')">
-      View Live Project <span>↗</span>
-    </button>
+    <article class="mini-card project-item" data-category="capital">
+      <div class="mini-top"><div class="icon" style="background:#eaf0ff;">🔁</div><div><h3>Rupeeseed → Kambala Migration</h3><div class="subtitle">Trading System Migration</div></div></div>
+      <div class="info-row"><label>Role</label><p>Worked as Business Analyst and Project Manager across migration planning and execution.</p></div>
+      <div class="info-row"><label>Outcome</label><p>Supported migration of RMS/OMS systems while coordinating business, vendor, operations, and technology teams.</p></div>
+      <div class="tags"><span class="tag">System Migration</span><span class="tag">RMS</span><span class="tag">OMS</span><span class="tag">Coordination</span></div>
+      <div class="project-progress"><div class="label"><span>Completion</span><span>100%</span></div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
+    </article>
+
   </div>
+</div>
 
-  <div class="project-preview" style="background:linear-gradient(160deg,#0f172a,#2563eb);">
-    <div class="browser">
-      <div class="browser-bar">
-        <div class="dot" style="background:#ff5f57;"></div>
-        <div class="dot" style="background:#febc2e;"></div>
-        <div class="dot" style="background:#28c840;"></div>
-        <span class="browser-badge" style="background:#2563eb;">Stock Dashboard</span>
-      </div>
-
-      <div class="mock">
-        <div class="mock-head">
-          <div>
-            <div class="mock-title">US Stock Dashboard</div>
-            <div class="mock-sub">Live prices with recommendations</div>
-          </div>
-          <div class="mock-pill">Market: US</div>
-        </div>
-
-        <div class="mock-stats">
-          <div class="mock-stat">AAPL <b>$192</b></div>
-          <div class="mock-stat">MSFT <b>$421</b></div>
-          <div class="mock-stat">TSLA <b>$248</b></div>
-        </div>
-
-        <div class="mock-table">
-          <div class="mock-row"><span>Stock</span><span>Signal</span><span>Trend</span></div>
-          <div class="mock-row"><span>AAPL</span><span>Buy</span><span>Positive</span></div>
-          <div class="mock-row"><span>MSFT</span><span>Hold</span><span>Stable</span></div>
-          <div class="mock-row"><span>TSLA</span><span>Sell</span><span>Weak</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-label">Capital Market Projects</div>
-
-<section class="project-grid reveal delay-1">
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#e0f2ff;">⚙️</div>
-      <div>
-        <h3>Omni — YES Securities</h3>
-        <div class="subtitle">OMS & RMS Implementation</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Role</label>
-      <p>Business Analyst & Project Manager</p>
-    </div>
-    <div class="info-row">
-      <label>Scope</label>
-      <p>Managed the integration of a new vendor and implemented OMS & RMS systems for the YES 2.0 release.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">OMS</span><span class="tag">RMS</span><span class="tag">Vendor Integration</span><span class="tag">Project Management</span>
-    </div>
-  </article>
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#ffe8d9;">📱</div>
-      <div>
-        <h3>YES Stock Trader</h3>
-        <div class="subtitle">Mobile Trading Platform</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Work</label>
-      <p>Implemented new features, optimized app performance, coordinated cross-functional teams, managed stakeholder communication, and prioritized feature development.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Product Improvement</span><span class="tag">Stakeholders</span><span class="tag">Trading App</span><span class="tag">Performance</span>
-    </div>
-  </article>
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#fff1cc;">💳</div>
-      <div>
-        <h3>Smart Pay Integration</h3>
-        <div class="subtitle">Fund Transfer Enhancement</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Before</label>
-      <p>Users could transfer funds only through Net Banking and UPI.</p>
-    </div>
-    <div class="info-row">
-      <label>After</label>
-      <p>Enabled NEFT/RTGS fund transfer support for better flexibility and high-value transactions.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Payments</span><span class="tag">NEFT</span><span class="tag">RTGS</span><span class="tag">Integration</span>
-    </div>
-  </article>
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#e7ffe8;">⚡</div>
-      <div>
-        <h3>Instant CFS / Early Pay-In</h3>
-        <div class="subtitle">Real-Time Fund Credit</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Problem</label>
-      <p>After selling settled stocks, user funds were earlier credited on T+1 day.</p>
-    </div>
-    <div class="info-row">
-      <label>Impact</label>
-      <p>Enabled instant fund credit within approximately 20 seconds.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Settlement</span><span class="tag">Liquidity</span><span class="tag">Trading Systems</span><span class="tag">Instant Credit</span>
-    </div>
-  </article>
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#efe8ff;">📈</div>
-      <div>
-        <h3>One Click F&O Strategy</h3>
-        <div class="subtitle">Strategy Discovery Product</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Product</label>
-      <p>A product that lets users choose from research-curated F&O strategies and reduces manual research and trading analysis time.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">F&O</span><span class="tag">Trading Strategy</span><span class="tag">Research</span><span class="tag">Product</span>
-    </div>
-  </article>
-
-  <article class="mini-card">
-    <div class="mini-top">
-      <div class="icon" style="background:#eaf0ff;">🔁</div>
-      <div>
-        <h3>Rupeeseed → Kambala Migration</h3>
-        <div class="subtitle">Trading System Migration</div>
-      </div>
-    </div>
-    <div class="info-row">
-      <label>Role</label>
-      <p>Worked as Business Analyst and Project Manager across migration planning and execution.</p>
-    </div>
-    <div class="info-row">
-      <label>Outcome</label>
-      <p>Supported migration of RMS/OMS systems while coordinating business, vendor, operations, and technology teams.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">System Migration</span><span class="tag">RMS</span><span class="tag">OMS</span><span class="tag">Coordination</span>
-    </div>
-  </article>
-
-</section>
-
+<!-- ===== FOOTER ===== -->
 <footer class="reveal delay-2">
   <div class="footer-title">Let's Create Something<br>Exceptional Together</div>
   <div class="footer-grid">
     <div class="footer-col">
       <div class="footer-label">Quick Links</div>
-      <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Home" data-ga-url="index.html" onclick="window.location.href='index.html'">Home <span>↗</span></div>
-      <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Projects" data-ga-url="projects.html" onclick="window.location.href='projects.html'">Portfolio <span>↗</span></div>
-      <div class="footer-link" data-ga-event="navigation_click" data-ga-label="About" data-ga-url="about.html" onclick="window.location.href='about.html'">About <span>↗</span></div>
-      <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Contact" data-ga-url="contact.html" onclick="window.location.href='contact.html'">Contact <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','Home');window.location.href='index.html'">Home <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','Portfolio');window.location.href='projects.html'">Portfolio <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','About');window.location.href='about.html'">About <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','Contact');window.location.href='contact.html'">Contact <span>↗</span></div>
     </div>
     <div class="footer-col">
       <div class="footer-label">Contact</div>
-      <div class="footer-link" data-ga-event="contact_click" data-ga-label="LinkedIn" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">LinkedIn <span>↗</span></div>
-      <div class="footer-link" data-ga-event="contact_click" data-ga-label="Email" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'">Email <span>↗</span></div>
-      <div class="footer-link" data-ga-event="contact_click" data-ga-label="Naukri Profile" data-ga-url="https://www.naukri.com" onclick="window.open('https://www.naukri.com','_blank')">Naukri Profile <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','LinkedIn');window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">LinkedIn <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','Email');window.location.href='mailto:Dicholkarnaren@gmail.com'">Email <span>↗</span></div>
+      <div class="footer-link ripple" onclick="trackEvent('click','footer','Naukri');window.open('https://www.naukri.com','_blank')">Naukri Profile <span>↗</span></div>
     </div>
   </div>
 </footer>
@@ -939,43 +396,206 @@ html, body {
 </div>
 
 <script>
-function copyText(text){
-  navigator.clipboard.writeText(text).then(function(){
-    alert("Copied: " + text);
-  }).catch(function(){
-    alert("Please copy manually: " + text);
+// ============================================================
+// 1. RIPPLE EFFECT
+// ============================================================
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('.ripple');
+  if (!target) return;
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-effect';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  target.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 700);
+});
+
+// ============================================================
+// 2. 3D TILT – DESKTOP ONLY
+// ============================================================
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('[data-tilt], .mini-card, .card, .footer-col').forEach(el => {
+    el.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      this.style.transform = `perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave', function() {
+      this.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
+    });
   });
 }
-</script>
 
+// ============================================================
+// 3. SUCCESS TOAST
+// ============================================================
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
+}
 
-<script>
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach((entry)=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showSuccessToast('Copied: ' + text);
+    trackEvent('copy', 'interaction', text);
+  });
+}
+
+// ============================================================
+// 4. BACK TO TOP
+// ============================================================
+(function() {
+  const btn = document.createElement('button');
+  btn.className = 'back-top-btn';
+  btn.innerHTML = '↑';
+  btn.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(btn);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btn.classList.add('show');
+    else btn.classList.remove('show');
+  });
+  btn.addEventListener('click', () => {
+    trackEvent('click', 'navigation', 'Back to Top');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// ============================================================
+// 5. ACTIVE NAV
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  const current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === current) link.classList.add('active');
+  });
+});
+
+// ============================================================
+// 6. FILTER PROJECTS
+// ============================================================
+function filterProjects(category) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.filter-btn[data-filter="${category}"]`).classList.add('active');
+  
+  document.querySelectorAll('.project-item').forEach(item => {
+    const cat = item.dataset.category;
+    if (category === 'all' || cat === category) {
+      item.classList.remove('hidden');
+      item.style.display = '';
+    } else {
+      item.classList.add('hidden');
+      item.style.display = 'none';
     }
   });
-},{
-  threshold:0.12
+}
+
+// ============================================================
+// 7. ANIMATED COUNTERS
+// ============================================================
+function animateTicker(element, target) {
+  let current = 0;
+  const duration = 1500;
+  const steps = 60;
+  const increment = target / steps;
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    current += increment;
+    if (step >= steps) {
+      element.textContent = target;
+      clearInterval(timer);
+    } else {
+      element.textContent = Math.floor(current);
+    }
+  }, duration / steps);
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.stats-strip .stat-number').forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        animateTicker(stat, target);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const statsStrip = document.getElementById('statsStrip');
+if (statsStrip) statsObserver.observe(statsStrip);
+
+// ============================================================
+// 8. SCROLL REVEAL (WAVE)
+// ============================================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      entry.target.querySelectorAll('.reveal-item').forEach((child, i) => {
+        setTimeout(() => child.classList.add('visible'), i * 100);
+      });
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => {
+  el.querySelectorAll(':scope > *').forEach(child => {
+    if (!child.classList.contains('project-item') && !child.classList.contains('stats-strip') && !child.classList.contains('filter-tabs')) {
+      child.classList.add('reveal-item');
+    }
+  });
+  revealObserver.observe(el);
 });
 
-document.querySelectorAll(".reveal").forEach((el)=>{
-  observer.observe(el);
+document.querySelectorAll('.reveal-item').forEach(el => {
+  if (!el.closest('.reveal')) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    obs.observe(el);
+  }
 });
-</script>
 
-
-<script>
-/* Mobile fallback: keep all sections visible and scrollable */
-if (window.innerWidth <= 980) {
-  document.querySelectorAll(".reveal").forEach(function(el){
-    el.classList.add("active");
-    el.style.opacity = "1";
-    el.style.transform = "none";
+// ============================================================
+// 9. LIVE STOCK TICKER
+// ============================================================
+const stockPrices = {
+  aapl: { el: document.getElementById('aaplPrice'), base: 192.40, last: 192.40 },
+  msft: { el: document.getElementById('msftPrice'), base: 421.80, last: 421.80 },
+  tsla: { el: document.getElementById('tslaPrice'), base: 248.20, last: 248.20 }
+};
+function updateStockPrices() {
+  Object.keys(stockPrices).forEach(key => {
+    const s = stockPrices[key];
+    if (!s.el) return;
+    const change = (Math.random() - 0.48) * 0.35;
+    let newVal = s.last + change;
+    newVal = Math.max(1, newVal);
+    const formatted = newVal.toFixed(2);
+    s.last = newVal;
+    s.el.textContent = formatted;
+    if (newVal > s.base) { s.el.className = 'stock-price up'; }
+    else if (newVal < s.base) { s.el.className = 'stock-price down'; }
+    else { s.el.className = 'stock-price'; }
+    s.base = s.base * 0.999 + newVal * 0.001;
   });
 }
+setInterval(updateStockPrices, 2200);
 </script>
-
 </body>
 </html>
