@@ -193,8 +193,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
 body { overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
 @media (max-width: 900px){
+  /* 🔥 FIX: Nav scrolls away on mobile (no sticky) 🔥 */
   html, body { width: 100%; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;}
+  
+  nav {
+    max-width: calc(100% - 24px) !important;
+    width: calc(100% - 24px) !important;
+    margin: 0 auto !important;
+    padding: 12px 0 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    position: relative !important; /* 👈 This removes the sticky behavior on mobile */
+    top: auto !important;
+  }
+  
   .nav-logo{width: 100% !important;display: block !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;padding: 10px 12px !important;font-size: 12px !important;}
   .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 8px !important;}
   .nav-links a{text-align: center !important;padding: 10px 8px !important;font-size: 11px !important;white-space: nowrap !important;}
