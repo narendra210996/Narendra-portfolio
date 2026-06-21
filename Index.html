@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narendra Dicholkar / Business Analyst</title>
+
+<!-- ===== GOOGLE ANALYTICS 4 (gtag.js) – G-XZHTQ3GGN8 ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZHTQ3GGN8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XZHTQ3GGN8');
+
+  function trackEvent(action, category = 'engagement', label = '') {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', action, { 'event_category': category, 'event_label': label });
+    }
+  }
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;opacity:0;animation:pageFade 0.6s ease forwards}
+@keyframes pageFade{to{opacity:1}}
+a{color:inherit;text-decoration:none}
+
+/* ===== RIPPLE ===== */
+.ripple{position:relative;overflow:hidden;cursor:pointer}
+.ripple-effect{position:absolute;border-radius:50%;background:rgba(240,180,41,0.4);transform:scale(0);animation:rippleAnim 0.7s ease-out forwards;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* ===== SUCCESS TOAST (PhonePe style) ===== */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
+.success-circle{width:64px;height:64px;margin:0 auto}
+.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+@keyframes ringFill{to{stroke-dashoffset:0}}
+@keyframes checkDraw{to{stroke-dashoffset:0}}
+
+/* ===== NAV ===== */
+nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:10px 0 14px;border-bottom:1px solid rgba(0,0,0,.22);position:sticky;top:0;background:var(--bg);z-index:50}
+.nav-logo,.nav-links a{font-size:13px;font-weight:500;letter-spacing:.02em;padding:9px 17px;border:1px solid var(--border);border-radius:9px;background:#f7f6f2;cursor:pointer;transition:0.2s}
+.nav-links{display:flex;gap:10px}
+.nav-links a:hover{background:#ebe9e2}
+.nav-links a.active{background:#111;color:#fff;border-color:#111}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px}
+.section{margin-bottom:34px}
+.section-label,.strip-title{border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px}
+.strip-title{font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
+.card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.card-label{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:#333}
+.card-body{padding:16px}
+.btn-dark{margin-top:auto;display:flex;justify-content:space-between;align-items:center;width:100%;background:#303030;color:#fff;border:none;border-radius:8px;padding:14px 16px;font:600 14px 'DM Sans';cursor:pointer;transition:0.2s;min-height:48px}
+.btn-dark:hover{background:#111}
+.bento-grid{display:grid;grid-template-columns:1.05fr 1.05fr .5fr .5fr;grid-auto-rows:minmax(145px,auto);gap:14px}
+.card-hero{grid-column:1;grid-row:1 / span 2;padding:0;display:flex;flex-direction:column;justify-content:flex-end;min-height:368px}
+.hero-art{height:186px;background:linear-gradient(135deg,#f4b8aa,#ddd0f3,#97b5ff,#f4b8aa);background-size:400% 400%;animation:morphGradient 14s ease-in-out infinite;position:relative;border-bottom:0}
+@keyframes morphGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero-art:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);background-size:15px 15px;opacity:.75;pointer-events:none}
+.avatar{width:58px;height:58px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.8);background:#ddd;position:absolute;left:18px;bottom:-31px;display:flex;align-items:center;justify-content:center;font-size:30px;animation:float-avatar 6s ease-in-out infinite;z-index:2}
+@keyframes float-avatar{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-tagline{font-family:'DM Sans',sans-serif;padding:30px 18px 18px;background:#f7f6f2;flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:3}
+.hero-tagline .greeting{font-size:20px;font-weight:300;color:#666;letter-spacing:0}
+.hero-tagline .name{font-size:36px;font-weight:500;letter-spacing:-1px;line-height:1.1}
+.typewriter-wrapper{font-size:20px;font-weight:400;color:#555;margin-top:6px;min-height:2.2em}
+.typewriter-wrapper .cursor{display:inline-block;width:2px;background:#111;margin-left:2px;animation:blink 0.9s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-stats{display:flex;gap:28px;margin-top:18px;font-size:14px;color:#555}
+.hero-stats div{display:flex;align-items:center;gap:4px}
+.hero-stats .stat-number{font-weight:700;font-size:20px;color:#111;min-width:24px;display:inline-block}
+.card-about{grid-column:2;grid-row:1;display:flex;flex-direction:column}
+.card-about p{font-size:14px;line-height:1.45}
+.card-podcast{grid-column:3;grid-row:1;background:#ff6848;color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+.live-badge{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.85);margin-top:6px}
+.live-dot{display:inline-block;width:8px;height:8px;background:#00ff88;border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.waveform{height:72px;display:flex;align-items:center;gap:2px;margin-bottom:14px}
+.wave-bar{width:3px;background:rgba(255,255,255,.78);border-radius:3px;animation:wave 1.2s ease-in-out infinite alternate}
+@keyframes wave{from{transform:scaleY(.42)}to{transform:scaleY(1)}}
+.card-podcast h3{font-size:15px;line-height:1.1}.card-podcast p{font-size:13px;color:rgba(255,255,255,.9)}
+.card-cv{grid-column:4;grid-row:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:#f7f6f2}
+.card-podcast,.card-cv{min-height:145px}
+.cv-big{font-size:72px;line-height:.9;font-weight:400;letter-spacing:-4px}
+.btn-download{border:1px solid var(--border);background:#fff;border-radius:18px;padding:9px 13px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:0.2s;min-height:44px}
+.btn-download:hover{background:#ebe9e2}
+.card-expertises{grid-column:1;grid-row:3}
+.tags{display:flex;flex-wrap:wrap;gap:9px;padding:16px}
+.tag{border:1px solid var(--border);border-radius:20px;padding:7px 14px;background:#fff;font-size:13px;line-height:1;transition:all 0.3s ease;cursor:default}
+.tag:hover{background:#111;color:#fff}
+.tag.active-carousel{background:#f0b429;color:#111;border-color:#f0b429;box-shadow:0 0 20px rgba(240,180,41,0.4);transform:scale(1.05)}
+.card-ecom{grid-column:2;grid-row:2 / span 2;min-height:318px;background:linear-gradient(160deg,#dfe2ff 0%,#5b70ff 100%);display:flex;align-items:center;justify-content:center;padding:28px}
+.ecom-stack{width:86%;position:relative}
+.ecom-item{background:rgba(255,255,255,.82);backdrop-filter:blur(8px);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:44px 1fr 95px;gap:12px;align-items:center;box-shadow:0 18px 40px rgba(70,90,200,.18);font-size:11px}
+.ecom-item:nth-child(1){transform:translate(48px,18px);opacity:.74}.ecom-item:nth-child(2){transform:translate(22px,9px);opacity:.9}.ecom-item:nth-child(3){position:relative;z-index:3}
+.ecom-thumb{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.ecom-info strong{display:block;font-size:12px}.ecom-info span,.ecom-meta{color:#555;font-size:10px}.price{font-weight:700;color:#111;margin-top:3px}
+.progress-text{display:inline-block;min-width:90px}
+.journey-card{grid-column:3 / span 2;grid-row:2 / span 2;min-height:318px;background:#f7f6f2}
+.timeline{padding:13px 16px;display:flex;flex-direction:column;gap:8px}
+.timeline-item{display:grid;grid-template-columns:94px 1fr;gap:10px;align-items:start;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.12);position:relative;transition:all 0.3s}
+.timeline-item:last-child{border-bottom:0;padding-bottom:0}
+.timeline-item.active-role{border-left:3px solid #f0b429;padding-left:12px;border-bottom-color:#f0b429;background:rgba(240,180,41,0.04);border-radius:4px}
+.timeline-item.active-role .timeline-year{background:#f0b429;color:#111;border-color:#f0b429}
+.active-badge{display:inline-block;font-size:9px;background:#00c853;color:#fff;padding:2px 8px;border-radius:12px;margin-left:8px;font-weight:600;letter-spacing:0.3px;animation:pulse-dot 2s infinite}
+.timeline-year{font-size:10px;line-height:1.25;color:#555;border:1px solid rgba(0,0,0,.16);border-radius:18px;padding:6px 8px;text-align:center;background:#fff;transition:0.3s}
+.timeline-item h4{font-size:15px;line-height:1.15;font-weight:600;margin-bottom:4px;letter-spacing:-.2px}
+.timeline-item p{font-size:11px;line-height:1.35;color:#555}
+.dark-section{background:#111;color:#fff;padding:42px 0;margin:45px 0}
+.dark-inner{max-width:1180px;margin:0 auto}
+.dark-section .section-label{color:#ccc;border-color:rgba(255,255,255,.2);background:#111}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.service-card{border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.service-num{color:#777;margin-bottom:14px}.service-card h3{font-size:20px;margin-bottom:12px}.service-card p{font-size:13px;line-height:1.7;color:#aaa}
+.footer-headline{font-size:40px;line-height:1.1;border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:14px 16px;margin-bottom:16px;letter-spacing:-1px}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.footer-col{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.footer-col-label{padding:12px 16px;border-bottom:1px solid var(--border);color:#555;font-size:13px}
+.footer-links{padding:16px}
+.footer-link{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(0,0,0,.14);border-radius:14px;padding:13px 14px;margin-bottom:10px;background:#fff;cursor:pointer;font-size:15px;transition:0.2s;min-height:44px}
+.footer-link:hover{background:#ebe9e2}
+.footer-link-icon{width:31px;height:31px;border:1px solid rgba(0,0,0,.16);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.copy{font-size:12px;color:#888;padding-top:6px}
+.mobile-line{font-size:13px;color:#555;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.12)}
+.mobile-line strong{color:#111}
+.featured-work{display:flex;flex-direction:column;gap:14px}
+.featured-item{display:grid;grid-template-columns:.86fr 1.5fr;gap:14px;align-items:stretch}
+.featured-left{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.featured-head{display:flex;gap:13px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+.featured-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.featured-head h3{font-size:20px;line-height:1.08;font-weight:500;letter-spacing:-.3px}
+.featured-head p{font-size:12px;color:#555;margin-top:4px}
+.featured-desc{padding:14px 16px;font-size:12px;line-height:1.55;color:#333;border-bottom:1px solid var(--border);flex:1}
+.featured-meta{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.featured-cell{padding:11px 16px;border-right:1px solid var(--border);font-size:12px}.featured-cell:last-child{border-right:0}.featured-cell label{display:block;color:#777;font-size:10px;margin-bottom:4px}.featured-cell span{font-weight:500}
+.credential-row{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.cred-pill{font-size:11px;border:1px solid rgba(0,0,0,.14);border-radius:14px;background:#fff;padding:7px 9px}.cred-pill button{margin-left:6px;border:1px solid rgba(0,0,0,.18);border-radius:10px;background:#f7f6f2;padding:3px 7px;font-size:10px;cursor:pointer;transition:0.2s;min-height:32px}.cred-pill button:hover{background:#111;color:#fff}
+.featured-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px}.featured-actions button{border:1px solid rgba(0,0,0,.16);background:#fff;border-radius:9px;padding:10px 12px;font-size:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:0.2s;min-height:44px}.featured-actions button:hover{background:#ebe9e2}
+.featured-preview{border:1px solid var(--border);border-radius:8px;min-height:272px;display:flex;align-items:center;justify-content:center;padding:26px;overflow:hidden;transition:transform 0.1s ease;will-change:transform}
+.browser-card{width:min(88%,620px);background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.20);border:1px solid rgba(0,0,0,.1)}
+.browser-top{height:30px;background:#151515;display:flex;align-items:center;gap:6px;padding:0 10px}.browser-dot{width:8px;height:8px;border-radius:50%}.browser-label{margin-left:auto;color:#fff;font-size:10px;background:#2563eb;border-radius:5px;padding:2px 8px}
+.mock-screen{background:#fff;padding:16px;min-height:185px}.mock-title{font-weight:700;font-size:17px}.mock-sub{font-size:10px;color:#666;margin-top:3px}.mock-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.mock-stat{background:#f3f4f6;border-radius:10px;padding:10px;font-size:10px}.mock-stat b{display:block;font-size:19px;margin-top:4px}
+.stock-price{transition:color 0.2s;font-weight:700}
+.stock-price.up{color:#16a34a}.stock-price.down{color:#dc2626}
+.mock-table{border-radius:10px;overflow:hidden;background:#f8fafc}.mock-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:10px}.mock-row:first-child{font-weight:700;background:#eef2ff}
+.stock-graph{height:80px;margin-top:12px;background:linear-gradient(180deg,#eff6ff,#fff);border-radius:10px;position:relative;overflow:hidden}.stock-graph:before{content:"";position:absolute;left:0;right:0;bottom:24px;height:3px;background:#2563eb;transform:skewY(-8deg);box-shadow:90px -22px 0 #16a34a,180px 18px 0 #ef4444,270px -14px 0 #2563eb}
+.back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
+.back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
+
+/* ===== FLOATING CTA ===== */
+.floating-cta{position:fixed;bottom:100px;right:30px;width:60px;height:60px;border-radius:50%;background:#f0b429;color:#111;font-size:24px;border:none;box-shadow:0 4px 24px rgba(240,180,41,0.5);z-index:998;cursor:pointer;animation:pulse-glow 2.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;transition:transform 0.3s ease}
+.floating-cta:hover{transform:scale(1.1)}
+@keyframes pulse-glow{0%,100%{box-shadow:0 4px 24px rgba(240,180,41,0.4);transform:scale(1)}50%{box-shadow:0 4px 48px rgba(240,180,41,0.8);transform:scale(1.05)}}
+
+/* ===== REVEAL ===== */
+.reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.reveal-item.visible{opacity:1;transform:translateY(0)}
+.reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
+
+/* ============================================================ */
+/* ===== DESKTOP-ONLY HOVER EFFECTS ===== */
+/* ============================================================ */
+@media (hover: hover) {
+  .card:hover,.service-card:hover,.footer-col:hover,.featured-left:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.2)}
+  .tag:hover{background:#111;color:#fff}
+}
+
+/* ============================================================ */
+/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
+/* ============================================================ */
+@media (hover: none) {
+  .card:active,
+  .service-card:active,
+  .footer-col:active,
+  .featured-left:active,
+  .journey-card:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .btn-dark:active,
+  .btn-download:active,
+  .footer-link:active,
+  .featured-actions button:active,
+  .cred-pill button:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .floating-cta:active {
+    transform: scale(0.90) !important;
+  }
+  .reveal-item {
+    transition-duration: 0.5s !important;
+  }
+  .btn-dark,
+  .btn-download,
+  .footer-link,
+  .featured-actions button,
+  .cred-pill button {
+    min-height: 44px;
+  }
+}
+
+/* ============================================================ */
+/* ===== RESPONSIVE ===== */
+/* ============================================================ */
+@media(max-width:900px){
+  .featured-item{grid-template-columns:1fr}.featured-preview{min-height:230px;padding:18px}.featured-actions{grid-template-columns:1fr}
+  nav,.wrap,.dark-inner{max-width:calc(100% - 28px)}
+  nav{align-items:flex-start;gap:12px}.nav-links{flex-wrap:wrap;justify-content:flex-end}
+  .bento-grid,.work-grid,.about-grid,.contact-hero,.footer-grid,.services-grid{grid-template-columns:1fr}
+  .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.journey-card{grid-column:1;grid-row:auto}
+  .hero-tagline .name{font-size:28px}
+  .hero-stats{gap:16px;flex-wrap:wrap}
+  .strip-title,.footer-headline{font-size:32px}
+  .floating-cta{width:52px;height:52px;font-size:20px;bottom:80px;right:20px}
+}
+img, video, iframe, svg { max-width: 100%; height: auto; }
+button, a { -webkit-tap-highlight-color: transparent; }
+body { overflow-x: hidden; }
+
+@media (max-width: 900px){
+  html, body { width: 100%; overflow-x: hidden; }
+  nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;}
+  .nav-logo{width: 100% !important;display: block !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;padding: 10px 12px !important;font-size: 12px !important;}
+  .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 8px !important;}
+  .nav-links a{text-align: center !important;padding: 10px 8px !important;font-size: 11px !important;white-space: nowrap !important;}
+  .wrap, .dark-inner{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin-left: auto !important;margin-right: auto !important;}
+  .wrap{ padding-top: 18px !important; padding-bottom: 28px !important; }
+  .strip-title, .footer-headline{font-size: clamp(26px, 8vw, 34px) !important;line-height: 1.08 !important;padding: 16px 14px !important;letter-spacing: -0.8px !important;}
+  .bento-grid, .services-grid, .footer-grid{display: grid !important;grid-template-columns: 1fr !important;gap: 12px !important;}
+  .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.journey-card{grid-column: 1 !important;grid-row: auto !important;}
+  .card{ border-radius: 12px !important; }
+  .card-hero{ min-height: auto !important; }
+  .hero-art{ height: 145px !important; }
+  .avatar{ width: 54px !important; height: 54px !important; bottom: -27px !important; }
+  .hero-tagline{ padding: 24px 16px 18px !important; }
+  .hero-tagline .name{ font-size: 28px !important; }
+  .hero-stats{ gap: 16px !important; flex-wrap: wrap !important; }
+  .card-body{ padding: 14px !important; }
+  .card-about p, .service-card p, .work-body, .text-card, .contact-card p{font-size: 13px !important;line-height: 1.6 !important;}
+  .card-podcast, .card-cv{ min-height: 150px !important; }
+  .cv-big{ font-size: 58px !important; letter-spacing: -3px !important; }
+  .tags{ gap: 7px !important; padding: 14px !important; }
+  .tag{ font-size: 12px !important; padding: 7px 11px !important; }
+  .card-ecom, .journey-card{ min-height: auto !important; padding: 18px !important; }
+  .ecom-stack{ width: 100% !important; }
+  .ecom-item{grid-template-columns: 38px 1fr !important;gap: 10px !important;transform: none !important;margin-bottom: 8px !important;}
+  .ecom-item .ecom-meta{ grid-column: 1 / -1 !important; }
+  .timeline{ padding: 14px !important; }
+  .timeline-item{ grid-template-columns: 1fr !important; gap: 7px !important; }
+  .timeline-year{ width: fit-content !important; }
+  .dark-section{ margin: 28px 0 !important; padding: 30px 0 !important; }
+  .service-card{ padding: 18px !important; }
+  .footer-link{ font-size: 13px !important; gap: 10px !important; word-break: break-word !important; }
+  .back-top-btn{ bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
+  .success-toast{ padding: 24px 28px !important; width: 80% !important; }
+  .floating-cta{ bottom: 80px; right: 20px; width: 52px; height: 52px; font-size: 20px; }
+}
+@media (max-width: 420px){
+  .wrap, .dark-inner, nav{ width: calc(100% - 18px) !important; max-width: calc(100% - 18px) !important; }
+  .nav-links{ grid-template-columns: 1fr !important; }
+  .nav-links a{ font-size: 12px !important; }
+  .btn-dark, .btn-download, .footer-link{ width: 100% !important; }
+  .featured-meta{ grid-template-columns: 1fr !important; }
+  .featured-cell{ border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
+  .hero-stats{ flex-direction: column !important; gap: 6px !important; }
+  .timeline-item{ grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SUCCESS TOAST ===== -->
+<div class="success-toast" id="successToast">
+  <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
+  <span class="msg" id="toastMsg">Success!</span>
+</div>
+
+<!-- ===== FLOATING CTA ===== -->
+<button class="floating-cta ripple" onclick="trackEvent('click','cta','Floating Contact');window.location.href='contact.html'" aria-label="Contact">✉</button>
+
+<nav>
+  <a class="nav-logo ripple" href="index.html" onclick="trackEvent('click','navigation','Logo')">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <div class="nav-links">
+    <a class="ripple" href="projects.html" onclick="trackEvent('click','navigation','PORTFOLIO')">PORTFOLIO</a>
+    <a class="ripple" href="about.html" onclick="trackEvent('click','navigation','ABOUT')">ABOUT</a>
+    <a class="ripple" href="contact.html" onclick="trackEvent('click','navigation','CONTACT')">CONTACT</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="section">
+    <div class="bento-grid reveal">
+      <!-- HERO CARD -->
+      <div class="card card-hero" id="heroCard">
+        <div class="hero-art" id="heroArt"><div class="avatar">👤</div></div>
+        <div class="hero-tagline" id="heroTagline">
+          <div class="greeting">Hi, I'm</div>
+          <div class="name">Narendra Dicholkar</div>
+          <div class="typewriter-wrapper">
+            <span class="typewriter-text"></span><span class="cursor">|</span>
+          </div>
+          <div class="hero-stats">
+            <div><span class="stat-number" data-count="8">0</span>+ Years</div>
+            <div><span class="stat-number" data-count="42">0</span> Projects</div>
+            <div><span class="stat-number" data-count="15">0</span> Clients</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT CARD -->
+      <div class="card card-about ripple">
+        <div class="card-label">About</div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:16px;height:100%">
+          <p>Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.</p>
+          <p>I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.</p>
+          <button class="btn-dark ripple" onclick="trackEvent('click','button','View My Work');window.location.href='projects.html'">View My Work <span>↗</span></button>
+        </div>
+      </div>
+
+      <!-- PODCAST CARD -->
+      <div class="card card-podcast ripple" onclick="trackEvent('click','podcast','Capital Market Insights')">
+        <div class="waveform">
+          <div class="wave-bar" style="height:55%;animation-delay:0.00s"></div><div class="wave-bar" style="height:82%;animation-delay:0.05s"></div><div class="wave-bar" style="height:45%;animation-delay:0.10s"></div><div class="wave-bar" style="height:94%;animation-delay:0.15s"></div><div class="wave-bar" style="height:62%;animation-delay:0.20s"></div><div class="wave-bar" style="height:38%;animation-delay:0.25s"></div><div class="wave-bar" style="height:74%;animation-delay:0.30s"></div><div class="wave-bar" style="height:51%;animation-delay:0.35s"></div><div class="wave-bar" style="height:88%;animation-delay:0.40s"></div><div class="wave-bar" style="height:63%;animation-delay:0.45s"></div><div class="wave-bar" style="height:77%;animation-delay:0.50s"></div><div class="wave-bar" style="height:42%;animation-delay:0.55s"></div><div class="wave-bar" style="height:70%;animation-delay:0.60s"></div><div class="wave-bar" style="height:56%;animation-delay:0.65s"></div><div class="wave-bar" style="height:92%;animation-delay:0.70s"></div><div class="wave-bar" style="height:49%;animation-delay:0.75s"></div><div class="wave-bar" style="height:68%;animation-delay:0.80s"></div><div class="wave-bar" style="height:36%;animation-delay:0.85s"></div><div class="wave-bar" style="height:83%;animation-delay:0.90s"></div><div class="wave-bar" style="height:58%;animation-delay:0.95s"></div>
+        </div>
+        <h3>Capital Market Insights</h3>
+        <p>Business analysis for trading systems</p>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <span class="live-timestamp">Updated: <span id="liveTimestamp">just now</span></span>
+        </div>
+      </div>
+
+      <!-- CV CARD -->
+      <div class="card card-cv">
+        <div class="cv-big">CV</div>
+        <a class="btn-download ripple" href="Narendra_Dicholkar_Resume.pdf" download onclick="trackEvent('download','CV','Resume PDF')">
+          <span>Download</span>
+          <span>↓</span>
+        </a>
+      </div>
+
+      <!-- EXPERTISE CARD -->
+      <div class="card card-expertises">
+        <div class="card-label">Expertise</div>
+        <div class="tags" id="expertiseTags">
+          <span class="tag">Business Analysis</span>
+          <span class="tag">Data Analysis</span>
+          <span class="tag">Requirement Gathering</span>
+          <span class="tag">BRD / FRD</span>
+          <span class="tag">Gap Analysis</span>
+          <span class="tag">Stakeholder Management</span>
+          <span class="tag">Product Improvement</span>
+          <span class="tag">Competitive Analysis</span>
+          <span class="tag">Capital Markets</span>
+          <span class="tag">Trading Platforms</span>
+          <span class="tag">RMS Systems</span>
+          <span class="tag">SQL & Databases</span>
+          <span class="tag">Risk Analysis</span>
+          <span class="tag">System Integration</span>
+          <span class="tag">UAT Testing</span>
+          <span class="tag">Quality Assurance</span>
+          <span class="tag">Production Support</span>
+          <span class="tag">Process Optimization</span>
+        </div>
+      </div>
+
+      <!-- ECOM CARD -->
+      <div class="card card-ecom">
+        <div class="ecom-stack">
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#f3b7cf">📌</div><div class="ecom-info"><strong>Requirement Flow</strong><span>Business Inputs</span></div><div class="ecom-meta">BRD / FRD<br>Analysis</div></div>
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#d8d9df">📊</div><div class="ecom-info"><strong>Trading Workflow</strong><span>Platform Logic</span></div><div class="ecom-meta">Gap Fixes<br>UAT</div></div>
+          <div class="ecom-item"><div class="ecom-thumb" style="background:#74ef74">⚙️</div><div class="ecom-info"><strong>RMS & Backend Support</strong><span>Capital Markets</span><div class="price"><span class="progress-text" id="progressText">In Progress</span></div></div><div class="ecom-meta"><b style="color:#111">Live</b><br>Systems + Data</div></div>
+        </div>
+      </div>
+
+      <!-- JOURNEY CARD -->
+      <div class="card journey-card">
+        <div class="card-label">Corporate Journey</div>
+        <div class="timeline">
+          <div class="timeline-item active-role" id="activeRole">
+            <div class="timeline-year">Feb 2024 – Present <span class="active-badge">● Active</span></div>
+            <div>
+              <h4>Mirae Asset Capital Market (m.Stock)</h4>
+              <p>Business Analyst working on RMS, OMS, trading platform enhancements, backend workflows, and delivery coordination.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Jul 2023 – Feb 2024</div>
+            <div>
+              <h4>YES Securities</h4>
+              <p>Product Manager handling product enhancements, vendor coordination, feature prioritization, and platform improvements.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Dec 2019 – Jul 2023</div>
+            <div>
+              <h4>HDFC Securities</h4>
+              <p>Business Analyst working on requirement gathering, UAT, production support, stakeholder communication, and system improvements.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Apr 2018 – Aug 2019</div>
+            <div>
+              <h4>HDFC Securities</h4>
+              <p>Operation Executive managing backend operations and execution support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Selected Work</div>
+    <div class="featured-work reveal delay-1">
+
+      <!-- PROJECT 1 -->
+      <div class="featured-item" id="ba-cr-workspace">
+        <div class="featured-left ripple">
+          <div class="featured-head">
+            <div class="featured-icon" style="background:#dcf5dc">📊</div>
+            <div><h3>BA CR Workspace</h3><p>Change Request & UAT Tracking Tool</p></div>
+          </div>
+          <div class="featured-desc">
+            A self-built Business Analyst workspace to track Change Requests, UAT progress, delivery timelines and go-live status. Built independently with AI assistance to improve visibility and manage BA workflows in one place.
+          </div>
+          <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button class="ripple" onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button class="ripple" onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button class="ripple" onclick="trackEvent('click','project','BA CR Workspace - View');window.open('https://narendra210996.github.io/cr-tracker/index.html','_blank')"><span>View Project</span><span>↗</span></button><button class="ripple" onclick="trackEvent('click','project','BA CR Workspace - Case Study');window.location.href='projects.html#ba-cr-workspace'"><span>Case Study</span><span>↗</span></button></div>
+        </div>
+        <div class="featured-preview" style="background:linear-gradient(160deg,#dfe2ff,#5b70ff)" data-tilt>
+          <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">BA CR Workspace</span></div><div class="mock-screen"><div class="mock-title">CR Tracker Dashboard</div><div class="mock-sub">Change Request monitoring workspace</div><div class="mock-stats"><div class="mock-stat">Total CRs<b>42</b></div><div class="mock-stat">In UAT<b>11</b></div><div class="mock-stat">Go-Live<b>06</b></div></div><div class="mock-table"><div class="mock-row"><span>CR Name</span><span>Status</span><span>Owner</span></div><div class="mock-row"><span>RMS Change</span><span>UAT</span><span>BA Team</span></div><div class="mock-row"><span>Report Update</span><span>Progress</span><span>Tech</span></div><div class="mock-row"><span>Platform Fix</span><span>Ready</span><span>Ops</span></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="featured-item" id="stock-dashboard">
+        <div class="featured-left ripple">
+          <div class="featured-head">
+            <div class="featured-icon" style="background:#ffe0d0">📈</div>
+            <div><h3>US Stock Signal Dashboard</h3><p>Live Price & Buy/Sell Recommendation Tool</p></div>
+          </div>
+          <div class="featured-desc">
+            A self-built live market dashboard that fetches US stock prices and displays buy/sell recommendation signals. Built independently with AI assistance to combine market data, trend visibility and decision support in one interface.
+          </div>
+          <div class="featured-meta"><div class="featured-cell"><label>Year</label><span>2025</span></div><div class="featured-cell"><label>Built With</label><span>AI Assistance</span></div></div>
+          <div class="credential-row"><div class="cred-pill">User: <b>Test</b><button class="ripple" onclick="copyText('Test')">Copy</button></div><div class="cred-pill">Pass: <b>Test@123</b><button class="ripple" onclick="copyText('Test@123')">Copy</button></div></div>
+          <div class="featured-actions"><button class="ripple" onclick="trackEvent('click','project','US Stock Dashboard - View');window.open('https://nse-dashboard-live.onrender.com/login','_blank')"><span>View Project</span><span>↗</span></button><button class="ripple" onclick="trackEvent('click','project','US Stock Dashboard - Case Study');window.location.href='projects.html#stock-dashboard'"><span>Case Study</span><span>↗</span></button></div>
+        </div>
+        <div class="featured-preview" style="background:linear-gradient(160deg,#101827,#2563eb)" data-tilt>
+          <div class="browser-card"><div class="browser-top"><span class="browser-dot" style="background:#ff5f57"></span><span class="browser-dot" style="background:#febc2e"></span><span class="browser-dot" style="background:#28c840"></span><span class="browser-label">Stock Dashboard</span></div><div class="mock-screen"><div class="mock-title">US Market Dashboard</div><div class="mock-sub">Live prices with buy/sell signals</div><div class="mock-stats"><div class="mock-stat">AAPL <b><span class="stock-price" id="aaplPrice">192.40</span></b></div><div class="mock-stat">MSFT <b><span class="stock-price" id="msftPrice">421.80</span></b></div><div class="mock-stat">TSLA <b><span class="stock-price" id="tslaPrice">248.20</span></b></div></div><div class="mock-table"><div class="mock-row"><span>Stock</span><span>Signal</span><span>Trend</span></div><div class="mock-row"><span>AAPL</span><span>Buy</span><span>Positive</span></div><div class="mock-row"><span>MSFT</span><span>Hold</span><span>Stable</span></div><div class="mock-row"><span>TSLA</span><span>Sell</span><span>Weak</span></div></div><div class="stock-graph"></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<section class="dark-section reveal">
+  <div class="dark-inner">
+    <div class="section-label">What I Do</div>
+    <div class="services-grid reveal delay-1">
+      <div class="service-card"><div class="service-num">01.</div><h3>Business Requirement Analysis</h3><p>I translate business needs into structured requirements, BRD/FRD documentation, workflows and clear implementation-ready inputs.</p></div>
+      <div class="service-card"><div class="service-num">02.</div><h3>Trading & RMS Coordination</h3><p>I work across trading platforms, RMS flows and operational teams to identify gaps and improve system performance.</p></div>
+      <div class="service-card"><div class="service-num">03.</div><h3>Data & Process Improvement</h3><p>I use data analysis, SQL understanding and process reviews to support better decisions and reduce operational inefficiencies.</p></div>
+      <div class="service-card"><div class="service-num">04.</div><h3>UAT & Production Support</h3><p>I coordinate testing, validate bug fixes, support releases and ensure solutions meet real business expectations.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap" style="padding-top:0">
+  <div class="footer-headline reveal">Let's Create Something Exceptional Together</div>
+  <div class="footer-grid reveal">
+    <div class="footer-col">
+      <div class="footer-col-label">Quick Links</div>
+      <div class="footer-links">
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Portfolio');window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','About');window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Contact');window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Contact</div>
+      <div class="footer-links">
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','LinkedIn');window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Email');window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Naukri');window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
+        <div class="mobile-line">Mobile: <strong>8286169906</strong></div>
+        <div class="copy">© 2026 Narendra Dicholkar. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// 1. RIPPLE EFFECT
+// ============================================================
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('.ripple');
+  if (!target) return;
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-effect';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  target.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 700);
+});
+
+// ============================================================
+// 2. 3D TILT – DESKTOP ONLY
+// ============================================================
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('[data-tilt], .card, .service-card, .footer-col, .featured-left, .journey-card').forEach(el => {
+    el.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      this.style.transform = `perspective(1200px) rotateY(${x*6}deg) rotateX(${-y*6}deg) scale(1.02)`;
+    });
+    el.addEventListener('mouseleave', function() {
+      this.style.transform = 'perspective(1200px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+}
+
+// ============================================================
+// 3. SUCCESS TOAST
+// ============================================================
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    showSuccessToast('Copied: ' + text);
+    trackEvent('copy', 'interaction', text);
+  });
+}
+
+// ============================================================
+// 4. BACK TO TOP
+// ============================================================
+(function() {
+  const btn = document.createElement('button');
+  btn.className = 'back-top-btn';
+  btn.innerHTML = '↑';
+  btn.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(btn);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btn.classList.add('show');
+    else btn.classList.remove('show');
+  });
+  btn.addEventListener('click', () => {
+    trackEvent('click', 'navigation', 'Back to Top');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// ============================================================
+// 5. ACTIVE NAV
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  const current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === current) link.classList.add('active');
+  });
+});
+
+// ============================================================
+// 6. TYPEWRITER
+// ============================================================
+const typewriterElement = document.querySelector('.typewriter-text');
+const words = ['Business Analyst', 'Data Enthusiast', 'Capital Markets Expert', 'Problem Solver'];
+let wordIndex = 0, charIndex = 0, isDeleting = false;
+function typeEffect() {
+  const currentWord = words[wordIndex];
+  if (isDeleting) {
+    typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+    charIndex++;
+  }
+  if (!isDeleting && charIndex === currentWord.length) {
+    isDeleting = true;
+    setTimeout(typeEffect, 2000);
+    return;
+  }
+  if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    wordIndex = (wordIndex + 1) % words.length;
+    setTimeout(typeEffect, 400);
+    return;
+  }
+  setTimeout(typeEffect, isDeleting ? 60 : 120);
+}
+typeEffect();
+
+// ============================================================
+// 7. ANIMATED COUNTERS
+// ============================================================
+function animateTicker(element, target) {
+  let current = 0;
+  const duration = 1500;
+  const steps = 60;
+  const increment = target / steps;
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    current += increment;
+    if (step >= steps) {
+      element.textContent = target;
+      clearInterval(timer);
+    } else {
+      element.textContent = Math.floor(current);
+    }
+  }, duration / steps);
+}
+
+const heroObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.hero-stats .stat-number').forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        animateTicker(stat, target);
+      });
+      heroObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const heroCard = document.querySelector('.card-hero');
+if (heroCard) heroObserver.observe(heroCard);
+
+// ============================================================
+// 8. LIVE STOCK TICKER
+// ============================================================
+const stockPrices = {
+  aapl: { el: document.getElementById('aaplPrice'), base: 192.40, last: 192.40 },
+  msft: { el: document.getElementById('msftPrice'), base: 421.80, last: 421.80 },
+  tsla: { el: document.getElementById('tslaPrice'), base: 248.20, last: 248.20 }
+};
+function updateStockPrices() {
+  Object.keys(stockPrices).forEach(key => {
+    const s = stockPrices[key];
+    if (!s.el) return;
+    const change = (Math.random() - 0.48) * 0.35;
+    let newVal = s.last + change;
+    newVal = Math.max(1, newVal);
+    const formatted = newVal.toFixed(2);
+    s.last = newVal;
+    s.el.textContent = formatted;
+    if (newVal > s.base) { s.el.className = 'stock-price up'; }
+    else if (newVal < s.base) { s.el.className = 'stock-price down'; }
+    else { s.el.className = 'stock-price'; }
+    s.base = s.base * 0.999 + newVal * 0.001;
+  });
+}
+setInterval(updateStockPrices, 2200);
+
+// ============================================================
+// 9. EXPERTISE CAROUSEL
+// ============================================================
+const tagContainer = document.getElementById('expertiseTags');
+const tags = tagContainer ? Array.from(tagContainer.querySelectorAll('.tag')) : [];
+function rotateTag() {
+  if (tags.length === 0) return;
+  tags.forEach(t => t.classList.remove('active-carousel'));
+  const randomIndex = Math.floor(Math.random() * tags.length);
+  tags[randomIndex].classList.add('active-carousel');
+}
+setInterval(rotateTag, 2500);
+
+// ============================================================
+// 10. LIVE TIMESTAMP
+// ============================================================
+const timestampEl = document.getElementById('liveTimestamp');
+let seconds = 0;
+function updateTimestamp() {
+  seconds++;
+  if (seconds < 60) {
+    timestampEl.textContent = seconds + ' seconds ago';
+  } else {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    timestampEl.textContent = mins + 'm ' + secs + 's ago';
+  }
+}
+setInterval(updateTimestamp, 10000);
+setTimeout(() => { timestampEl.textContent = '10 seconds ago'; }, 100);
+
+// ============================================================
+// 11. IN-PROGRESS ANIMATION
+// ============================================================
+const progressText = document.getElementById('progressText');
+if (progressText) {
+  let dotCount = 1;
+  setInterval(() => {
+    const dots = '.'.repeat(dotCount);
+    progressText.textContent = 'In Progress' + dots;
+    dotCount = (dotCount % 3) + 1;
+  }, 800);
+}
+
+// ============================================================
+// 12. MOUSE SPOTLIGHT – DESKTOP ONLY
+// ============================================================
+if (window.matchMedia('(hover: hover)').matches) {
+  const hero = document.getElementById('heroCard');
+  if (hero) {
+    hero.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      const tagline = this.querySelector('.hero-tagline');
+      if (tagline) {
+        tagline.style.background = `
+          radial-gradient(circle at ${x}% ${y}%, rgba(240,180,41,0.12) 0%, transparent 60%),
+          #f7f6f2
+        `;
+      }
+    });
+    hero.addEventListener('mouseleave', function() {
+      const tagline = this.querySelector('.hero-tagline');
+      if (tagline) tagline.style.background = '#f7f6f2';
+    });
+  }
+}
+
+// ============================================================
+// 13. SCROLL REVEAL (WAVE)
+// ============================================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      entry.target.querySelectorAll('.reveal-item').forEach((child, i) => {
+        setTimeout(() => child.classList.add('visible'), i * 100);
+      });
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => {
+  el.querySelectorAll(':scope > *').forEach(child => {
+    if (!child.classList.contains('bento-grid') && !child.classList.contains('featured-work') && !child.classList.contains('services-grid') && !child.classList.contains('footer-grid')) {
+      child.classList.add('reveal-item');
+    }
+  });
+  revealObserver.observe(el);
+});
+
+document.querySelectorAll('.reveal-item').forEach(el => {
+  if (!el.closest('.reveal')) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    obs.observe(el);
+  }
+});
+</script>
+</body>
+</html>

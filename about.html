@@ -1,359 +1,290 @@
-<!DOCTYPE html><html lang="en"><head>
-<!-- Google tag (gtag.js) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About | Narendra Dicholkar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<!-- ===== GOOGLE ANALYTICS 4 (gtag.js) – G-XZHTQ3GGN8 ===== -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZHTQ3GGN8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-XZHTQ3GGN8');
-
-  // Custom Portfolio Tracking
-  function trackPortfolioEvent(eventName, eventLabel, extraData){
-    if (typeof gtag !== 'function') return;
-    gtag('event', eventName, Object.assign({
-      event_category: 'portfolio_engagement',
-      event_label: eventLabel || 'unknown',
-      page_title: document.title,
-      page_location: window.location.href,
-      transport_type: 'beacon'
-    }, extraData || {}));
+  function trackEvent(action, category = 'engagement', label = '') {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', action, { 'event_category': category, 'event_label': label });
+    }
   }
-
-  document.addEventListener('click', function(e){
-    var el = e.target.closest('[data-ga-event], a, button, .footer-link, .social-box');
-    if (!el) return;
-
-    var eventName = el.getAttribute('data-ga-event') || 'site_click';
-    var eventLabel = el.getAttribute('data-ga-label') || (el.innerText || el.textContent || el.href || 'click').trim().replace(/\s+/g, ' ').slice(0, 120);
-    var linkUrl = el.getAttribute('href') || el.getAttribute('data-ga-url') || '';
-
-    var onclickText = el.getAttribute('onclick') || '';
-    var urlMatch = onclickText.match(/['"](https?:\/\/[^'"]+|[^'"]+\.html)['"]/);
-    if (!linkUrl && urlMatch) linkUrl = urlMatch[1];
-
-    trackPortfolioEvent(eventName, eventLabel, {
-      link_url: linkUrl,
-      click_text: eventLabel
-    });
-  }, true);
 </script>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About / Narendra Dicholkar</title><style>
+
+<style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;
-}
+:root{--bg:#f5f4f0;--surface:#fff;--border:rgba(0,0,0,.16);--text:#111;--muted:#666;--dark:#1a1a1a;}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;opacity:0;animation:pageFade 0.6s ease forwards}
+@keyframes pageFade{to{opacity:1}}
 a{color:inherit;text-decoration:none}
-nav{
-  max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;
-  padding:10px 0 14px;border-bottom:1px solid rgba(0,0,0,.22);position:sticky;top:0;background:var(--bg);z-index:50
-}
-.nav-logo,.nav-links a{
-  font-size:13px;font-weight:500;letter-spacing:.02em;padding:9px 17px;border:1px solid var(--border);border-radius:9px;background:#f7f6f2
-}
+
+/* ===== RIPPLE ===== */
+.ripple{position:relative;overflow:hidden;cursor:pointer}
+.ripple-effect{position:absolute;border-radius:50%;background:rgba(240,180,41,0.4);transform:scale(0);animation:rippleAnim 0.7s ease-out forwards;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* ===== SUCCESS TOAST ===== */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);background:#1a1a1a;color:#fff;padding:36px 48px;border-radius:24px;text-align:center;z-index:9999;opacity:0;pointer-events:none;transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
+.success-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.success-toast .msg{margin-top:12px;font-size:16px;font-weight:500;display:block}
+.success-circle{width:64px;height:64px;margin:0 auto}
+.success-ring{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:157;stroke-dashoffset:157;animation:ringFill 0.6s ease forwards}
+.success-check{fill:none;stroke:#00c853;stroke-width:4;stroke-dasharray:30;stroke-dashoffset:30;animation:checkDraw 0.4s ease 0.3s forwards}
+@keyframes ringFill{to{stroke-dashoffset:0}}
+@keyframes checkDraw{to{stroke-dashoffset:0}}
+
+/* ===== NAV ===== */
+nav{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:10px 0 14px;border-bottom:1px solid rgba(0,0,0,.22);position:sticky;top:0;background:var(--bg);z-index:50}
+.nav-logo,.nav-links a{font-size:13px;font-weight:500;letter-spacing:.02em;padding:9px 17px;border:1px solid var(--border);border-radius:9px;background:#f7f6f2;transition:0.2s}
 .nav-links{display:flex;gap:10px}
-.nav-links a:hover,.footer-link:hover,.btn-download:hover{background:#ebe9e2}
+.nav-links a:hover{background:#ebe9e2}
+.nav-links a.active{background:#111;color:#fff;border-color:#111}
 .wrap{max-width:1180px;margin:0 auto;padding:28px 0 40px}
-.section{margin-bottom:34px}
-.section-label,.strip-title{
-  border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px
-}
-.strip-title{font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
-.card{
-  background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden
-}
-.card-label{
-  padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:#333
-}
+.strip-title{border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:20px 14px;margin-bottom:14px;font-size:40px;line-height:1.1;font-weight:400;letter-spacing:-1px}
+.card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.3s ease, box-shadow 0.3s ease;will-change:transform}
+.card-label{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;font-weight:400;color:#333}
 .card-body{padding:16px}
-.btn-dark{
-  margin-top:auto;display:flex;justify-content:space-between;align-items:center;width:100%;
-  background:#303030;color:#fff;border:none;border-radius:8px;padding:14px 16px;font:600 14px 'DM Sans';cursor:pointer
-}
-.btn-dark:hover{background:#111}
-.bento-grid{
-  display:grid;grid-template-columns:1.05fr 1.05fr .5fr .5fr;grid-auto-rows:minmax(174px,auto);gap:14px
-}
-.card-hero{
-  grid-column:1;grid-row:1 / span 2;padding:0;display:flex;flex-direction:column;justify-content:flex-end;min-height:368px
-}
-.hero-art{
-  height:186px;background:linear-gradient(160deg,#f4b8aa 0%,#ddd0f3 45%,#97b5ff 100%);position:relative;border-bottom:0
-}
-.hero-art:before{
-  content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);background-size:15px 15px;opacity:.75
-}
-.avatar{
-  width:58px;height:58px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.8);background:#ddd;
-  position:absolute;left:18px;bottom:-31px;display:flex;align-items:center;justify-content:center;font-size:30px
-}
-.hero-tagline{
-  font-family:'DM Sans',sans-serif;font-size:38px;line-height:1.12;letter-spacing:-1.4px;font-weight:400;padding:46px 18px 18px
-}
-.card-about{grid-column:2;grid-row:1;display:flex;flex-direction:column}
-.card-about p{font-size:14px;line-height:1.45}
-.card-podcast{grid-column:3;grid-row:1;background:#ff6848;color:#fff;padding:18px;display:flex;flex-direction:column;justify-content:flex-end}
-.waveform{height:72px;display:flex;align-items:center;gap:2px;margin-bottom:14px}
-.wave-bar{width:3px;background:rgba(255,255,255,.78);border-radius:3px;animation:wave 1.2s ease-in-out infinite alternate}
-@keyframes wave{from{transform:scaleY(.42)}to{transform:scaleY(1)}}
-.card-podcast h3{font-size:15px;line-height:1.1}.card-podcast p{font-size:13px;color:rgba(255,255,255,.9)}
-.card-cv{grid-column:4;grid-row:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:#f7f6f2}
-.cv-big{font-size:72px;line-height:.9;font-weight:400;letter-spacing:-4px}
-.btn-download{
-  border:1px solid var(--border);background:#fff;border-radius:18px;padding:9px 13px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer
-}
-.card-expertises{grid-column:1;grid-row:3}
-.tags{display:flex;flex-wrap:wrap;gap:9px;padding:16px}
-.tag{border:1px solid var(--border);border-radius:20px;padding:7px 14px;background:#fff;font-size:13px;line-height:1}
-.tag:hover{background:#111;color:#fff}
-.card-ecom{grid-column:2;grid-row:2 / span 2;min-height:318px;background:linear-gradient(160deg,#dfe2ff 0%,#5b70ff 100%);display:flex;align-items:center;justify-content:center;padding:28px}
-.ecom-stack{width:86%;position:relative}
-.ecom-item{
-  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:44px 1fr 95px;gap:12px;align-items:center;box-shadow:0 18px 40px rgba(70,90,200,.18);font-size:11px
-}
-.ecom-item:nth-child(1){transform:translate(48px,18px);opacity:.74}.ecom-item:nth-child(2){transform:translate(22px,9px);opacity:.9}.ecom-item:nth-child(3){position:relative;z-index:3}
-.ecom-thumb{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.ecom-info strong{display:block;font-size:12px}.ecom-info span,.ecom-meta{color:#555;font-size:10px}.price{font-weight:700;color:#111;margin-top:3px}
-.card-preview{grid-column:3 / span 2;grid-row:2 / span 2;min-height:318px;background:linear-gradient(135deg,#4432d0,#f4c15b);display:flex;align-items:center;justify-content:center;padding:30px}
-.preview-stack{width:80%;height:210px;position:relative}
-.preview-note{position:absolute;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.10);border-radius:7px;padding:12px;width:210px;box-shadow:0 10px 24px rgba(0,0,0,.12)}
-.preview-note:nth-child(1){left:5px;top:12px}.preview-note:nth-child(2){left:52px;top:52px}.preview-note:nth-child(3){left:100px;top:92px}
-.preview-note h4{font-size:13px;margin-bottom:8px}.preview-note p{font-size:9px;color:#555;line-height:1.3}
-.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.work-card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.work-visual{height:230px;display:flex;align-items:center;justify-content:center;font-size:64px}
-.work-info{padding:18px;display:flex;gap:14px;align-items:center}
-.work-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.work-info h3{font-size:22px;font-weight:500}.work-info p{font-size:13px;color:#555;margin-top:3px}
-.dark-section{background:#111;color:#fff;padding:42px 0;margin:45px 0}
-.dark-inner{max-width:1180px;margin:0 auto}
-.dark-section .section-label{color:#ccc;border-color:rgba(255,255,255,.2);background:#111}
-.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.service-card{border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:24px}.service-num{color:#777;margin-bottom:14px}.service-card h3{font-size:20px;margin-bottom:12px}.service-card p{font-size:13px;line-height:1.7;color:#aaa}
-.footer-headline{font-size:40px;line-height:1.1;border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:14px 16px;margin-bottom:16px;letter-spacing:-1px}
-.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.footer-col{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.footer-col-label{padding:12px 16px;border-bottom:1px solid var(--border);color:#555;font-size:13px}
-.footer-links{padding:16px}
-.footer-link{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(0,0,0,.14);border-radius:14px;padding:13px 14px;margin-bottom:10px;background:#fff;cursor:pointer;font-size:15px}
-.footer-link-icon{width:31px;height:31px;border:1px solid rgba(0,0,0,.16);border-radius:9px;display:flex;align-items:center;justify-content:center}
-.copy{font-size:12px;color:#888;padding-top:6px}
 .about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .about-left,.about-middle,.about-right{display:flex;flex-direction:column;gap:10px}
-.text-card{padding:18px;font-size:14px;line-height:1.55;min-height:188px}
-.mini-list{padding:14px 16px;border-bottom:1px solid var(--border)}
-.mini-list:last-child{border-bottom:0}.mini-list h4{font-size:13px;margin-bottom:7px}.mini-list p{font-size:11px;line-height:1.5;color:#333}
-.photo-card{height:268px;background:linear-gradient(180deg,#ddd,#bbb);display:flex;align-items:center;justify-content:center;font-size:96px}
-.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.social-box{height:54px;border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;background:#f7f6f2;font-size:20px;cursor:pointer}
-.contact-hero{display:grid;grid-template-columns:1fr 1fr;gap:16px}.contact-card{padding:28px}.contact-card h1{font-size:50px;line-height:1;letter-spacing:-1.5px}.contact-card p{font-size:15px;color:#555;line-height:1.7;margin-top:14px}
-@media(max-width:900px){
-  nav,.wrap,.dark-inner{max-width:calc(100% - 28px)}
-  nav{align-items:flex-start;gap:12px}.nav-links{flex-wrap:wrap;justify-content:flex-end}
-  .bento-grid,.work-grid,.about-grid,.contact-hero,.footer-grid,.services-grid{grid-template-columns:1fr}
-  .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.card-preview{grid-column:1;grid-row:auto}
-  .hero-tagline{font-size:32px}.strip-title,.footer-headline{font-size:32px}
+
+/* ===== BIO SPOTLIGHT (Desktop) ===== */
+.spotlight-text{position:relative;transition:background 0.1s ease;border-radius:8px;padding:18px;font-size:14px;line-height:1.55;min-height:188px;background:#f7f6f2}
+
+/* ===== SKILL BARS ===== */
+.skill-bar-item{margin-bottom:14px}
+.skill-bar-item:last-child{margin-bottom:0}
+.skill-bar-item .skill-info{display:flex;justify-content:space-between;font-size:13px;font-weight:500;margin-bottom:4px}
+.skill-bar-item .skill-info .skill-label{color:#333}
+.skill-bar-item .skill-info .skill-percent{color:#111}
+.skill-track{width:100%;height:7px;background:#e5e7eb;border-radius:6px;overflow:hidden}
+.skill-fill{height:100%;background:linear-gradient(90deg,#f0b429,#d49d1e);border-radius:6px;width:0;transition:width 1.2s cubic-bezier(0.22,1,0.36,1)}
+
+/* ===== MORPHING PHOTO CARD ===== */
+.morph-photo{height:268px;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(135deg,#f4b8aa,#ddd0f3,#97b5ff,#f4b8aa);background-size:400% 400%;animation:morphGradient 14s ease-in-out infinite;color:rgba(0,0,0,0.3)}
+@keyframes morphGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* ===== SOCIAL ICONS ===== */
+.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.social-box{height:54px;border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;background:#f7f6f2;font-size:20px;cursor:pointer;transition:all 0.2s;will-change:transform}
+/* Desktop hover only */
+@media (hover: hover) {
+  .social-box:hover{background:#111;color:#fff;transform:translateY(-3px) scale(1.05)}
 }
 
+/* ===== QUOTE CARD ===== */
+.quote-card{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;padding:24px;font-style:italic;font-size:18px;line-height:1.4;color:#333;text-align:center;border-left:4px solid #f0b429}
+.quote-card .attribution{display:block;margin-top:10px;font-style:normal;font-size:13px;color:#777}
 
-/* ===== MOBILE RESPONSIVE POLISH - added by ChatGPT ===== */
+/* ===== MINI LIST ===== */
+.mini-list{padding:14px 16px;border-bottom:1px solid var(--border)}
+.mini-list:last-child{border-bottom:0}
+.mini-list h4{font-size:13px;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.mini-list p{font-size:11px;line-height:1.5;color:#333}
+.mini-list .counter-highlight{font-size:22px;font-weight:700;color:#f0b429;display:inline-block;min-width:24px}
+
+/* ===== FOOTER ===== */
+.footer-headline{font-size:40px;line-height:1.1;border:1px solid var(--border);border-radius:8px;background:#f7f6f2;padding:14px 16px;margin-bottom:16px;letter-spacing:-1px}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.footer-col{background:#f7f6f2;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform 0.3s ease}
+.footer-col-label{padding:12px 16px;border-bottom:1px solid var(--border);color:#555;font-size:13px}
+.footer-links{padding:16px}
+.footer-link{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(0,0,0,.14);border-radius:14px;padding:13px 14px;margin-bottom:10px;background:#fff;cursor:pointer;font-size:15px;transition:0.2s;min-height:44px}
+.footer-link:hover{background:#ebe9e2}
+.footer-link-icon{width:31px;height:31px;border:1px solid rgba(0,0,0,.16);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.copy{font-size:12px;color:#888;padding-top:6px}
+.btn-download{border:1px solid var(--border);background:#fff;border-radius:18px;padding:9px 13px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:0.2s;font-family:'DM Sans',sans-serif;min-height:44px}
+.btn-download:hover{background:#ebe9e2}
+
+/* ===== BACK TO TOP ===== */
+.back-top-btn{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:999;display:flex;align-items:center;justify-content:center}
+.back-top-btn.show{opacity:1;visibility:visible}.back-top-btn:hover{background:#f0b429;color:#111}
+
+/* ===== REVEAL ===== */
+.reveal-item{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1)}
+.reveal-item.visible{opacity:1;transform:translateY(0)}
+.reveal{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.22,1,0.36,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
+
+/* ============================================================ */
+/* ===== MOBILE-ONLY TACTILE FEEDBACK ===== */
+/* ============================================================ */
+@media (hover: none) {
+  .card:active,
+  .footer-col:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .footer-link:active,
+  .btn-download:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
+  }
+  .social-box:active {
+    transform: scale(0.90) !important;
+  }
+  .reveal-item {
+    transition-duration: 0.5s !important;
+  }
+  .footer-link,
+  .btn-download,
+  .social-box {
+    min-height: 44px;
+  }
+}
+
+/* ============================================================ */
+/* ===== RESPONSIVE LAYOUT ===== */
+/* ============================================================ */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .strip-title,.footer-headline{font-size:32px}
+  .wrap{max-width:calc(100% - 28px)}
+  nav{max-width:calc(100% - 28px);align-items:flex-start;gap:12px}
+  .nav-links{flex-wrap:wrap;justify-content:flex-end}
+}
 img, video, iframe, svg { max-width: 100%; height: auto; }
 button, a { -webkit-tap-highlight-color: transparent; }
-body { overflow-x: hidden; }
 
 @media (max-width: 900px){
   html, body { width: 100%; overflow-x: hidden; }
-  nav{
-    max-width: calc(100% - 24px) !important;
-    width: calc(100% - 24px) !important;
-    margin: 0 auto !important;
-    padding: 12px 0 !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 10px !important;
-  }
-  .nav-logo, .logo{
-    width: 100% !important;
-    display: block !important;
-    text-align: center !important;
-    white-space: normal !important;
-    line-height: 1.25 !important;
-    padding: 10px 12px !important;
-    font-size: 12px !important;
-  }
-  .nav-links{
-    width: 100% !important;
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
-  }
-  .nav-links a{
-    text-align: center !important;
-    padding: 10px 8px !important;
-    font-size: 11px !important;
-    white-space: nowrap !important;
-  }
-  .wrap, .dark-inner, .page{
-    max-width: calc(100% - 24px) !important;
-    width: calc(100% - 24px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .wrap{ padding-top: 18px !important; padding-bottom: 28px !important; }
-  .strip-title, .footer-headline{
-    font-size: clamp(26px, 8vw, 34px) !important;
-    line-height: 1.08 !important;
-    padding: 16px 14px !important;
-    letter-spacing: -0.8px !important;
-  }
-  .bento-grid, .work-grid, .about-grid, .contact-hero, .footer-grid, .services-grid{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  .card-hero,.card-about,.card-podcast,.card-cv,.card-expertises,.card-ecom,.card-preview,.journey-card{
-    grid-column: 1 !important;
-    grid-row: auto !important;
-  }
-  .card{ border-radius: 12px !important; }
-  .card-hero{ min-height: auto !important; }
-  .hero-art{ height: 145px !important; }
-  .avatar{ width: 54px !important; height: 54px !important; bottom: -27px !important; }
-  .hero-tagline{
-    font-size: clamp(26px, 8vw, 34px) !important;
-    line-height: 1.1 !important;
-    padding: 42px 16px 18px !important;
-    letter-spacing: -1px !important;
-  }
-  .card-body{ padding: 14px !important; }
-  .card-about p, .service-card p, .work-body, .text-card, .contact-card p{
-    font-size: 13px !important;
-    line-height: 1.6 !important;
-  }
-  .card-podcast, .card-cv{ min-height: 150px !important; }
-  .cv-big{ font-size: 58px !important; letter-spacing: -3px !important; }
-  .tags{ gap: 7px !important; padding: 14px !important; }
-  .tag{ font-size: 12px !important; padding: 7px 11px !important; }
-  .card-ecom, .card-preview, .journey-card{ min-height: auto !important; padding: 18px !important; }
-  .ecom-stack{ width: 100% !important; }
-  .ecom-item{
-    grid-template-columns: 38px 1fr !important;
-    gap: 10px !important;
-    transform: none !important;
-    margin-bottom: 8px !important;
-  }
-  .ecom-item .ecom-meta{ grid-column: 1 / -1 !important; }
-  .preview-stack{ width: 100% !important; height: 190px !important; }
-  .preview-note{ width: 70% !important; }
-  .preview-note:nth-child(1){ left: 0 !important; top: 4px !important; }
-  .preview-note:nth-child(2){ left: 34px !important; top: 48px !important; }
-  .preview-note:nth-child(3){ left: 68px !important; top: 92px !important; }
-  .timeline{ padding: 14px !important; }
-  .timeline-item{ grid-template-columns: 1fr !important; gap: 7px !important; }
-  .timeline-year{ width: fit-content !important; }
-  .work-visual{ height: 170px !important; font-size: 48px !important; }
-  .work-info{ padding: 14px !important; align-items: flex-start !important; }
-  .work-info h3{ font-size: 19px !important; }
-  .dark-section{ margin: 28px 0 !important; padding: 30px 0 !important; }
-  .service-card{ padding: 18px !important; }
-  .footer-link{ font-size: 13px !important; gap: 10px !important; word-break: break-word !important; }
-  .contact-card{ padding: 20px !important; }
-  .contact-card h1{ font-size: clamp(34px, 11vw, 46px) !important; }
-  .photo-card{ height: 210px !important; font-size: 72px !important; }
+  nav{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin: 0 auto !important;padding: 12px 0 !important;flex-direction: column !important;align-items: stretch !important;gap: 10px !important;}
+  .nav-logo{width: 100% !important;display: block !important;text-align: center !important;white-space: normal !important;line-height: 1.25 !important;padding: 10px 12px !important;font-size: 12px !important;}
+  .nav-links{width: 100% !important;display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 8px !important;}
+  .nav-links a{text-align: center !important;padding: 10px 8px !important;font-size: 11px !important;white-space: nowrap !important;}
+  .wrap{max-width: calc(100% - 24px) !important;width: calc(100% - 24px) !important;margin-left: auto !important;margin-right: auto !important;padding-top: 18px !important;padding-bottom: 28px !important;}
+  .strip-title{font-size: clamp(26px, 8vw, 34px) !important;line-height: 1.08 !important;padding: 16px 14px !important;letter-spacing: -0.8px !important;}
+  .about-grid{display:grid !important;grid-template-columns:1fr !important;gap:12px !important;}
+  .card{border-radius:12px !important;}
+  .morph-photo{height:210px !important;font-size:72px !important;}
+  .social-grid{grid-template-columns:repeat(3,1fr) !important;}
+  .social-box{height:50px !important;font-size:18px !important;}
+  .footer-headline{font-size: clamp(26px, 8vw, 34px) !important;line-height:1.08 !important;padding:16px 14px !important;}
+  .footer-grid{grid-template-columns:1fr !important;gap:12px !important;}
+  .footer-link{font-size:13px !important;gap:10px !important;word-break:break-word !important;}
+  .back-top-btn{bottom:20px;right:20px;width:44px;height:44px;font-size:18px;}
+  .success-toast{padding:24px 28px !important;width:80% !important;}
+  .quote-card{font-size:16px !important;padding:18px !important;}
 }
-
 @media (max-width: 420px){
-  .wrap, .dark-inner, .page, nav{ width: calc(100% - 18px) !important; max-width: calc(100% - 18px) !important; }
+  .wrap, nav{ width: calc(100% - 18px) !important; max-width: calc(100% - 18px) !important; }
   .nav-links{ grid-template-columns: 1fr !important; }
   .nav-links a{ font-size: 12px !important; }
-  .btn-dark, .btn-download, .footer-link{ width: 100% !important; }
-  .featured-meta{ grid-template-columns: 1fr !important; }
-  .featured-cell{ border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
+  .btn-download, .footer-link{ width: 100% !important; }
 }
+</style>
+</head>
+<body>
 
+<!-- ===== SUCCESS TOAST ===== -->
+<div class="success-toast" id="successToast">
+  <div class="success-circle"><svg viewBox="0 0 52 52"><circle class="success-ring" cx="26" cy="26" r="25"/><path class="success-check" d="M14 27l7 7 16-16"/></svg></div>
+  <span class="msg" id="toastMsg">Success!</span>
+</div>
 
-/* ===== PREMIUM SCROLL ANIMATION ===== */
-
-.reveal{
-  opacity:0;
-  transform:translateY(80px) scale(.96);
-  transition:all 1s cubic-bezier(0.22,1,0.36,1);
-  will-change:transform,opacity;
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-
-.delay-1{transition-delay:.1s;}
-.delay-2{transition-delay:.2s;}
-.delay-3{transition-delay:.3s;}
-
-</style></head><body>
+<!-- ===== NAV ===== -->
 <nav>
-  <a class="nav-logo" href="index.html" data-ga-event="navigation_click" data-ga-label="Home">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
+  <a class="nav-logo ripple" href="index.html" onclick="trackEvent('click','navigation','Logo')">NARENDRA DICHOLKAR / BUSINESS ANALYST</a>
   <div class="nav-links">
-    <a href="projects.html" data-ga-event="navigation_click" data-ga-label="Projects">PORTFOLIO</a>
-    <a href="about.html" data-ga-event="navigation_click" data-ga-label="About">ABOUT</a>
-    <a href="contact.html" data-ga-event="navigation_click" data-ga-label="Contact">CONTACT</a>
+    <a class="ripple" href="projects.html" onclick="trackEvent('click','navigation','PORTFOLIO')">PORTFOLIO</a>
+    <a class="ripple" href="about.html" onclick="trackEvent('click','navigation','ABOUT')">ABOUT</a>
+    <a class="ripple" href="contact.html" onclick="trackEvent('click','navigation','CONTACT')">CONTACT</a>
   </div>
 </nav>
-<main class="wrap"><div class="strip-title">Bridging Business Needs With Data-Driven Solutions</div><section class="about-grid reveal">
-<div class="about-left">
-  <div class="card text-card">Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.<br><br>I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.</div>
-  <div class="card"><div class="card-label">Profile Highlights</div><div class="mini-list"><h4>Capital Markets</h4><p>Experience across stock broking, trading platforms, RMS and operational workflows.</p></div><div class="mini-list"><h4>Business Analysis</h4><p>Requirement gathering, BRD/FRD, gap analysis, UAT and production support.</p></div><div class="mini-list"><h4>Data & Systems</h4><p>SQL/database understanding, process improvement and system integration coordination.</p></div></div>
-</div>
-<div class="about-middle">
-  <div class="card"><div class="card-label">Current Role</div><div class="mini-list"><h4>Business Analyst</h4><p>Mirae Asset Capital Markets (m.Stock)</p></div><div class="mini-list"><h4>Experience</h4><p>8+ years in Capital Markets and Stock Broking.</p></div></div>
-  <div class="card"><div class="card-label">Core Skills</div><div class="tags">
-<span class="tag">Business Analysis</span>
-<span class="tag">Data Analysis</span>
-<span class="tag">Requirement Gathering</span>
-<span class="tag">BRD / FRD</span>
-<span class="tag">Gap Analysis</span>
-<span class="tag">Stakeholder Management</span>
-<span class="tag">Product Improvement</span>
-<span class="tag">Competitive Analysis</span>
-<span class="tag">Capital Markets</span>
-<span class="tag">Trading Platforms</span>
-<span class="tag">RMS Systems</span>
-<span class="tag">SQL & Databases</span>
-<span class="tag">Risk Analysis</span>
-<span class="tag">System Integration</span>
-<span class="tag">UAT Testing</span>
-<span class="tag">Quality Assurance</span>
-<span class="tag">Production Support</span>
-<span class="tag">Process Optimization</span>
-</div></div>
-</div>
-<div class="about-right">
-  <div class="card photo-card">👤</div>
-  <div class="social-grid">
-    <div class="social-box" data-ga-event="contact_click" data-ga-label="Email Social Icon" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.open('mailto:Dicholkarnaren@gmail.com')">✉</div>
-    <div class="social-box" data-ga-event="contact_click" data-ga-label="LinkedIn Social Icon" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">in</div>
-    <div class="social-box" data-ga-event="contact_click" data-ga-label="Naukri Social Icon" data-ga-url="https://www.naukri.com/" onclick="window.open('https://www.naukri.com/','_blank')">N</div>
-  </div>
-</div>
-</section></main>
+
+<main class="wrap">
+  <div class="strip-title reveal">Bridging Business Needs With Data-Driven Solutions</div>
+
+  <!-- ===== ABOUT GRID ===== -->
+  <section class="about-grid reveal">
+
+    <!-- LEFT COLUMN -->
+    <div class="about-left">
+      <div class="spotlight-text" id="bioSpotlight">
+        Hi, I'm Narendra. I am a Business Analyst with over 8 years of experience in Capital Markets and Stock Broking, focused on translating business requirements into practical, system-ready solutions.<br><br>
+        I work closely with stakeholders, operations, product, RMS, and technology teams to understand processes, identify gaps, and enhance trading platform performance.
+      </div>
+
+      <div class="card">
+        <div class="card-label">Profile Highlights</div>
+        <div class="mini-list"><h4>📊 Capital Markets</h4><p>Experience across stock broking, trading platforms, RMS and operational workflows.</p></div>
+        <div class="mini-list"><h4>🔍 Business Analysis</h4><p>Requirement gathering, BRD/FRD, gap analysis, UAT and production support.</p></div>
+        <div class="mini-list"><h4>💾 Data & Systems</h4><p>SQL/database understanding, process improvement and system integration coordination.</p></div>
+      </div>
+    </div>
+
+    <!-- MIDDLE COLUMN -->
+    <div class="about-middle">
+      <div class="card">
+        <div class="card-label">Current Role</div>
+        <div class="mini-list"><h4>👨‍💼 Business Analyst</h4><p>Mirae Asset Capital Markets (m.Stock)</p></div>
+        <div class="mini-list"><h4>⏳ Experience</h4><p><span class="counter-highlight" id="yearsCounter">0</span>+ years in Capital Markets and Stock Broking.</p></div>
+      </div>
+
+      <!-- ===== ANIMATED SKILL BARS ===== -->
+      <div class="card" id="skillCard">
+        <div class="card-label">Core Skills</div>
+        <div class="card-body">
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">Business Analysis</span><span class="skill-percent">95%</span></div><div class="skill-track"><div class="skill-fill" data-width="95"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">Stakeholder Management</span><span class="skill-percent">90%</span></div><div class="skill-track"><div class="skill-fill" data-width="90"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">SQL & Databases</span><span class="skill-percent">85%</span></div><div class="skill-track"><div class="skill-fill" data-width="85"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">Capital Markets</span><span class="skill-percent">88%</span></div><div class="skill-track"><div class="skill-fill" data-width="88"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">Agile / Scrum</span><span class="skill-percent">85%</span></div><div class="skill-track"><div class="skill-fill" data-width="85"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-info"><span class="skill-label">Python / Data Analysis</span><span class="skill-percent">75%</span></div><div class="skill-track"><div class="skill-fill" data-width="75"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="about-right">
+      <div class="morph-photo">👤</div>
+      <div class="quote-card">
+        "My north star: Turning complex business chaos into clear, actionable systems."
+        <span class="attribution">— Narendra Dicholkar</span>
+      </div>
+      <div class="social-grid">
+        <div class="social-box ripple" onclick="trackEvent('click','social','Email');window.open('mailto:Dicholkarnaren@gmail.com')">✉</div>
+        <div class="social-box ripple" onclick="trackEvent('click','social','LinkedIn');window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')">in</div>
+        <div class="social-box ripple" onclick="trackEvent('click','social','Naukri');window.open('https://www.naukri.com/','_blank')">N</div>
+      </div>
+      <button class="btn-download ripple" onclick="showSuccessToast('📄 Downloading CV...'); trackEvent('download','CV','Resume PDF'); window.location.href='Narendra_Dicholkar_Resume.pdf'">
+        <span>📄 Download CV</span>
+        <span>↓</span>
+      </button>
+    </div>
+
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
 <footer class="wrap" style="padding-top:0">
-  <div class="footer-headline">Let's Create Something Exceptional Together</div>
-  <div class="footer-grid">
+  <div class="footer-headline reveal">Let's Create Something Exceptional Together</div>
+  <div class="footer-grid reveal">
     <div class="footer-col">
       <div class="footer-col-label">Quick Links</div>
       <div class="footer-links">
-        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Projects" data-ga-url="projects.html" onclick="window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="About" data-ga-url="about.html" onclick="window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" data-ga-event="navigation_click" data-ga-label="Contact" data-ga-url="contact.html" onclick="window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Portfolio');window.location.href='projects.html'"><span>Portfolio</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','About');window.location.href='about.html'"><span>About</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Contact');window.location.href='contact.html'"><span>Contact</span><div class="footer-link-icon">↗</div></div>
       </div>
     </div>
     <div class="footer-col">
       <div class="footer-col-label">Contact</div>
       <div class="footer-links">
-        <div class="footer-link" data-ga-event="contact_click" data-ga-label="LinkedIn" data-ga-url="https://www.linkedin.com/in/narendra-dicholkar" onclick="window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Email" data-ga-url="mailto:Dicholkarnaren@gmail.com" onclick="window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
-        <div class="footer-link" data-ga-event="contact_click" data-ga-label="Naukri Profile" data-ga-url="https://www.naukri.com/" onclick="window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','LinkedIn');window.open('https://www.linkedin.com/in/narendra-dicholkar','_blank')"><span>LinkedIn</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Email');window.location.href='mailto:Dicholkarnaren@gmail.com'"><span>Email</span><div class="footer-link-icon">↗</div></div>
+        <div class="footer-link ripple" onclick="trackEvent('click','footer','Naukri');window.open('https://www.naukri.com/','_blank')"><span>Naukri Profile</span><div class="footer-link-icon">↗</div></div>
         <div class="copy">© 2026 Narendra Dicholkar. All rights reserved.</div>
       </div>
     </div>
@@ -361,19 +292,192 @@ body { overflow-x: hidden; }
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach((entry)=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
+// ============================================================
+// 1. RIPPLE EFFECT
+// ============================================================
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('.ripple');
+  if (!target) return;
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-effect';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  target.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 700);
+});
+
+// ============================================================
+// 2. 3D TILT ON SOCIAL ICONS – DESKTOP ONLY
+// ============================================================
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.social-box').forEach(el => {
+    el.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      this.style.transform = `perspective(400px) rotateY(${x*12}deg) rotateX(${-y*12}deg) scale(1.1)`;
+    });
+    el.addEventListener('mouseleave', function() {
+      this.style.transform = 'perspective(400px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+}
+
+// ============================================================
+// 3. SUCCESS TOAST
+// ============================================================
+function showSuccessToast(message) {
+  const toast = document.getElementById('successToast');
+  const msgEl = document.getElementById('toastMsg');
+  msgEl.textContent = message || 'Success!';
+  toast.classList.add('show');
+  const ring = toast.querySelector('.success-ring');
+  const check = toast.querySelector('.success-check');
+  ring.style.animation = 'none';
+  check.style.animation = 'none';
+  void toast.offsetHeight;
+  ring.style.animation = 'ringFill 0.6s ease forwards';
+  check.style.animation = 'checkDraw 0.4s ease 0.3s forwards';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// ============================================================
+// 4. BACK TO TOP
+// ============================================================
+(function() {
+  const btn = document.createElement('button');
+  btn.className = 'back-top-btn';
+  btn.innerHTML = '↑';
+  btn.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(btn);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) btn.classList.add('show');
+    else btn.classList.remove('show');
+  });
+  btn.addEventListener('click', () => {
+    trackEvent('click', 'navigation', 'Back to Top');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// ============================================================
+// 5. ACTIVE NAV
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  const current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === current) link.classList.add('active');
+  });
+});
+
+// ============================================================
+// 6. ANIMATED SKILL BARS
+// ============================================================
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+        const width = fill.getAttribute('data-width');
+        fill.style.width = width + '%';
+      });
+      skillObserver.unobserve(entry.target);
     }
   });
-},{
-  threshold:0.12
+}, { threshold: 0.3 });
+const skillCard = document.getElementById('skillCard');
+if (skillCard) skillObserver.observe(skillCard);
+
+// ============================================================
+// 7. YEARS COUNTER
+// ============================================================
+function animateYears() {
+  const el = document.getElementById('yearsCounter');
+  if (!el) return;
+  const target = 8;
+  let current = 0;
+  const duration = 1200;
+  const steps = 50;
+  const increment = target / steps;
+  let step = 0;
+  const timer = setInterval(() => {
+    step++;
+    current += increment;
+    if (step >= steps) {
+      el.textContent = target;
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current);
+    }
+  }, duration / steps);
+}
+
+const yearsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateYears();
+      yearsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const yearsEl = document.getElementById('yearsCounter');
+if (yearsEl) yearsObserver.observe(yearsEl.closest('.mini-list') || yearsEl);
+
+// ============================================================
+// 8. BIO SPOTLIGHT – DESKTOP ONLY
+// ============================================================
+if (window.matchMedia('(hover: hover)').matches) {
+  const bio = document.getElementById('bioSpotlight');
+  if (bio) {
+    bio.addEventListener('mousemove', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      this.style.background = `
+        radial-gradient(circle at ${x}% ${y}%, rgba(240,180,41,0.08) 0%, transparent 60%),
+        #f7f6f2
+      `;
+    });
+    bio.addEventListener('mouseleave', function() {
+      this.style.background = '#f7f6f2';
+    });
+  }
+}
+
+// ============================================================
+// 9. SCROLL REVEAL (WAVE)
+// ============================================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      entry.target.querySelectorAll('.reveal-item').forEach((child, i) => {
+        setTimeout(() => child.classList.add('visible'), i * 100);
+      });
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => {
+  el.querySelectorAll(':scope > *').forEach(child => {
+    if (!child.classList.contains('strip-title') && !child.classList.contains('about-grid')) {
+      child.classList.add('reveal-item');
+    }
+  });
+  revealObserver.observe(el);
 });
 
-document.querySelectorAll(".reveal").forEach((el)=>{
-  observer.observe(el);
+document.querySelectorAll('.reveal-item').forEach(el => {
+  if (!el.closest('.reveal')) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    obs.observe(el);
+  }
 });
 </script>
-
-</body></html>
+</body>
+</html>
